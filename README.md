@@ -10,6 +10,7 @@ Integrantes
 - Gaspar Notta
 - Mathew Remigio
 - Camila Suarez
+- Camila Dominguez
 - Geronimo Medina
 - Agustin Nadim Neme
 
