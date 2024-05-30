@@ -8,7 +8,6 @@ Integrantes
 - Nicolás Rocco Mutazzi
 - Chiara López Angelini
 - Gaspar Notta
-- Mathew Remigio
 - Camila Suarez
 - Camila Dominguez
 - Geronimo Medina
