@@ -9,8 +9,8 @@ from sqlalchemy.exc import SQLAlchemyError
 app = Flask(__name__)
 
 @app.route('/')
-def hola_mundo():
-    return 
+def index():
+    return render_template("index.html")
 
 
 if __name__ == '__main__':

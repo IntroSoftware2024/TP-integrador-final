@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Título de la Página{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css', _external=True) }}" />
+</head>
+
+<body>
+    <header id="header">
+        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png', _external=True) }}" alt="Logo"></a>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                <li><a href="{{ url_for('login') }}">Log In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <p> Derechos de autor © 2024 </p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
+
+
