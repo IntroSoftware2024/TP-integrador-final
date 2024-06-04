@@ -4,13 +4,9 @@ from sqlalchemy import create_engine
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
-
-
 app = Flask(__name__)
 
-@app.route('/')
-def hola_mundo():
-    return 
+
 
 
 if __name__ == '__main__':
