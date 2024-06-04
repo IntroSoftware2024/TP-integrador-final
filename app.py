@@ -6,7 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 app = Flask(__name__)
 
-
+engine = create_engine("mysql+mysqlconnector://root@localhost/emprende_facil")
 
 
 if __name__ == '__main__':
