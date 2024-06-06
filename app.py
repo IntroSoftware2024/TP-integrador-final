@@ -1,10 +1,33 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+mysqlconnector://root@localhost/emprende_facil"
+db = SQLAlchemy(app)
+
+# Definición del modelo de Usuarios
+class Usuario(db.Model):
+    usuarios_id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    contraseña = db.Column(db.String(255), nullable=False)
+
+# Definición del modelo de Emprendimientos
+class Emprendimiento(db.Model):
+    emprendimiento_id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    descripcion = db.Column(db.Text)
+    categoria = db.Column(db.String(50))
+    direccion = db.Column(db.String(200))
+    latitud = db.Column(db.Float)
+    longitud = db.Column(db.Float)
+    contacto = db.Column(db.String(50))
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.usuarios_id'), nullable=True)
+    usuario = db.relationship('Usuario', backref=db.backref('emprendimientos', lazy=True))
 
 engine = create_engine("mysql+mysqlconnector://root@localhost/emprende_facil")
 
