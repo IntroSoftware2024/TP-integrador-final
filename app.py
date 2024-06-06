@@ -8,11 +8,29 @@ app = Flask(__name__)
 
 engine = create_engine("mysql+mysqlconnector://root@localhost/emprende_facil")
 
+@app.route('/crear_emprendimiento', methods = ['POST'])
+def create_user():
+    conn = engine.connect()
+    nuevo_emprend = request.get_json()
+    query = f"""INSERT INTO Emprendimientos (nombre, descripcion, categoria, direccion, latitud, longitud,
+    contacto, usuario_id) 
+    VALUES ('{nuevo_emprend["nombre"]}', '{nuevo_emprend["descripcion"]}', '{nuevo_emprend["categoria"]}',
+    '{nuevo_emprend["direccion"]}', '{nuevo_emprend["latitud"]}', '{nuevo_emprend["longitud"]}',
+    '{nuevo_emprend["contacto"]}', '{nuevo_emprend["usuario_id"]}');"""
+    try:
+        result = conn.execute(text(query))
+        conn.commit()
+        conn.close()
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Se ha producido un error' + str(err.__cause__)})
+    
+    return jsonify({'message': 'El emprendimeinto se ha agregado correctamente' + query}), 201
+
 @app.route('/emprendimientos/<id>', methods = ['GET'])
 def mostrar_emprendimiento(id):
     conn = engine.connect()
-    query = f"""SELECT emprendimiento_id, nombre, descripcion, categoria, direccion, contacto
-            FROM emprendimientos
+    query = f"""SELECT *
+            FROM Emprendimientos
             WHERE emprendimiento_id = {id};
             """
     try:
@@ -29,7 +47,10 @@ def mostrar_emprendimiento(id):
         data['descripcion'] = row[2]
         data['categoria'] = row[3]
         data['direccion'] = row[4]
-        data['contacto'] = row[5]
+        data['latitud'] = row[5]
+        data['longitud'] = row[6]
+        data['contacto'] = row[7]
+        data['usuario_id'] = row[8]
         return jsonify(data), 200
     return jsonify({"message": "El emprendimiento buscado no existe"}), 404
 
