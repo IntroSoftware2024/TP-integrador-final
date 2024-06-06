@@ -17,7 +17,7 @@
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="../../static/css/fontawesome.css">
+    <link rel="stylesheet" href="../static/css/fontawesome.css">
     <link rel="stylesheet" href="../static/css/templatemo-plot-listing.css">
     <link rel="stylesheet" href="../static/css/animated.css">
     <link rel="stylesheet" href="../static/css/owl.css">
@@ -72,8 +72,8 @@
       <div class="row">
         <div class="col-lg-8">
           <div class="top-text header-text">
-            <h6>¡Contactanos!</h6>
-            <h2>No dudes en escribirnos tu consulta/comentario.</h2>
+            <h6>¡Subí tu emprendimiento!</h6>
+            <h2>Forma parte de nuestro equipo</h2>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div id="map">
-                  <iframe src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="650px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                  <img src="../static/images/listing-02.jpg" width="100%" height="650px" frameborder="0" style="border:0" allowfullscreen></img>
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
@@ -111,14 +111,17 @@
                     </div>
                     <div class="col-lg-12">
                       <ul>
-                        <li><input type="checkbox" name="option1" value="consulta"><span>Consulta</span></li>
-                        <li><input type="checkbox" name="option2" value="comentario"><span>Comentario</span></li>
-                        <li><input type="checkbox" name="option3" value="sugerencia"><span>Sugerencia</span></li>
+                        <li><input type="checkbox" name="option1" value="ropa"><span>Ropa</span></li>
+                        <li><input type="checkbox" name="option2" value="comida"><span>Comida</span></li>
+                        <li><input type="checkbox" name="option3" value="sregalos"><span>Regalos</span></li>
+                        <li><input type="checkbox" name="option1" value="experiencia"><span>Experiencia</span></li>
+                        <li><input type="checkbox" name="option2" value="mascotas"><span>Mascotas</span></li>
+                        <li><input type="checkbox" name="option3" value="otro"><span>Otro</span></li>
                       </ul>
                     </div>
                     <div class="col-lg-12">
                       <fieldset>
-                        <textarea name="message" type="text" class="form-control" id="message" placeholder="Mensaje" required=""></textarea>  
+                        <textarea name="message" type="text" class="form-control" id="message" placeholder="Descripción del emprendimiento, redes sociales" required=""></textarea>  
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
@@ -193,6 +196,51 @@
   </footer>
 
 
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+        <div class="center">
+            <h3>Inicia sesión para subir tu emprendimiento</h3>
+        </div>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'login')">Iniciar Sesión</button>
+            <button class="tablinks" onclick="openTab(event, 'register')">Registrarse</button>
+        </div>
+
+        <div id="login" class="tabcontent">
+            <form>
+                <label for="email" class="modal--title">Correo electrónico:</label>
+                <input class="modal--input" type="email" id="email" name="email" required />
+
+                <label for="password" class="modal--title">Contraseña:</label>
+                <input class="modal--input" type="password" id="password" name="password" required />
+
+                <button class="modal--button btn" id="ingresarLogin" type="submit">
+                    Iniciar sesión
+                </button>
+            </form>
+        </div>
+
+        <div id="register" class="tabcontent" style="display:none">
+            <form>
+                <label for="regEmail" class="modal--title">Correo electrónico:</label>
+                <input class="modal--input" type="email" id="regEmail" name="email" required />
+
+                <label for="regPassword" class="modal--title">Contraseña:</label>
+                <input class="modal--input" type="password" id="regPassword" name="password" required />
+
+                <label for="confirmPassword" class="modal--title">Confirmar Contraseña:</label>
+                <input class="modal--input" type="password" id="confirmPassword" name="confirmPassword" required />
+
+                <button class="modal--button btn" id="registrar" type="submit">
+                    Registrarse
+                </button>
+            </form>
+        </div>
+    </div>
+  </div>
+
+
   <!-- Scripts -->
   <script src="../static/vendor/jquery/jquery.min.js"></script>
   <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -200,6 +248,7 @@
   <script src="../static/js/animation.js"></script>
   <script src="../static/js/imagesloaded.js"></script>
   <script src="../static/js/custom.js"></script>
+  <script src="../static/js/modal.js"></script>
 
 </body>
 

@@ -1,35 +1,142 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
-<head>
+  <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <title>{% block title %}Título de la Página{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css', _external=True) }}" />
-</head>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../static/css/fontawesome.css">
+    <link rel="stylesheet" href="../static/css/templatemo-plot-listing.css">
+    <link rel="stylesheet" href="../static/css/animated.css">
+    <link rel="stylesheet" href="../static/css/owl.css">
+
+  </head>
 
 <body>
-    <header id="header">
-        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png', _external=True) }}" alt="Logo"></a>
-        <nav class="navbar">
-            <ul>
-                <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
-                <li><a href="{{ url_for('login') }}">Log In</a></li>
-            </ul>
-        </nav>
-    </header>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="index.html" class="logo">
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="emprendimientos.html">Emprendimientos</a></li>
+              <li><a href="contacto.html" class="active">Contacto</a></li> 
+              <li><div class="main-white-button"><a href="subir_emp.html"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
+            </ul>         
+            <a class='menu-trigger'>
+                <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+  
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="about">
+            <div class="logo">
+              <img src="../static/images/black-logo.png" alt="Plot Listing Template">
+            </div>
+            <p>bla bla bla resumen aglo bla bla</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="helpful-links">
+            <h4>Links Útiles</h4>
+            <div class="row">
+              <div class="col-lg-6">
+                <ul>
+                  <li><a href="#">Inicio</a></li>
+                  <li><a href="#">Emprendimientos</a></li>
+                  <li><a href="#">Contacto</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul>
+                  <li><a href="#">Subi tu emprendimiento</a></li>
+                  <li><a href="#">Política de privacidad</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="contact-us">
+            <h4>Contactanos</h4>
+            <p>Direccion</p>
+            <div class="row">
+              <div class="col-lg-6">
+                <a href="#">telefono 1</a>
+              </div>
+              <div class="col-lg-6">
+                <a href="#">telefono 2</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="sub-footer">
+            <p>Copyright © 2024. All Rights Reserved.
+            <br>
+			      Design: Debugge4d0res</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 
-    {% block content %}{% endblock %}
+  <!-- Scripts -->
+  <script src="../static/vendor/jquery/jquery.min.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/owl-carousel.js"></script>
+  <script src="../static/js/animation.js"></script>
+  <script src="../static/js/imagesloaded.js"></script>
+  <script src="../static/js/custom.js"></script>
 
-    <footer>
-        <p> Derechos de autor © 2024 </p>
-    </footer>
-    
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>
+
+
+
 
 
