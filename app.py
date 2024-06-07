@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from sqlalchemy import text
-from sqlalchemy.exc import SQLAlchemyError
+#from flask_sqlalchemy import SQLAlchemy
+#from sqlalchemy import create_engine
+#from sqlalchemy import text
+#from sqlalchemy.exc import SQLAlchemyError
 
 
 
@@ -19,6 +19,14 @@ def contacto():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+@app.route('/emprendiminetos')
+def emprendimientos():
+    return render_template('emprendimientos.html')
+
+@app.route('/subir_emp.html')
+def nuevo_emprendimiento():
+    return render_template('subir_emp.html')
 
 if __name__ == '__main__':
     app.run('127.0.0.1', port='8080', debug=True)
