@@ -6,9 +6,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "Uri de la base" # Agregar la URI de la base de datos
 db = SQLAlchemy(app)
 
-# ---- Tabla Emprendimientos ---- 
+# ---- Modelos ----
 
-# Definición del modelo de Emprendimientos
 class Emprendimiento(db.Model):
     __tablename__ = 'emprendimientos'
     emprendimiento_id = db.Column(db.Integer, primary_key=True)
@@ -21,6 +20,15 @@ class Emprendimiento(db.Model):
     contacto = db.Column(db.String(50))
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.usuarios_id'), nullable=True)
     usuario = db.relationship('Usuario', backref=db.backref('emprendimientos', lazy=True))
+
+class Usuario(db.Model):
+    __tablename__ = 'usuarios'
+    usuarios_id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    contraseña = db.Column(db.String(255), nullable=False)
+
+# ---- Rutas de Emprendimientos ---- 
 
 # Endpoint para agregar emprendimientos
 @app.route('/emprendimientos', methods=['POST'])
@@ -104,15 +112,7 @@ def eliminar_emprendimiento(id):
         db.session.rollback()
         return jsonify({'message': 'Error al eliminar emprendimiento', 'error': str(e)}), 400
 
-# ---- Tabla Usuarios ---- 
-
-# Definición del modelo de Usuarios
-class Usuario(db.Model):
-    __tablename__ = 'usuarios'
-    usuarios_id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False, unique=True)
-    contraseña = db.Column(db.String(255), nullable=False)
+# ---- Rutas de Usuarios ---- 
 
 # Endpoint para agregar usuarios
 @app.route('/usuarios', methods=['POST'])
