@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
   <head>
 
@@ -13,14 +13,14 @@
     <title>Contacto</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="../../static/css/fontawesome.css">
-    <link rel="stylesheet" href="../static/css/templatemo-plot-listing.css">
-    <link rel="stylesheet" href="../static/css/animated.css">
-    <link rel="stylesheet" href="../static/css/owl.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-plot-listing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animated.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.css') }}">
 
   </head>
 
@@ -46,15 +46,15 @@
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="index.html" class="logo">
+            <a href="{{ url_for('index') }}" class="logo">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="index.html">Inicio</a></li>
-              <li><a href="emprendimientos.html">Emprendimientos</a></li>
-              <li><a href="contacto.html" class="active">Contacto</a></li> 
-              <li><div class="main-white-button"><a href="subir_emp.html"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
+              <li><a href="{{ url_for('index') }}">Inicio</a></li>
+              <li><a href="{{ url_for('emprendimientos') }}">Emprendimientos</a></li>
+              <li><a href="{{ url_for('contacto') }}" class="active">Contacto</a></li> 
+              <li><div class="main-white-button"><a href="{{ url_for('subir_emp') }}"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
             </ul>       
             <a class='menu-trigger'>
                 <span>Menu</span>
@@ -142,7 +142,7 @@
         <div class="col-lg-4">
           <div class="about">
             <div class="logo">
-              <img src="../static/images/black-logo.png" alt="Plot Listing Template">
+              <img src="{{ url_for('static', filename='images/black-logo.png') }}" alt="Plot Listing Template">
             </div>
             <p>bla bla bla resumen aglo bla bla</p>
           </div>
@@ -153,14 +153,14 @@
             <div class="row">
               <div class="col-lg-6">
                 <ul>
-                  <li><a href="#">Inicio</a></li>
-                  <li><a href="#">Emprendimientos</a></li>
-                  <li><a href="#">Contacto</a></li>
+                  <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                  <li><a href="{{ url_for('emprendimientos') }}">Emprendimientos</a></li>
+                  <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><a href="#">Subi tu emprendimiento</a></li>
+                  <li><a href="{{ url_for('subir_emp') }}">Subi tu emprendimiento</a></li>
                   <li><a href="#">Política de privacidad</a></li>
                 </ul>
               </div>
@@ -194,12 +194,12 @@
 
 
   <!-- Scripts -->
-  <script src="../static/vendor/jquery/jquery.min.js"></script>
-  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../static/js/owl-carousel.js"></script>
-  <script src="../static/js/animation.js"></script>
-  <script src="../static/js/imagesloaded.js"></script>
-  <script src="../static/js/custom.js"></script>
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/imagesloaded.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
 </body>
 
