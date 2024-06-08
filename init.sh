@@ -29,7 +29,8 @@ source "$(pipenv --venv)/bin/activate" && {
     #Instalar dependencias mysql.
     pip install flask_sqlalchemy
     pip install mysql-connector-python
-
+    pip install geocoders
+    pip install folium
     #Activar el modo debug.
     export FLASK_DEBUG=1
 
