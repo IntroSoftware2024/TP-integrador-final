@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
+from geopy.geocoders import Nominatim
+import folium
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "Uri de la base" # Agregar la URI de la base de datos
@@ -69,6 +71,20 @@ def mostrar_emprendimiento(id):
     emprendimiento = Emprendimiento.query.get(id)
     if not emprendimiento:
         return jsonify({'message': 'Emprendimiento no encontrado'}), 404
+
+    if not emprendimiento.latitud or not emprendimiento.longitud:
+        geolocalizador = Nominatim(user_agent='mi_aplicacion')
+        localizacion = geolocalizador.geocode(emprendimiento.direccion)
+
+        if localizacion:
+            emprendimiento.latitud = localizacion.latitude
+            emprendimiento.longitud = localizacion.longitude
+            db.session.commit()
+    mapa = folium.Map(localizacion=[emprendimiento.latitud, emprendimiento.longitud], zoom_start=13)
+    folium.Marker([emprendimiento.latitud, emprendimiento.longitud], popup=emprendimiento.nombre).add_to(mapa)
+
+    mapa_html  = mapa._repr_html_()
+
     emprendimiento_data = {
         'emprendimiento_id': emprendimiento.emprendimiento_id,
         'nombre': emprendimiento.nombre,
@@ -80,7 +96,8 @@ def mostrar_emprendimiento(id):
         'contacto': emprendimiento.contacto,
         'usuario_id': emprendimiento.usuario_id
     }
-    return jsonify(emprendimiento_data), 200
+
+    return jsonify(emprendimiento_data),200
 
 # Endpoint para actualizar un emprendimiento por su ID
 @app.route('/emprendimientos/<int:id>', methods=['PUT'])
