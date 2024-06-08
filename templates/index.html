@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
   <head>
 
@@ -10,16 +10,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <title>Nombre página</title>
+    <title>Emprende Fácil</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="../static/css/fontawesome.css">
-    <link rel="stylesheet" href="../static/css/templatemo-plot-listing.css">
-    <link rel="stylesheet" href="../static/css/animated.css">
-    <link rel="stylesheet" href="../static/css/owl.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-plot-listing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animated.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.css') }}">
 
   </head>
 
@@ -45,15 +45,15 @@
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="index.html" class="logo">
+            <a href="{{ url_for('index') }}" class="logo">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="index.html">Inicio</a></li>
-              <li><a href="emprendimientos.html">Emprendimientos</a></li>
-              <li><a href="contacto.html" class="active">Contacto</a></li> 
-              <li><div class="main-white-button"><a href="subir_emp.html"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
+              <li><a href="{{ url_for('index') }}">Inicio</a></li>
+              <li><a href="{{ url_for('emprendimientos') }}">Emprendimientos</a></li>
+              <li><a href="{{ url_for('contacto') }}" class="active">Contacto</a></li> 
+              <li><div class="main-white-button"><a href="{{ url_for('subir_emp') }}"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
             </ul>         
             <a class='menu-trigger'>
                 <span>Menu</span>
@@ -116,11 +116,11 @@
         </div>
         <div class="col-lg-10 offset-lg-1">
           <ul class="categories">
-            <li><a href="#"><span class="icon"><img src="../static/images/search-icon-01.png" alt="Home"></span> Ropa</a></li>
-            <li><a href="#"><span class="icon"><img src="../static/images/search-icon-02.png" alt="Food"></span> Comida</a></li>
-            <li><a href="#"><span class="icon"><img src="../static/images/search-icon-03.png" alt="Vehicle"></span> Regalos</a></li>
-            <li><a href="#"><span class="icon"><img src="../static/images/search-icon-04.png" alt="Shopping"></span> Experiencias</a></li>
-            <li><a href="#"><span class="icon"><img src="../static/images/search-icon-05.png" alt="Travel"></span> Mascotas</a></li>
+            <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt="Home"></span> Ropa</a></li>
+            <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt="Food"></span> Comida</a></li>
+            <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt="Vehicle"></span> Regalos</a></li>
+            <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt="Shopping"></span> Experiencias</a></li>
+            <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt="Travel"></span> Mascotas</a></li>
           </ul>
         </div>
       </div>
@@ -145,31 +145,31 @@
                   <div class="menu">
                     <div class="first-thumb active">
                       <div class="thumb">
-                        <span class="icon"><img src="../static/images/search-icon-01.png" alt=""></span>
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt=""></span>
                         Ropa
                       </div>
                     </div>
                     <div>
                       <div class="thumb">                 
-                        <span class="icon"><img src="../static/images/search-icon-02.png" alt=""></span>
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt=""></span>
                         Comida
                       </div>
                     </div>
                     <div>
                       <div class="thumb">                 
-                        <span class="icon"><img src="../static/images/search-icon-03.png" alt=""></span>
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt=""></span>
                         Regalos
                       </div>
                     </div>
                     <div>
                       <div class="thumb">                 
-                        <span class="icon"><img src="../static/images/search-icon-04.png" alt=""></span>
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt=""></span>
                         Experiencias
                       </div>
                     </div>
                     <div class="last-thumb">
                       <div class="thumb">                 
-                        <span class="icon"><img src="../static/images/search-icon-05.png" alt=""></span>
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt=""></span>
                         Mascotas
                       </div>
                     </div>
@@ -190,7 +190,7 @@
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="../static/images/tabs-image-01.jpg" alt="">
+                                <img src="{{ url_for('static', filename='images/tabs-image-01.jpg') }}" alt="">
                               </div>
                             </div>
                           </div>
@@ -210,7 +210,7 @@
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="../static/images/tabs-image-02.jpg" alt="Foods on the table">
+                                <img src="{{ url_for('static', filename='images/tabs-image-02.jpg') }}" alt="Foods on the table">
                               </div>
                             </div>
                           </div>
@@ -230,7 +230,7 @@
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="../static/images/tabs-image-03.jpg" alt="cars in the city">
+                                <img src="{{ url_for('static', filename='images/tabs-image-03.jpg') }}" alt="cars in the city">
                               </div>
                             </div>
                           </div>
@@ -250,7 +250,7 @@
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="../static/images/tabs-image-04.jpg" alt="Shopping Girl">
+                                <img src="{{ url_for('static', filename='images/tabs-image-04.jpg') }}" alt="Shopping Girl">
                               </div>
                             </div>
                           </div>
@@ -270,7 +270,7 @@
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="../static/images/tabs-image-05.jpg" alt="Traveling Beach">
+                                <img src="{{ url_for('static', filename='images/tabs-image-05.jpg') }}" alt="Traveling Beach">
                               </div>
                             </div>
                           </div>
@@ -304,7 +304,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-01.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>1. Emprendimeinto 1</h4></a>
@@ -331,7 +331,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-02.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>2. Emprendimeinto 2</h4></a>
@@ -358,7 +358,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-03.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>3. Emprendimeinto 3</h4></a>
@@ -389,7 +389,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-04.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>4. Emprendimeinto 4</h4></a>
@@ -416,7 +416,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-05.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>5. Emprendimeinto 5</h4></a>
@@ -443,7 +443,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-06.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>6. Emprendimeinto 6</h4></a>
@@ -474,7 +474,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-05.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>7. Emprendimeinto 7</h4></a>
@@ -501,7 +501,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-02.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>8. Emprendimeinto 8</h4></a>
@@ -528,7 +528,7 @@
                 <div class="col-lg-12">
                   <div class="listing-item">
                     <div class="left-image">
-                      <a href="#"><img src="../static/images/listing-06.jpg" alt=""></a>
+                      <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
                     </div>
                     <div class="right-content align-self-center">
                       <a href="#"><h4>9. Emprendimeinto 9</h4></a>
@@ -567,7 +567,7 @@
         <div class="col-lg-4">
           <div class="about">
             <div class="logo">
-              <img src="../static/images/black-logo.png" alt="Plot Listing Template">
+              <img src="{{ url_for('static', filename='images/black-logo.png') }}" alt="Plot Listing Template">
             </div>
             <p>bla bla bla resumen aglo bla bla</p>
           </div>
@@ -578,14 +578,14 @@
             <div class="row">
               <div class="col-lg-6">
                 <ul>
-                  <li><a href="#">Inicio</a></li>
-                  <li><a href="#">Emprendimientos</a></li>
-                  <li><a href="#">Contacto</a></li>
+                  <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                  <li><a href="{{ url_for('emprendimientos') }}">Emprendimientos</a></li>
+                  <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><a href="#">Subi tu emprendimiento</a></li>
+                  <li><a href="{{ url_for('subir_emp') }}">Subi tu emprendimiento</a></li>
                   <li><a href="#">Política de privacidad</a></li>
                 </ul>
               </div>
@@ -619,12 +619,12 @@
 
 
   <!-- Scripts -->
-  <script src="../static/vendor/jquery/jquery.min.js"></script>
-  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../static/js/owl-carousel.js"></script>
-  <script src="../static/js/animation.js"></script>
-  <script src="../static/js/imagesloaded.js"></script>
-  <script src="../static/js/custom.js"></script>
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/imagesloaded.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
 </body>
 
