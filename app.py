@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from sqlalchemy.exc import SQLAlchemyError
 from math import radians, cos, sin, asin, sqrt
 import requests
@@ -8,7 +7,6 @@ import requests
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///emprendimientos.db'
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 class Emprendimiento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -172,7 +170,8 @@ def eliminar_usuario(id):
     return jsonify({'resultado': True})
 
 # Función para obtener coordenadas utilizando la API de OpenCage
-def obtener_coordenadas(direccion):
+
+# def obtener_coordenadas(direccion):
     llave_api = 'aca iria la api'
     url = f'https://api.opencagedata.com/geocode/v1/json?q={direccion}&{llave_api}'
     
@@ -187,7 +186,7 @@ def obtener_coordenadas(direccion):
         return None
 
 # Función  para calcular la distancia entre dos puntos geográficos
-def distancia(lat1, lon1, lat2, lon2):
+# def distancia(lat1, lon1, lat2, lon2):
     # Convertir grados a radianes
     lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
     
@@ -203,8 +202,8 @@ def distancia(lat1, lon1, lat2, lon2):
     return c * radio_tierra
 
 # Ruta para buscar emprendimientos cercanos a una dirección
-@app.route('/buscar', methods=['GET'])
-def buscar_emprendimientos_cercanos():
+#@app.route('/buscar', methods=['GET'])
+#def buscar_emprendimientos_cercanos():
     direccion_usuario = request.args.get('direccion')
     
     # Obtener las coordenadas de la dirección del usuario
