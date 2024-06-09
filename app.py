@@ -1,32 +1,26 @@
-from flask import Flask, render_template, request, jsonify
-#from flask_sqlalchemy import SQLAlchemy
-#from sqlalchemy import create_engine
-#from sqlalchemy import text
-#from sqlalchemy.exc import SQLAlchemyError
+from flask import Flask, render_template
 
+app = Flask("__main__")
 
+@app.route("/")
+def base():
+    return render_template('base.html')
 
-app = Flask(__name__)
-
-@app.route('/')
+@app.route("/index")
 def index():
-    return render_template("index.html")
+    return render_template('index.html')
 
-@app.route('/contacto')
-def contacto():
-    return render_template('contacto.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-@app.route('/emprendiminetos')
+@app.route("/emprendimientos")
 def emprendimientos():
     return render_template('emprendimientos.html')
 
-@app.route('/subir_emp.html')
-def nuevo_emprendimiento():
+@app.route("/subir_emp")
+def subir_emp():
     return render_template('subir_emp.html')
+
+@app.route("/contacto")
+def contacto():
+    return render_template('contacto.html')
 
 if __name__ == '__main__':
     app.run('127.0.0.1', port='8080', debug=True)
