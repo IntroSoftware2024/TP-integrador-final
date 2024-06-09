@@ -33,8 +33,8 @@ CREATE TABLE `emprendimientos` (
   `descripcion` text DEFAULT NULL,
   `categoria` varchar(50) DEFAULT NULL,
   `direccion` varchar(200) DEFAULT NULL,
-  `latitud` float DEFAULT NULL,
-  `longitud` float DEFAULT NULL,
+  `localidad` varchar(200) DEFAULT NULL,
+  `provincia` varchar(200) DEFAULT NULL,
   `contacto` varchar(50) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

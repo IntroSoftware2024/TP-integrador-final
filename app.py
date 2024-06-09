@@ -17,8 +17,8 @@ class Emprendimiento(db.Model):
     descripcion = db.Column(db.Text)
     categoria = db.Column(db.String(50))
     direccion = db.Column(db.String(200))
-    latitud = db.Column(db.Float)
-    longitud = db.Column(db.Float)
+    localidad = db.Column(db.String(200))
+    provincia = db.Column(db.String(200))
     contacto = db.Column(db.String(50))
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.usuarios_id'), nullable=True)
     usuario = db.relationship('Usuario', backref=db.backref('emprendimientos', lazy=True))
@@ -57,8 +57,8 @@ def listar_emprendimientos():
             'descripcion': emprendimiento.descripcion,
             'categoria': emprendimiento.categoria,
             'direccion': emprendimiento.direccion,
-            'latitud': emprendimiento.latitud,
-            'longitud': emprendimiento.longitud,
+            'localidad': emprendimiento.localidad,
+            'provincia': emprendimiento.provincia,
             'contacto': emprendimiento.contacto,
             'usuario_id': emprendimiento.usuario_id
         }
@@ -91,8 +91,8 @@ def mostrar_emprendimiento(id):
         'descripcion': emprendimiento.descripcion,
         'categoria': emprendimiento.categoria,
         'direccion': emprendimiento.direccion,
-        'latitud': emprendimiento.latitud,
-        'longitud': emprendimiento.longitud,
+        'localidad': emprendimiento.localidad,
+        'provincia': emprendimiento.provincia,
         'contacto': emprendimiento.contacto,
         'usuario_id': emprendimiento.usuario_id
     }
