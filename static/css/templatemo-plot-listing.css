@@ -1214,6 +1214,7 @@ contact
   background-color: #f7f7f7;
   border-radius: 7px;
   overflow: hidden;
+  padding: 20px;
 }
 
 .contact-page .inner-content #map {
@@ -1398,7 +1399,6 @@ Category Post
   color: #8d99af;
   background-color: #fff;
   margin-right: 15px;
-  float: left;
 }
 
 .category-post .naccs .menu div h4 {
@@ -1435,7 +1435,6 @@ Category Post
   height: 132px;
   line-height: 132px;
   display: inline-block;
-  float: left;
   text-align: left;
   cursor: pointer;
   position: relative;
@@ -1554,7 +1553,6 @@ Category Post
   color: #8d99af;
   background-color: #fff;
   margin-right: 15px;
-  float: left;
   left: 0;
 }
 
@@ -2169,3 +2167,23 @@ responsive
   background-color: #f7f7f7; 
 }
 
+.custom-error-text {
+  color:#ffffff;
+  font-size:10px;
+}
+
+.custom-error-text p {
+  color:#ffffff;
+  font-size:20px;
+  padding-top: 25px;
+}
+
+.custom-error-text a {
+  color:#ffffff;
+  font-size:20px;
+  text-decoration: underline;
+}
+
+.custom-error-text a:hover {
+  color: #5f5f5f; 
+}
