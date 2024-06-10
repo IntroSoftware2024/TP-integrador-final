@@ -28,36 +28,46 @@
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
-                <form id="contact" action="" method="get">
+                <form id="contact" action="{{ url_for('registrar_emp') }}" method="POST">
                   <div class="row">
                     <div class="col-lg-6">
                       <fieldset>
-                        <input type="text" name="name" id="name" placeholder="Nombre" autocomplete="on" required>
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre emprenidmiento" autocomplete="on" required>
                       </fieldset>
                     </div>
                     <div class="col-lg-6">
                       <fieldset>
-                        <input type="text" name="surname" id="surname" placeholder="Apellido" autocomplete="on" required>
+                        <input type="text" name="instagram" id="instagram" placeholder="Instagram" autocomplete="on" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="text" name="localidad" id="localidad" placeholder="Localidad" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="text" name="provincia" id="provincia" placeholder="Provincia" required>
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
                       <fieldset>
-                        <input type="email" name="email" id="email" placeholder="Email" required="">
+                        <input type="text" name="contacto" id="contacto" placeholder="Contacto" required>
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
                       <ul>
-                        <li><input type="checkbox" name="option1" value="ropa"><span>Ropa</span></li>
-                        <li><input type="checkbox" name="option2" value="comida"><span>Comida</span></li>
-                        <li><input type="checkbox" name="option3" value="sregalos"><span>Regalos</span></li>
-                        <li><input type="checkbox" name="option4" value="experiencia"><span>Experiencia</span></li>
-                        <li><input type="checkbox" name="option5" value="mascotas"><span>Mascotas</span></li>
-                        <li><input type="checkbox" name="option6" value="otro"><span>Otro</span></li>
+                        <li><input type="checkbox" name="categoria" value="ropa"><span>Ropa</span></li>
+                        <li><input type="checkbox" name="categoria" value="comida"><span>Comida</span></li>
+                        <li><input type="checkbox" name="categoria" value="sregalos"><span>Regalos</span></li>
+                        <li><input type="checkbox" name="categoria" value="experiencia"><span>Experiencia</span></li>
+                        <li><input type="checkbox" name="categoria" value="mascotas"><span>Mascotas</span></li>
+                        <li><input type="checkbox" name="categoria" value="otro"><span>Otro</span></li>
                       </ul>
                     </div>
                     <div class="col-lg-12">
                       <fieldset>
-                        <textarea name="message" type="text" class="form-control" id="message" placeholder="Descripción del emprendimiento, redes sociales" required=""></textarea>  
+                        <textarea name="descripcion" type="text" class="form-control" id="descripcion" placeholder="Descripción del emprendimiento" required></textarea>  
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
