@@ -5,107 +5,73 @@
 {% block content %}
 <div class="page-heading">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="text-content">
-                    <h4>Contacto</h4>
-                    <h2>Ponete en contacto con nosotros</h2>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="top-text header-text">
+            <h6>¡Contactanos!</h6>
+            <h2>No dudes en escribirnos tu consulta/comentario.</h2>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="contact-page">
+  <div class="contact-page">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="inner-content">
-                    <form id="contact" action="" method="post">
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12">
-                                <fieldset>
-                                    <input name="name" type="text" id="name" placeholder="Tu nombre" required="" value="{{ name }}">
-                                </fieldset>
-                            </div>
-                            <div class="col-lg-6 col-sm-12">
-                                <fieldset>
-                                    <input name="email" type="text" id="email" placeholder="Tu correo electrónico" required="" value="{{ email }}">
-                                </fieldset>
-                            </div>
-                            <div class="col-lg-12">
-                                <fieldset>
-                                    <textarea name="message" rows="6" id="message" placeholder="Tu mensaje" required="">{{ message }}</textarea>
-                                </fieldset>
-                            </div>
-                            <div class="col-lg-12">
-                                <fieldset>
-                                    <button type="submit" id="form-submit" class="main-button">Enviar Mensaje</button>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </form>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="inner-content">
+            <div class="row">
+              <div class="col-lg-6">
+                <div id="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.3864062307607!2d-58.393449700000005!3d-34.594389299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccabd91cbe9ab%3A0xc669d1376dee63c2!2sAv.%20Callao%201234%2C%20C1023AAS%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1718027411494!5m2!1ses!2sar" width="100%" height="650px" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="sidebar">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="sidebar-item recent-posts">
-                                <div class="sidebar-heading">
-                                    <h2>Información de Contacto</h2>
-                                </div>
-                                <div class="content">
-                                    <p>Dirección: Av. Callao 1234, Capital Federal</p>
-                                    <p>Teléfono: +123 456 7890</p>
-                                    <p>Email: info@ejemplo.com</p>
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Eliminar este formulario redundante -->
-                        <!-- <div class="col-lg-12">
-                            <div class="sidebar-item contact-form">
-                                <div class="sidebar-heading">
-                                    <h2>Envianos un mensaje</h2>
-                                </div>
-                                <div class="content">
-                                    <form id="contact" action="" method="post">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <input name="name" type="text" id="name" placeholder="Tu nombre" required="" value="{{ name }}">
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <input name="email" type="text" id="email" placeholder="Tu correo electrónico" required="" value="{{ email }}">
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <textarea name="message" rows="6" id="message" placeholder="Tu mensaje" required="">{{ message }}</textarea>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <button type="submit" id="form-submit" class="main-button">Enviar Mensaje</button>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div> -->
+              </div>
+              <!-- este form es de consulta, no es igual que el de subir emprendimiento -->
+              <!-- si quieren lo sacamos, pero habria que eliminar contacto.html porque no tendria sentido dejarla -->
+              <div class="col-lg-6 align-self-center">
+                <form id="contact" action="" method="get">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="name" name="name" id="name" placeholder="Nombre" autocomplete="on" required>
+                      </fieldset>
                     </div>
-                </div>
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="surname" name="surname" id="surname" placeholder="Apellido" autocomplete="on" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Email" required="">
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <ul>
+                        <li><input type="checkbox" name="option1" value="consulta"><span>Consulta</span></li>
+                        <li><input type="checkbox" name="option2" value="comentario"><span>Comentario</span></li>
+                        <li><input type="checkbox" name="option3" value="sugerencia"><span>Sugerencia</span></li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <textarea name="message" type="text" class="form-control" id="message" placeholder="Mensaje" required=""></textarea>  
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <button type="submit" id="form-submit" class="main-button "><i class="fa fa-paper-plane"></i>Enviar</button>
+                      </fieldset>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+
 {% endblock %}
