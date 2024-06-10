@@ -26,31 +26,31 @@
               <div class="row">
                 <div class="col-lg-3">
                   <div class="menu">
-                    <div class="first-thumb active">
-                      <div class="thumb">
+                    <div class="first-thumb {% if categoria == 'ropa' %}active{% endif %}">
+                      <div class="thumb" id="altura">
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt=""></span>
                         Ropa
                       </div>
                     </div>
-                    <div>
-                      <div class="thumb">                 
+                    <div class="thumb {% if categoria == 'comida' %}active{% endif %}">
+                      <div class="thumb" >                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt=""></span>
                         Comida
                       </div>
                     </div>
-                    <div>
+                    <div  class="thumb {% if categoria == 'regalos' %}active{% endif %}">
                       <div class="thumb">                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt=""></span>
                         Regalos
                       </div>
                     </div>
-                    <div class="thumb">
+                    <div  class="thumb {% if categoria == 'experiencias' %}active{% endif %}">
                       <div class="thumb">                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt=""></span>
                         Experiencias
                       </div>
                     </div>
-                    <div class="last-thumb">
+                    <div class="last-thumb {% if categoria == 'mascotas' %}active{% endif %}">
                       <div class="thumb">                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt=""></span>
                         Mascotas
@@ -61,7 +61,7 @@
                 <div class="col-lg-9">
                   <ul class="nacc">
                   <!-- first category listing of items -->
-                    <li class="active">
+                    <li class="{% if categoria == 'ropa' %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -246,8 +246,8 @@
                       </div>
                     </li>
                     
-                    <!-- second category listing of items -->
-                    <li>
+                  <!-- second category listing of items -->
+                    <li class="{% if categoria == 'comida' %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -377,7 +377,7 @@
                     </li>
                     
                     <!-- third category first page -->
-                    <li>
+                    <li class="{% if categoria == 'regalos' %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -510,7 +510,7 @@
                     </li>
                     
                     <!-- 4th category 1st page -->
-                    <li>
+                    <li class="{% if categoria == 'experiencias' %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -664,7 +664,7 @@
                     </li>
 
                     <!-- fifth category listing of items -->
-                    <li>
+                    <li class="{% if categoria == 'mascotas' %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">

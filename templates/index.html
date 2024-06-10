@@ -30,7 +30,7 @@
             </div>
             <div class="col-lg-3 align-self-center">
                 <fieldset>
-                    <input type="address" name="address" class="searchText" placeholder="Busca por palabra clave" autocomplete="on" required>
+                    <input type="palabra" name="palabra" class="searchText" placeholder="Busca por palabra clave" autocomplete="on">
                 </fieldset>
             </div>
             <div class="col-lg-3 align-self-center">
@@ -54,12 +54,12 @@
       </div>
       <div class="col-lg-10 offset-lg-1">
         <ul class="categories">
-          <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt="Home"></span> Ropa</a></li>
-          <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt="Food"></span> Comida</a></li>
-          <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt="Vehicle"></span> Regalos</a></li>
-          <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt="Shopping"></span> Experiencias</a></li>
-          <li><a href="#"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt="Travel"></span> Mascotas</a></li>
-        </ul>
+          <li><a href="{{ url_for('emprendimientos', categoria='ropa') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt="Ropa"></span> Ropa</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='comida') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt="Comida"></span> Comida</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='regalos') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt="Regalos"></span> Regalos</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='experiencias') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt="Experiencias"></span> Experiencias</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='mascotas') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt="Mascotas"></span> Mascotas</a></li>
+        </ul>      
       </div>
     </div>
   </div>

@@ -6,9 +6,9 @@ app = Flask("__main__")
 def index():
     return render_template('index.html')
 
-@app.route("/emprendimientos")
-def emprendimientos():
-    return render_template('emprendimientos.html')
+@app.route("/emprendimientos/<categoria>")
+def emprendimientos(categoria):
+    return render_template('emprendimientos.html', categoria=categoria)
 
 @app.route("/subir_emp")
 def subir_emp():
