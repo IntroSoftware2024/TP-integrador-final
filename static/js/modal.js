@@ -33,3 +33,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     var modal = document.getElementById('modal');
     modal.style.display = 'none'; // Cerrar el modal
 });
+
+
+
+

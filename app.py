@@ -10,6 +10,15 @@ def index():
 def emprendimientos(categoria):
     return render_template('emprendimientos.html', categoria=categoria)
 
+'''
+@app.route('/emprendimientos2')
+def emprendimientos2():
+    categoria = request.args.get('categoria', default=None)
+    palabra = request.args.get('palabra', default=None)
+    provincia = request.args.get('provincia', default=None)
+    return render_template('emprendimientos.html', categoria=categoria, palabra=palabra, provincia=provincia)
+'''
+
 @app.route("/subir_emp")
 def subir_emp():
     return render_template('subir_emp.html')
