@@ -28,7 +28,7 @@
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
-                <form id="contact" action="{{ url_for('registrar_emp') }}" method="POST">
+                <form id="contact" action="" method="POST">
                   <div class="row">
                     <div class="col-lg-6">
                       <fieldset>
@@ -116,14 +116,12 @@
       </div>
 
       <div id="register" class="tabcontent" style="display:none">
-        <form>
-          <label for="regName" class="modal--title">Nombre:</label>
-          <input class="modal--input" type="text" id="regName" name="name" required />
+        <form action="{{ url_for('api.agregar_usuario') }}" method="POST">
 
-          <label for="regEmail" class="modal--title">Correo electrónico:</label>
+          <label for="email" class="modal--title">Correo electrónico:</label>
           <input class="modal--input" type="email" id="regEmail" name="email" required />
 
-          <label for="regPassword" class="modal--title">Contraseña:</label>
+          <label for="contraseña" class="modal--title">Contraseña:</label>
           <input class="modal--input" type="password" id="regPassword" name="password" required />
 
           <button class="modal--button btn" id="registrar" type="submit">

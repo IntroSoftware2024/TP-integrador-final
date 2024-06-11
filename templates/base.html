@@ -45,15 +45,15 @@
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="{{ url_for('index') }}" class="logo">
+            <a href="{{ url_for('app.index') }}" class="logo">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="{{ url_for('index') }}">Inicio</a></li>
-              <li><a href="{{ url_for('emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>
-              <li><a href="{{ url_for('contacto') }}" class="active">Contacto</a></li> 
-              <li><div class="main-white-button"><a href="{{ url_for('subir_emp') }}"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
+              <li><a href="{{ url_for('app.index') }}">Inicio</a></li>
+              <li><a href="{{ url_for('app.emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>
+              <li><a href="{{ url_for('app.contacto') }}" class="active">Contacto</a></li> 
+              <li><div class="main-white-button"><a href="{{ url_for('app.subir_emp') }}"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
             </ul>         
             <a class='menu-trigger'>
                 <span>Menu</span>
@@ -84,14 +84,14 @@
             <div class="row">
               <div class="col-lg-6">
                 <ul>
-                  <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                  <li><a href="{{ url_for('emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>
-                  <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                  <li><a href="{{ url_for('app.index') }}">Inicio</a></li>
+                  <li><a href="{{ url_for('app.emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>
+                  <li><a href="{{ url_for('app.contacto') }}">Contacto</a></li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><a href="{{ url_for('subir_emp') }}">Subi tu emprendimiento</a></li>
+                  <li><a href="{{ url_for('app.subir_emp') }}">Subi tu emprendimiento</a></li>
                   <li><a href="#">Política de privacidad</a></li>
                 </ul>
               </div>

@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Blueprint, render_template
 
-app = Flask("__main__")
+app = Blueprint('app', __name__)
 
 @app.route("/")
 def index():
@@ -21,7 +21,3 @@ def contacto():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('error404.html'), 404
-
-
-if __name__ == '__main__':
-    app.run('127.0.0.1', port='8080', debug=True)

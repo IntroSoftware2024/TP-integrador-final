@@ -1,10 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "Uri de la base" # Agregar la URI de la base de datos
-db = SQLAlchemy(app)
+api = Blueprint('api', __name__)
+db = SQLAlchemy()
 
 # ---- Modelos ----
 
@@ -39,7 +38,7 @@ class Consultas(db.Model):
 # ---- Rutas de Emprendimientos ---- 
 
 # Endpoint para agregar emprendimientos
-@app.route('/emprendimientos', methods=['POST'])
+@api.route('/emprendimientos', methods=['POST'])
 def agregar_emprendimiento():
     data = request.json
     try:
@@ -52,7 +51,7 @@ def agregar_emprendimiento():
         return jsonify({'message': 'Error al agregar emprendimiento', 'error': str(e)}), 400
 
 # Endpoint para listar todos los emprendimientos
-@app.route('/emprendimientos', methods=['GET'])
+@api.route('/emprendimientos', methods=['GET'])
 def listar_emprendimientos():
     emprendimientos = Emprendimiento.query.all()
     output = []
@@ -72,7 +71,7 @@ def listar_emprendimientos():
     return jsonify({'emprendimientos': output}), 200
 
 # Endpoint para mostrar un emprendimiento específico por su ID
-@app.route('/emprendimientos/<int:id>', methods=['GET'])
+@api.route('/emprendimientos/<int:id>', methods=['GET'])
 def mostrar_emprendimiento(id):
     emprendimiento = Emprendimiento.query.get(id)
     if not emprendimiento:
@@ -91,7 +90,7 @@ def mostrar_emprendimiento(id):
     return jsonify(emprendimiento_data), 200
 
 # Endpoint para actualizar un emprendimiento por su ID
-@app.route('/emprendimientos/<int:id>', methods=['PUT'])
+@api.route('/emprendimientos/<int:id>', methods=['PUT'])
 def actualizar_emprendimiento(id):
     emprendimiento = Emprendimiento.query.get(id)
     if not emprendimiento:
@@ -107,7 +106,7 @@ def actualizar_emprendimiento(id):
         return jsonify({'message': 'Error al actualizar emprendimiento', 'error': str(e)}), 400
 
 # Endpoint para eliminar un emprendimiento por su ID
-@app.route('/emprendimientos/<int:id>', methods=['DELETE'])
+@api.route('/emprendimientos/<int:id>', methods=['DELETE'])
 def eliminar_emprendimiento(id):
     emprendimiento = Emprendimiento.query.get(id)
     if not emprendimiento:
@@ -123,7 +122,7 @@ def eliminar_emprendimiento(id):
 # ---- Rutas de Usuarios ---- 
 
 # Endpoint para agregar usuarios
-@app.route('/usuarios', methods=['POST'])
+@api.route('/usuarios', methods=['POST'])
 def agregar_usuario():
     data = request.json
     try:
@@ -136,7 +135,7 @@ def agregar_usuario():
         return jsonify({'message': 'Error al agregar usuario', 'error': str(e)}), 400
 
 # Endpoint para listar todos los usuarios
-@app.route('/usuarios', methods=['GET'])
+@api.route('/usuarios', methods=['GET'])
 def listar_usuarios():
     usuarios = Usuario.query.all()
     output = []
@@ -149,7 +148,7 @@ def listar_usuarios():
     return jsonify({'usuarios': output}), 200
 
 # Endpoint para mostrar un usuario específico por su ID
-@app.route('/usuarios/<int:id>', methods=['GET'])
+@api.route('/usuarios/<int:id>', methods=['GET'])
 def mostrar_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:
@@ -161,7 +160,7 @@ def mostrar_usuario(id):
     return jsonify(usuario_data), 200
 
 # Endpoint para actualizar un usuario por su ID
-@app.route('/usuarios/<int:id>', methods=['PUT'])
+@api.route('/usuarios/<int:id>', methods=['PUT'])
 def actualizar_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:
@@ -177,7 +176,7 @@ def actualizar_usuario(id):
         return jsonify({'message': 'Error al actualizar usuario', 'error': str(e)}), 400
 
 # Endpoint para eliminar un usuario por su ID
-@app.route('/usuarios/<int:id>', methods=['DELETE'])
+@api.route('/usuarios/<int:id>', methods=['DELETE'])
 def eliminar_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:
@@ -193,7 +192,7 @@ def eliminar_usuario(id):
 # ---- Rutas de Consultas ---- 
 
 # Endpoint para agregar consultas
-@app.route('/consultas', methods=['POST'])
+@api.route('/consultas', methods=['POST'])
 def agregar_consulta():
     data = request.json
     try:
@@ -204,8 +203,3 @@ def agregar_consulta():
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({'message': 'Error al agregar consulta', 'error': str(e)}), 400
-
-
-
-if __name__ == '__main__':
-    app.run('127.0.0.1', port='8080', debug=True)
