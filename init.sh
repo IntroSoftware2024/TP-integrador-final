@@ -26,6 +26,10 @@ pipenv install flask
 #Activar el entorno virtual y ejecutar los comandos restantes dentro de él.
 source "$(pipenv --venv)/bin/activate" && {
 
+    #Instalar dependencias mysql.
+    pip install flask_sqlalchemy
+    pip install mysql-connector-python
+
     #Activar el modo debug.
     export FLASK_DEBUG=1
 
