@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="listing-page">
     <div class="container">
       <div class="row">
@@ -67,7 +67,7 @@
                 <div class="col-lg-9">
                   <ul class="nacc">
                   <!-- first category listing of items -->
-                    <li class="{% if categoria == 'ropa' %}active{% endif %}">
+                  <li class="{% if categoria in ['ropa', 'todos'] %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -253,7 +253,7 @@
                     </li>
                     
                   <!-- second category listing of items -->
-                    <li class="{% if categoria == 'comida' %}active{% endif %}">
+                  <li class="{% if categoria in ['comida', 'todos'] %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -383,7 +383,7 @@
                     </li>
                     
                     <!-- third category first page -->
-                    <li class="{% if categoria == 'regalos' %}active{% endif %}">
+                    <li class="{% if categoria in ['regalos', 'todos'] %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -516,7 +516,7 @@
                     </li>
                     
                     <!-- 4th category 1st page -->
-                    <li class="{% if categoria == 'experiencias' %}active{% endif %}">
+                    <li class="{% if categoria in ['experiencias', 'todos'] %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
@@ -670,7 +670,7 @@
                     </li>
 
                     <!-- fifth category listing of items -->
-                    <li class="{% if categoria == 'mascotas' %}active{% endif %}">
+                    <li class="{% if categoria in ['mascotas', 'todos'] %}active{% endif %}">
                       <div>
                         <div class="col-lg-12">
                           <div class="owl-carousel owl-listing">
