@@ -28,16 +28,11 @@
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
-                <form id="contact" action="" method="POST">
+                <form id="contact" action="{{ url_for('api.agregar_emprendimiento') }}" method="POST">
                   <div class="row">
                     <div class="col-lg-6">
                       <fieldset>
                         <input type="text" name="nombre" id="nombre" placeholder="Nombre emprenidmiento" autocomplete="on" required>
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-6">
-                      <fieldset>
-                        <input type="text" name="instagram" id="instagram" placeholder="Instagram" autocomplete="on">
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
@@ -107,7 +102,7 @@
           <input class="modal--input" type="email" id="email" name="email" required />
 
           <label for="password" class="modal--title">Contraseña:</label>
-          <input class="modal--input" type="password" id="password" name="password" required />
+          <input class="modal--input" type="password" id="password" name="contraseña" required />
 
           <button class="modal--button btn" id="ingresarLogin" type="submit">
             Iniciar sesión
@@ -118,11 +113,11 @@
       <div id="register" class="tabcontent" style="display:none">
         <form action="{{ url_for('api.agregar_usuario') }}" method="POST">
 
-          <label for="email" class="modal--title">Correo electrónico:</label>
+          <label for="regEmail" class="modal--title">Correo electrónico:</label>
           <input class="modal--input" type="email" id="regEmail" name="email" required />
 
-          <label for="contraseña" class="modal--title">Contraseña:</label>
-          <input class="modal--input" type="password" id="regPassword" name="password" required />
+          <label for="regPassword" class="modal--title">Contraseña:</label>
+          <input class="modal--input" type="password" id="regPassword" name="contraseña" required />
 
           <button class="modal--button btn" id="registrar" type="submit">
             Registrarse

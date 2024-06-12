@@ -14,8 +14,8 @@ class Emprendimiento(db.Model):
     descripcion = db.Column(db.Text)
     categoria = db.Column(db.String(50))
     direccion = db.Column(db.String(200))
-    latitud = db.Column(db.Float)
-    longitud = db.Column(db.Float)
+    localidad = db.Column(db.String(50))
+    provincia = db.Column(db.String(50))
     contacto = db.Column(db.String(50))
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.usuarios_id'), nullable=True)
     usuario = db.relationship('Usuario', backref=db.backref('emprendimientos', lazy=True))
@@ -40,7 +40,7 @@ class Consultas(db.Model):
 # Endpoint para agregar emprendimientos
 @api.route('/emprendimientos', methods=['POST'])
 def agregar_emprendimiento():
-    data = request.json
+    data = request.form
     try:
         nuevo_emprendimiento = Emprendimiento(**data)
         db.session.add(nuevo_emprendimiento)
@@ -124,7 +124,7 @@ def eliminar_emprendimiento(id):
 # Endpoint para agregar usuarios
 @api.route('/usuarios', methods=['POST'])
 def agregar_usuario():
-    data = request.json
+    data = request.form
     try:
         nuevo_usuario = Usuario(**data)
         db.session.add(nuevo_usuario)
@@ -194,7 +194,7 @@ def eliminar_usuario(id):
 # Endpoint para agregar consultas
 @api.route('/consultas', methods=['POST'])
 def agregar_consulta():
-    data = request.json
+    data = request.form
     try:
         nueva_consulta = Consultas(**data)
         db.session.add(nueva_consulta)
