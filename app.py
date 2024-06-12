@@ -26,7 +26,3 @@ def subir_emp():
 @app.route("/contacto")
 def contacto():
     return render_template('contacto.html')
-
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('error404.html'), 404
