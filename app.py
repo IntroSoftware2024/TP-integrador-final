@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 app = Blueprint('app', __name__)
 
@@ -8,7 +8,16 @@ def index():
 
 @app.route("/emprendimientos/<categoria>")
 def emprendimientos(categoria):
-    return render_template('emprendimientos.html', categoria=categoria)
+    if categoria == 'busqueda':
+        categoria = request.args.get('categoria', 'busqueda')
+
+    palabra = request.args.get('palabra', '')
+    provincia = request.args.get('provincia', '')
+
+    if not palabra and not provincia:
+        return render_template('emprendimientos.html', categoria=categoria)
+
+    return render_template('emprendimientos.html', categoria=categoria, palabra=palabra, provincia=provincia)
 
 @app.route("/subir_emp")
 def subir_emp():

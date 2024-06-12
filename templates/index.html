@@ -18,7 +18,7 @@
           <div class="row">
             <div class="col-lg-3 align-self-center">
                 <fieldset>
-                    <select name="area" class="form-select" aria-label="Area" id="chooseCategory" onchange="this.form.click()">
+                  <select id="categoria" value="busqueda" name="area" class="form-select" aria-label="Area" id="chooseCategory" onchange="this.form.click()">
                         <option selected>Categorías</option>
                         <option value="Ropa">Ropa</option>
                         <option value="Comida">Comida</option>
@@ -30,23 +30,23 @@
             </div>
             <div class="col-lg-3 align-self-center">
                 <fieldset>
-                    <input type="palabra" name="palabra" class="searchText" placeholder="Busca por palabra clave" autocomplete="on">
+                  <input id="buscarPalabra" type="palabra" name="palabra" class="searchText" placeholder="Busca por palabra clave" autocomplete="on">
                 </fieldset>
             </div>
             <div class="col-lg-3 align-self-center">
                 <fieldset>
-                    <select name="price" class="form-select" aria-label="Default select example" id="chooseCategory" onchange="this.form.click()">
-                        <option selected>Rango de precio</option>
-                        <option value="$100 - $250">$100 - $250</option>
-                        <option value="$250 - $500">$250 - $500</option>
-                        <option value="$500 - $1000">$500 - $1,000</option>
-                        <option value="$1000+">$1,000 o más</option>
-                    </select>
+                  <select id="provincia" name="price" class="form-select" aria-label="Default select example" id="chooseCategory" onchange="this.form.click()">
+                    <option selected>Provincia</option>
+                    <option value="caba">Capital Federal</option>
+                    <option value="buenos aires">Buenos Aires</option>
+                    <option value="cordoba">Cordoba</option>
+                    <option value="santa fe">Santa Fe</option>
+                  </select>
                 </fieldset>
             </div>
             <div class="col-lg-3">                        
                 <fieldset>
-                    <button class="main-button"><i class="fa fa-search"></i>Buscar</button>
+                  <button type="submit" class="main-button"><i class="fa fa-search"></i>Buscar</button>
                 </fieldset>
             </div>
           </div>

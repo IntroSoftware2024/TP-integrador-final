@@ -11,6 +11,7 @@ class Emprendimiento(db.Model):
     __tablename__ = 'emprendimientos'
     emprendimiento_id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
+    instagram = db.Column(db.String(50))
     descripcion = db.Column(db.Text)
     categoria = db.Column(db.String(50))
     direccion = db.Column(db.String(200))
@@ -59,6 +60,7 @@ def listar_emprendimientos():
         emprendimiento_data = {
             'emprendimiento_id': emprendimiento.emprendimiento_id,
             'nombre': emprendimiento.nombre,
+            'instagram': emprendimiento.instagram,
             'descripcion': emprendimiento.descripcion,
             'categoria': emprendimiento.categoria,
             'direccion': emprendimiento.direccion,
@@ -79,6 +81,7 @@ def mostrar_emprendimiento(id):
     emprendimiento_data = {
         'emprendimiento_id': emprendimiento.emprendimiento_id,
         'nombre': emprendimiento.nombre,
+        'instagram': emprendimiento.instagram,
         'descripcion': emprendimiento.descripcion,
         'categoria': emprendimiento.categoria,
         'direccion': emprendimiento.direccion,

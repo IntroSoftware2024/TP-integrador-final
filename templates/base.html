@@ -52,7 +52,7 @@
             <ul class="nav">
               <li><a href="{{ url_for('app.index') }}">Inicio</a></li>
               <li><a href="{{ url_for('app.emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>
-              <li><a href="{{ url_for('app.contacto') }}" class="active">Contacto</a></li> 
+              <li><a href="{{ url_for('app.contacto') }}">Contacto</a></li> 
               <li><div class="main-white-button"><a href="{{ url_for('app.subir_emp') }}"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
             </ul>         
             <a class='menu-trigger'>
@@ -132,6 +132,7 @@
   <script src="{{ url_for('static', filename='js/imagesloaded.js') }}"></script>
   <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
   <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
 
 </body>
 
