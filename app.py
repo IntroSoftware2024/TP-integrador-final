@@ -8,16 +8,17 @@ def index():
 
 @app.route("/emprendimientos/<categoria>")
 def emprendimientos(categoria):
-    return render_template('emprendimientos.html', categoria=categoria)
+    if categoria == 'busqueda':
+        categoria = request.args.get('categoria', 'busqueda')
 
-'''
-@app.route('/emprendimientos2')
-def emprendimientos2():
-    categoria = request.args.get('categoria', default=None)
-    palabra = request.args.get('palabra', default=None)
-    provincia = request.args.get('provincia', default=None)
+    palabra = request.args.get('palabra', '')
+    provincia = request.args.get('provincia', '')
+
+    if not palabra and not provincia:
+        return render_template('emprendimientos.html', categoria=categoria)
+
     return render_template('emprendimientos.html', categoria=categoria, palabra=palabra, provincia=provincia)
-'''
+
 
 @app.route("/subir_emp")
 def subir_emp():
