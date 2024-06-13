@@ -3,7 +3,7 @@ from app import app
 from api import api, db
 
 main = Flask(__name__)
-main.config['SQLALCHEMY_DATABASE_URI'] = "mysql+mysqlconnector://root@localhost/emprende_facil"
+main.config['SQLALCHEMY_DATABASE_URI'] = "URL_BASE" #Agregar URL de la base de datos acá.
 main.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(main)
