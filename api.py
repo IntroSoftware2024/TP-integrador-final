@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -32,7 +32,7 @@ class Consultas(db.Model):
     consulta_id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     apellido = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False, unique=True)
+    email = db.Column(db.String(100), nullable=False)
     asunto = db.Column(db.String(50))
     mensaje = db.Column(db.Text)
 
@@ -46,7 +46,8 @@ def agregar_emprendimiento():
         nuevo_emprendimiento = Emprendimiento(**data)
         db.session.add(nuevo_emprendimiento)
         db.session.commit()
-        return jsonify({'message': 'Emprendimiento agregado exitosamente'}), 201
+        #return jsonify({'message': 'Emprendimiento agregado exitosamente'}), 201
+        return render_template('index.html'), 201
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({'message': 'Error al agregar emprendimiento', 'error': str(e)}), 400
@@ -132,7 +133,8 @@ def agregar_usuario():
         nuevo_usuario = Usuario(**data)
         db.session.add(nuevo_usuario)
         db.session.commit()
-        return jsonify({'message': 'Usuario agregado exitosamente'}), 201
+        #return jsonify({'message': 'Usuario agregado exitosamente'}), 201
+        return render_template('subir_emp.html'), 201
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({'message': 'Error al agregar usuario', 'error': str(e)}), 400
@@ -202,7 +204,8 @@ def agregar_consulta():
         nueva_consulta = Consultas(**data)
         db.session.add(nueva_consulta)
         db.session.commit()
-        return jsonify({'message': 'Consulta agregada exitosamente'}), 201
+        #return jsonify({'message': 'Consulta agregada exitosamente'}), 201
+        return render_template('contacto.html'), 201
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({'message': 'Error al agregar consulta', 'error': str(e)}), 400
