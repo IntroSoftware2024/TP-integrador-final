@@ -20,8 +20,8 @@ if [ ! -d ".venv" ]; then
     mkdir .venv
 fi
 
-#Instalar flask.
-pipenv install flask
+#Instalar flask y flask-migrate.
+pipenv install flask flask-migrate
 
 #Activar el entorno virtual y ejecutar los comandos restantes dentro de él.
 source "$(pipenv --venv)/bin/activate" && {
@@ -38,6 +38,11 @@ source "$(pipenv --venv)/bin/activate" && {
 
     #Setear el nombre del programa.
     export FLASK_APP="$flask_module"
+
+    # Crear las tablas en la base de datos.
+    flask db init
+    flask db migrate -m "Initial migration."
+    flask db upgrade
 
     #Ejecutar flask.
     flask run
