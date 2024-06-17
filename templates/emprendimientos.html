@@ -50,10 +50,16 @@
                         <a href="{{ url_for('app.emprendimientos', categoria='experiencias') }}#altura">Experiencias</a>
                       </div>
                     </div>
-                    <div class="last-thumb {% if categoria == 'mascotas' %}active{% endif %}">
+                    <div class="thumb {% if categoria == 'mascotas' %}active{% endif %}">
                       <div class="thumb">                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt=""></span>
                         <a href="{{ url_for('app.emprendimientos', categoria='mascotas') }}#altura">Mascotas</a>
+                      </div>
+                    </div>
+                    <div class="last-thumb {% if categoria == 'otro' %}active{% endif %}">
+                      <div class="thumb">                 
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-06.png') }}" alt=""></span>
+                        <a href="{{ url_for('app.emprendimientos', categoria='otro') }}#altura">Otros</a>
                       </div>
                     </div>
                   </div>
@@ -76,7 +82,7 @@
                                           <a href="#"><img src="{{ url_for('static', filename='images/ropa.jpg') }}" alt=""></a>
                                           <div class="hover-content">
                                             <div class="main-white-button">
-                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                              
                                             </div>
                                           </div>
                                         </div>
@@ -100,7 +106,7 @@
                           </div>
                         {% endfor %}
                       {% else %}
-                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
                       {% endif %}
                     </li> 
                     
@@ -119,7 +125,7 @@
                                         <a href="#"><img src="{{ url_for('static', filename='images/comida.jpg') }}" alt=""></a>
                                         <div class="hover-content">
                                           <div class="main-white-button">
-                                            <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                            
                                           </div>
                                         </div>
                                       </div>
@@ -143,7 +149,7 @@
                         </div>
                       {% endfor %}
                     {% else %}
-                      <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                      <h4>No se encontraron emprendimientos para esta categoría.</h4>
                     {% endif %}
                   </li> 
 
@@ -162,7 +168,7 @@
                                           <a href="#"><img src="{{ url_for('static', filename='images/regalos.jpg') }}" alt=""></a>
                                           <div class="hover-content">
                                             <div class="main-white-button">
-                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                              
                                             </div>
                                           </div>
                                         </div>
@@ -186,7 +192,7 @@
                           </div>
                         {% endfor %}
                       {% else %}
-                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
                       {% endif %}
                     </li> 
               
@@ -205,7 +211,7 @@
                                           <a href="#"><img src="{{ url_for('static', filename='images/experiencias.jpg') }}" alt=""></a>
                                           <div class="hover-content">
                                             <div class="main-white-button">
-                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                              
                                             </div>
                                           </div>
                                         </div>
@@ -229,7 +235,7 @@
                           </div>
                         {% endfor %}
                       {% else %}
-                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
                       {% endif %}
                     </li> 
 
@@ -248,7 +254,7 @@
                                           <a href="#"><img src="{{ url_for('static', filename='images/mascotas.jpg') }}" alt=""></a>
                                           <div class="hover-content">
                                             <div class="main-white-button">
-                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                              
                                             </div>
                                           </div>
                                         </div>
@@ -272,7 +278,50 @@
                           </div>
                         {% endfor %}
                       {% else %}
-                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                      {% endif %}
+                    </li> 
+
+                    <!-- otros -->
+                    <li class="{% if categoria in ['otro', 'todos'] %}active{% endif %}">
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/otros.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
                       {% endif %}
                     </li> 
 
