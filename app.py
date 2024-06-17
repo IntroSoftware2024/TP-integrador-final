@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+import requests
 
 app = Blueprint('app', __name__)
 
@@ -16,10 +17,10 @@ def emprendimientos(categoria):
     palabra = request.args.get('palabra', '')
     provincia = request.args.get('provincia', '')
     try:
-        response = request.get(API_URL)
+        response = requests.get(API_URL)
         response.raise_for_status()
         emprendimientos = response.json().get('emprendimientos', [])
-    except request.exceptions.RequestException as e:
+    except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
         emprendimientos = []
 
@@ -30,6 +31,8 @@ def emprendimientos(categoria):
         emprendimientos = [e for e in emprendimientos if provincia.lower() in e['provincia'].lower()]
     if categoria != 'busqueda':
         emprendimientos = [e for e in emprendimientos if categoria.lower() in e['categoria'].lower()]
+
+    return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos, palabra=palabra, provincia=provincia)
 
 @app.route("/login")
 def login():

@@ -138,8 +138,7 @@ def agregar_usuario():
     except SQLAlchemyError as e:
         db.session.rollback()
         flash("El email ya esta registrado. Inicie sesión.")
-        return render_template('login.html'), 404
- #       return jsonify({'message': 'Error al agregar usuario', 'error': str(e)}), 400
+        return render_template('login.html'), 400
 
 # Endpoint para inicio de sesión
 @api.route('/login', methods=['POST'])
@@ -151,8 +150,7 @@ def iniciar_sesion():
         return render_template('subir_emp.html'), 200
     else:
         flash("Usuario o contraseña incorrecta.")
-        return render_template('login.html'), 404
-#        return jsonify({'logged_in': False, 'message': 'Usuario o contraseña incorrectos'}), 401
+        return render_template('login.html'), 400
 
 # Endpoint para listar todos los usuarios
 @api.route('/usuarios/lista', methods=['GET'])
@@ -219,8 +217,9 @@ def agregar_consulta():
         nueva_consulta = Consultas(**data)
         db.session.add(nueva_consulta)
         db.session.commit()
-        #return jsonify({'message': 'Consulta agregada exitosamente'}), 201
+        flash("Formulario enviado con éxito.")
         return render_template('contacto.html'), 201
     except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify({'message': 'Error al agregar consulta', 'error': str(e)}), 400
+        flash("No se pudo enviar el formulario.")
+        return render_template('contacto.html'), 400

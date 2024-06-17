@@ -13,65 +13,7 @@
           <h2>Encontra el emprendimiento ideal</h2>
         </div>
       </div>
-      <div class="col-lg-12">
-        <form id="search-form" name="gs" method="submit" role="search" action="#">
-          <div class="row">
-            <div class="col-lg-3 align-self-center">
-                <fieldset>
-                  <select id="categoria" value="busqueda" name="area" class="form-select" aria-label="Area" id="chooseCategory" onchange="this.form.click()">
-                        <option selected>Categorías</option>
-                        <option value="Ropa">Ropa</option>
-                        <option value="Comida">Comida</option>
-                        <option value="Regalos">Regalos</option>
-                        <option value="Experiencias">Experiencias</option>
-                        <option value="Mascotas">Mascotas</option>
-                    </select>
-                </fieldset>
-            </div>
-            <div class="col-lg-3 align-self-center">
-                <fieldset>
-                  <input id="buscarPalabra" type="palabra" name="palabra" class="searchText" placeholder="Busca por palabra clave" autocomplete="on">
-                </fieldset>
-            </div>
-            <div class="col-lg-3 align-self-center">
-                <fieldset>
-                  <select id="provincia" name="price" class="form-select" aria-label="Default select example" id="chooseCategory" onchange="this.form.click()">
-                    <option selected>Provincia</option>
-                    <option value="caba">Capital Federal</option>
-                    <option value="buenos aires">Buenos Aires</option>
-                    <option value="cordoba">Cordoba</option>
-                    <option value="santa fe">Santa Fe</option>
-                    <option value="mendoza">Mendoza</option>
-                    <option value="tucuman">Tucuman</option>
-                    <option value="salta">Salta</option>
-                    <option value="chaco">Chaco</option>
-                    <option value="misiones">Misiones</option>
-                    <option value="entre rios">Entre Rios</option>
-                    <option value="san juan">San Juan</option>
-                    <option value="san luis">San Luis</option>
-                    <option value="la rioja">La Rioja</option>
-                    <option value="catamarca">Catamarca</option>
-                    <option value="corrientes">Corrientes</option>
-                    <option value="santiago del estero">Santiago del Estero</option>
-                    <option value="jujuy">Jujuy</option>
-                    <option value="formosa">Formosa</option>
-                    <option value="neuquen">Neuquen</option>
-                    <option value="la pampa">La Pampa</option>
-                    <option value="tierra del fuego"> Tierra del Fuego</option>
-                    <option value="chubut">Chubut</option>
-                    <option value="rio negro">Rio Negro</option>
-                    <option value="santa cruz">Santa Cruz</option>
-                  </select>
-                </fieldset>
-            </div>
-            <div class="col-lg-3">                        
-                <fieldset>
-                  <button type="submit" class="main-button"><i class="fa fa-search"></i>Buscar</button>
-                </fieldset>
-            </div>
-          </div>
-        </form>
-      </div>
+      
       <div class="col-lg-10 offset-lg-1">
         <ul class="categories">
           <li><a href="{{ url_for('app.emprendimientos', categoria='ropa') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt="Ropa"></span> Ropa</a></li>

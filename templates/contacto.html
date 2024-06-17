@@ -19,6 +19,14 @@
   <div class="contact-page">
     <div class="container">
       <div class="row">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <h3>{{ message }}</h3>
+              <br>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
         <div class="col-lg-12">
           <div class="inner-content">
             <div class="row">

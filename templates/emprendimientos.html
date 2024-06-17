@@ -29,930 +29,297 @@
                     <div class="first-thumb {% if categoria == 'ropa' %}active{% endif %}">
                       <div class="thumb" id="altura">
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt=""></span>
-                        Ropa
+                        <a href="{{ url_for('app.emprendimientos', categoria='ropa') }}#altura">Ropa</a>
                       </div>
                     </div>
                     <div class="thumb {% if categoria == 'comida' %}active{% endif %}">
                       <div class="thumb" >                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt=""></span>
-                        Comida
+                        <a href="{{ url_for('app.emprendimientos', categoria='comida') }}#altura">Comida</a>
                       </div>
                     </div>
                     <div  class="thumb {% if categoria == 'regalos' %}active{% endif %}">
                       <div class="thumb">                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt=""></span>
-                        Regalos
+                        <a href="{{ url_for('app.emprendimientos', categoria='regalos') }}#altura">Regalos</a>
                       </div>
                     </div>
                     <div  class="thumb {% if categoria == 'experiencias' %}active{% endif %}">
                       <div class="thumb">                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt=""></span>
-                        Experiencias
+                        <a href="{{ url_for('app.emprendimientos', categoria='experiencias') }}#altura">Experiencias</a>
                       </div>
                     </div>
-                    <div class="thumb {% if categoria == 'mascotas' %}active{% endif %}">
+                    <div class="last-thumb {% if categoria == 'mascotas' %}active{% endif %}">
                       <div class="thumb">                 
                         <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt=""></span>
-                        Mascotas
-                      </div>
-                    </div>
-                    <div class="last-thumb {% if categoria == 'busqueda' %}active{% endif %}">
-                      <div class="thumb">                 
-                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-06.png') }}" alt=""></span>
-                        Búsqueda
+                        <a href="{{ url_for('app.emprendimientos', categoria='mascotas') }}#altura">Mascotas</a>
                       </div>
                     </div>
                   </div>
                 </div> 
                 <div class="col-lg-9">
                   <ul class="nacc">
-                  <!-- first category listing of items -->
-                  <li class="{% if categoria in ['ropa', 'todos'] %}active{% endif %}">
-                      <div>
-                        <div class="col-lg-12">
-                          <div class="owl-carousel owl-listing">
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+
+                    <!-- first category listing of items -->
+                    <li class="{% if categoria in ['ropa', 'todos'] %}active{% endif %}">
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <h1 class="mt-5">Emprendimientos en {{ categoria }}</h1>
-                                      <div class="row">
-                                          {% if emprendimientos %}
-                                              {% for emprendimiento in emprendimientos %}
-                                                  <div class="col-md-4">
-                                                      <div class="card mb-4">
-                                                          <div class="card-body">
-                                                              <h5 class="card-title">{{ emprendimiento.nombre }}</h5>
-                                                              <p class="card-text">{{ emprendimiento.descripcion }}</p>
-                                                              <p class="card-text"><small class="text-muted">{{ emprendimiento.localidad }}, {{ emprendimiento.provincia }}</small></p>
-                                                              <a href="https://instagram.com/{{ emprendimiento.instagram }}" class="card-link">Instagram</a>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                              {% endfor %}
-                                          {% else %}
-                                              <p>No se encontraron emprendimientos para la búsqueda realizada.</p>
-                                          {% endif %}
-                                          
-                                      </div>
-                                      <a href="#"><h4>Emprendimiento 1</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 2</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 3</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 4</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 5</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 6</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <!-- third page of first category -->
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 7</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 8</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 9</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </li>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                      {% endif %}
+                    </li> 
                     
                   <!-- second category listing of items -->
                   <li class="{% if categoria in ['comida', 'todos'] %}active{% endif %}">
-                      <div>
-                        <div class="col-lg-12">
-                          <div class="owl-carousel owl-listing">
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                    {% if emprendimientos %}
+                      {% for emprendimiento in emprendimientos %}
+                        <div>
+                          <div class="col-lg-12">
+                            <div class="owl-carousel owl-listing">
+                              <div class="item">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="listing-item">
+                                      <div class="left-image">
+                                        <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
+                                        <div class="hover-content">
+                                          <div class="main-white-button">
+                                            <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 10</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
+                                      <div class="right-content align-self-center">
+                                        <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                        <h6>{{ emprendimiento.instagram }}</h6>
+                                        <span class="details">{{ emprendimiento.descripcion }}</span>
+                                        <span class="info"> {{ emprendimiento.localidad }} 
+                                          <br>
+                                          {{ emprendimiento.provincia }} 
+                                          <br>
+                                          {{ emprendimiento.contacto }}
+                                        </span>
                                       </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 11</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 12</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            
-                            <!-- second category second page -->
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 13</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 14</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 15</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-
                           </div>
                         </div>
-                      </div>
-                    </li>
-                    
+                      {% endfor %}
+                    {% else %}
+                      <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                    {% endif %}
+                  </li> 
+
                     <!-- third category first page -->
                     <li class="{% if categoria in ['regalos', 'todos'] %}active{% endif %}">
-                      <div>
-                        <div class="col-lg-12">
-                          <div class="owl-carousel owl-listing">
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 16</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 17</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 18</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            
-                            <!-- third category second page -->
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 19</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 20</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 21</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <!-- third category third page -->
-                            <!-- NONE -->
-                            
-                            
                           </div>
-                        </div>
-                      </div>
-                    </li>
-                    
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                      {% endif %}
+                    </li> 
+              
                     <!-- 4th category 1st page -->
                     <li class="{% if categoria in ['experiencias', 'todos'] %}active{% endif %}">
-                      <div>
-                        <div class="col-lg-12">
-                          <div class="owl-carousel owl-listing">
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 22</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
                                   </div>
                                 </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 23</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 24</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <!-- 4th category 2nd page -->
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 25</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 26</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 27</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <!-- 4th category 3rd page -->
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 28</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                
-                                
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </li>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                      {% endif %}
+                    </li> 
 
                     <!-- fifth category listing of items -->
                     <li class="{% if categoria in ['mascotas', 'todos'] %}active{% endif %}">
-                      <div>
-                        <div class="col-lg-12">
-                          <div class="owl-carousel owl-listing">
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 29</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 30</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 31</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            
-                            <!-- second category second page -->
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 32</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 33</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 34</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-
                           </div>
-                        </div>
-                      </div>
-                    </li>
-                  
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                      {% endif %}
+                    </li> 
                     
                     <!-- categoria para las busquedas -->
                     <li class="{% if categoria == 'busqueda' %}active{% endif %}">
-                      <div>
-                        <div class="col-lg-12">
-                          <div class="owl-carousel owl-listing">
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 35</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 36</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 37</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-
-                            <!-- second category second page -->
-                            <div class="item">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 38</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 39</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-12">
-                                  <div class="listing-item">
-                                    <div class="left-image">
-                                      <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                                      <div class="hover-content">
-                                        <div class="main-white-button">
-                                          <a href="{{ url_for('app.contacto') }}"><i class="fa fa-eye"></i> Instagram</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="right-content align-self-center">
-                                      <a href="#"><h4>Emprendimiento 340</h4></a>
-                                      <h6>nombre emprendimiento</h6>
-                                      <span class="details">Detalles</span>
-                                      <span class="info"> bla bla <br>bla bla</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-
                           </div>
-                        </div>
-                      </div>
-                    </li>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para etsa categoría.</h4>
+                      {% endif %}
+                    </li> 
 
-                    
-                  </ul>
-                  
+                  </ul> 
                 </div>          
               </div>
             </div>
