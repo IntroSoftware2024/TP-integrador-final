@@ -84,6 +84,26 @@
                                       </div>
                                     </div>
                                     <div class="right-content align-self-center">
+                                      <h1 class="mt-5">Emprendimientos en {{ categoria }}</h1>
+                                      <div class="row">
+                                          {% if emprendimientos %}
+                                              {% for emprendimiento in emprendimientos %}
+                                                  <div class="col-md-4">
+                                                      <div class="card mb-4">
+                                                          <div class="card-body">
+                                                              <h5 class="card-title">{{ emprendimiento.nombre }}</h5>
+                                                              <p class="card-text">{{ emprendimiento.descripcion }}</p>
+                                                              <p class="card-text"><small class="text-muted">{{ emprendimiento.localidad }}, {{ emprendimiento.provincia }}</small></p>
+                                                              <a href="https://instagram.com/{{ emprendimiento.instagram }}" class="card-link">Instagram</a>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              {% endfor %}
+                                          {% else %}
+                                              <p>No se encontraron emprendimientos para la búsqueda realizada.</p>
+                                          {% endif %}
+                                          
+                                      </div>
                                       <a href="#"><h4>Emprendimiento 1</h4></a>
                                       <h6>nombre emprendimiento</h6>
                                       <span class="details">Detalles</span>
