@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request
 
 app = Blueprint('app', __name__)
 
+API_URL = 'http://127.0.0.1:5000/emprendimientos'
+
 @app.route("/")
 def index():
     return render_template('index.html')
@@ -13,11 +15,21 @@ def emprendimientos(categoria):
 
     palabra = request.args.get('palabra', '')
     provincia = request.args.get('provincia', '')
+    try:
+        response = request.get(API_URL)
+        response.raise_for_status()
+        emprendimientos = response.json().get('emprendimientos', [])
+    except request.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        emprendimientos = []
 
-    if not palabra and not provincia:
-        return render_template('emprendimientos.html', categoria=categoria)
-
-    return render_template('emprendimientos.html', categoria=categoria, palabra=palabra, provincia=provincia)
+    # Filtrar los emprendimientos según la categoría, palabra y provincia
+    if palabra:
+        emprendimientos = [e for e in emprendimientos if palabra.lower() in e['nombre'].lower() or palabra.lower() in e['descripcion'].lower()]
+    if provincia:
+        emprendimientos = [e for e in emprendimientos if provincia.lower() in e['provincia'].lower()]
+    if categoria != 'busqueda':
+        emprendimientos = [e for e in emprendimientos if categoria.lower() in e['categoria'].lower()]
 
 @app.route("/login")
 def login():
