@@ -2195,3 +2195,12 @@ h3 {
   text-align: center;
   margin-bottom: 30px;
 }
+
+.left-text h3 {
+  color:white;
+}
+
+.left-text h4 {
+  color:white;
+  font-weight: normal;
+}

@@ -83,9 +83,9 @@
                         <div class="row">
                           <div class="col-lg-5 align-self-center">
                             <div class="left-text">
-                              <h4>Emprendimiento de ropa</h4>
-                              <p>bla bla bla.</p>
-                              <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <h3>Emprendimientos de ropa</h3>
+                              <h4>Encontrá las mejores prendas a precios increibles.</h4>
+                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='ropa') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -103,9 +103,9 @@
                         <div class="row">
                           <div class="col-lg-5 align-self-center">
                             <div class="left-text">
-                              <h4>Emprendimiento de comida</h4>
-                              <p>bla bla bla.</p>
-                              <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <h3>Emprendimientos de comida</h3>
+                              <h4>Desayunos de lujo perfectos para un cumpleaños o un aniversario!.</h4>
+                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='comida') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -123,9 +123,9 @@
                         <div class="row">
                           <div class="col-lg-5 align-self-center">
                             <div class="left-text">
-                              <h4>Emprendimiento de regalos</h4>
-                              <p>bla bla bla.</p>
-                              <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <h3>Emprendimientos de regalos</h3>
+                              <h4>Encontrá el regalo perfecto para tu persona favorita.</h4>
+                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='regalos') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -143,9 +143,9 @@
                         <div class="row">
                           <div class="col-lg-5 align-self-center">
                             <div class="left-text">
-                              <h4>Emprendimiento de ropa</h4>
-                              <p>bla bla bla.</p>
-                              <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <h3>Emprendimientos de experiencias</h3>
+                              <h4>¿Preferis una aventura? Mirá estas opciones que alguna te va a encantar.</h4>
+                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='experiencias') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -163,9 +163,9 @@
                         <div class="row">
                           <div class="col-lg-5 align-self-center">
                             <div class="left-text">
-                              <h4>Emprendimiento de mascotas</h4>
-                              <p>bla bla bla.</p>
-                              <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <h3>Emprendimientos de mascotas</h3>
+                              <h4>Juguetes, ropa, huesos y mucho mas; todo para tu mascota.</h4>
+                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='mascotas') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -186,278 +186,11 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<br>
+<br>
 
 
-<div class="recent-listing">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="section-heading">
-          <h2>Recién agregados</h2>
-          <h6>¡Miralos!</h6>
-        </div>
-      </div>
-      <div class="col-lg-12">
-        <div class="owl-carousel owl-listing">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-01.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>1. Emprendimeinto 1</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>2. Emprendimeinto 2</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-03.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>3. Emprendimeinto 3</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-04.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>4. Emprendimeinto 4</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>5. Emprendimeinto 5</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>6. Emprendimeinto 6</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-05.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>7. Emprendimeinto 7</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-02.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>8. Emprendimeinto 8</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="listing-item">
-                  <div class="left-image">
-                    <a href="#"><img src="{{ url_for('static', filename='images/listing-06.jpg') }}" alt=""></a>
-                  </div>
-                  <div class="right-content align-self-center">
-                    <a href="#"><h4>9. Emprendimeinto 9</h4></a>
-                    <h6>nombre emprendimiento</h6>
-                    <ul class="rate">
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                      <li>(18) Reseñas</li>
-                    </ul>
-                    <span class="details">Detalles: <em>bla bla</em></span>
-                    <ul class="info">
-                      <li> bla bla</li>
-                      <li> bla bla</li>
-                    </ul>
-                    <div class="main-white-button">
-                      <a href="#"><i class="fa fa-eye"></i> Instagram</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 {% endblock %}
