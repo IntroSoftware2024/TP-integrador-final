@@ -1,4 +1,3 @@
-// Función para abrir el tab
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -13,23 +12,8 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
-// Mostrar el modal cuando se carga la página
 window.onload = function() {
     var modal = document.getElementById("modal");
     modal.style.display = "block";
     document.querySelector('.tablinks').click(); 
 }
-
-// Inicio de sesion (sin validacion)
-document.getElementById('ingresarLogin').addEventListener('click', function(event) {
-    event.preventDefault();
-    var modal = document.getElementById('modal');
-    modal.style.display = 'none'; // Cerrar el modal
-});
-
-// Registro (sin validación)
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var modal = document.getElementById('modal');
-    modal.style.display = 'none'; // Cerrar el modal
-});

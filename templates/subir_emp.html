@@ -19,6 +19,13 @@
   <div class="contact-page">
     <div class="container">
       <div class="row">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <h3>{{ message }}</h3>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="col-lg-12">
           <div class="inner-content">
             <div class="row">
@@ -64,7 +71,7 @@
                       <ul>
                         <li><input type="checkbox" name="categoria" value="ropa"><span>Ropa</span></li>
                         <li><input type="checkbox" name="categoria" value="comida"><span>Comida</span></li>
-                        <li><input type="checkbox" name="categoria" value="sregalos"><span>Regalos</span></li>
+                        <li><input type="checkbox" name="categoria" value="regalos"><span>Regalos</span></li>
                         <li><input type="checkbox" name="categoria" value="experiencia"><span>Experiencia</span></li>
                         <li><input type="checkbox" name="categoria" value="mascotas"><span>Mascotas</span></li>
                         <li><input type="checkbox" name="categoria" value="otro"><span>Otro</span></li>
@@ -90,45 +97,4 @@
     </div>
   </div>
 
-  <!--modal-->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <div class="center">
-        <h3>Inicia sesión para subir tu emprendimiento</h3>
-      </div>
-      <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'login')">Iniciar Sesión</button>
-        <button class="tablinks" onclick="openTab(event, 'register')">Registrarse</button>
-      </div>
-
-      <div id="login" class="tabcontent">
-        <form>
-          <label for="email" class="modal--title">Correo electrónico:</label>
-          <input class="modal--input" type="email" id="email" name="email" required />
-
-          <label for="password" class="modal--title">Contraseña:</label>
-          <input class="modal--input" type="password" id="password" name="contraseña" required />
-
-          <button class="modal--button btn" id="ingresarLogin" type="submit">
-            Iniciar sesión
-          </button>
-        </form>
-      </div>
-
-      <div id="register" class="tabcontent" style="display:none">
-        <form action="{{ url_for('api.agregar_usuario') }}" method="POST">
-
-          <label for="regEmail" class="modal--title">Correo electrónico:</label>
-          <input class="modal--input" type="email" id="regEmail" name="email" required />
-
-          <label for="regPassword" class="modal--title">Contraseña:</label>
-          <input class="modal--input" type="password" id="regPassword" name="contraseña" required />
-
-          <button class="modal--button btn" id="registrar" type="submit">
-            Registrarse
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
 {% endblock %}

@@ -19,9 +19,9 @@ def emprendimientos(categoria):
 
     return render_template('emprendimientos.html', categoria=categoria, palabra=palabra, provincia=provincia)
 
-@app.route("/subir_emp")
-def subir_emp():
-    return render_template('subir_emp.html')
+@app.route("/login")
+def login():
+    return render_template('login.html')
 
 @app.route("/contacto")
 def contacto():

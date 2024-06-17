@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -46,8 +46,8 @@ def agregar_emprendimiento():
         nuevo_emprendimiento = Emprendimiento(**data)
         db.session.add(nuevo_emprendimiento)
         db.session.commit()
-        #return jsonify({'message': 'Emprendimiento agregado exitosamente'}), 201
-        return render_template('index.html'), 201
+        flash("Emprendimiento enviado exitosamente")
+        return render_template('subir_emp.html'), 201
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({'message': 'Error al agregar emprendimiento', 'error': str(e)}), 400
@@ -133,14 +133,29 @@ def agregar_usuario():
         nuevo_usuario = Usuario(**data)
         db.session.add(nuevo_usuario)
         db.session.commit()
-        #return jsonify({'message': 'Usuario agregado exitosamente'}), 201
-        return render_template('subir_emp.html'), 201
+        flash("Usuario registrado exitosamente. Inicie sesión.")
+        return render_template('login.html'), 201
     except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify({'message': 'Error al agregar usuario', 'error': str(e)}), 400
+        flash("El email ya esta registrado. Inicie sesión.")
+        return render_template('login.html'), 404
+ #       return jsonify({'message': 'Error al agregar usuario', 'error': str(e)}), 400
+
+# Endpoint para inicio de sesión
+@api.route('/login', methods=['POST'])
+def iniciar_sesion():
+    data = request.form  
+    usuario = Usuario.query.filter_by(email=data['email']).first()
+    
+    if usuario and usuario.contraseña == data['contraseña']:
+        return render_template('subir_emp.html'), 200
+    else:
+        flash("Usuario o contraseña incorrecta.")
+        return render_template('login.html'), 404
+#        return jsonify({'logged_in': False, 'message': 'Usuario o contraseña incorrectos'}), 401
 
 # Endpoint para listar todos los usuarios
-@api.route('/usuarios', methods=['GET'])
+@api.route('/usuarios/lista', methods=['GET'])
 def listar_usuarios():
     usuarios = Usuario.query.all()
     output = []
