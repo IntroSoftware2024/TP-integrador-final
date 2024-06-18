@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+
+{% block title %}Emprendimientos{% endblock %}
+
+{% block content %}
+
+  <div class="page-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="top-text header-text">
+            <h6>¡Mira los emprendimeintos con los que trabajamos!</h6>
+            <h2>Emprendimientos según categorías</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="listing-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="naccs">
+            <div class="grid">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="menu">
+                    <div class="first-thumb {% if categoria == 'ropa' %}active{% endif %}">
+                      <div class="thumb" id="altura">
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt=""></span>
+                        <a href="{{ url_for('app.emprendimientos', categoria='ropa') }}#altura">Ropa</a>
+                      </div>
+                    </div>
+                    <div class="thumb {% if categoria == 'comida' %}active{% endif %}">
+                      <div class="thumb" >                 
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt=""></span>
+                        <a href="{{ url_for('app.emprendimientos', categoria='comida') }}#altura">Comida</a>
+                      </div>
+                    </div>
+                    <div  class="thumb {% if categoria == 'regalos' %}active{% endif %}">
+                      <div class="thumb">                 
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt=""></span>
+                        <a href="{{ url_for('app.emprendimientos', categoria='regalos') }}#altura">Regalos</a>
+                      </div>
+                    </div>
+                    <div  class="thumb {% if categoria == 'experiencias' %}active{% endif %}">
+                      <div class="thumb">                 
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt=""></span>
+                        <a href="{{ url_for('app.emprendimientos', categoria='experiencias') }}#altura">Experiencias</a>
+                      </div>
+                    </div>
+                    <div class="thumb {% if categoria == 'mascotas' %}active{% endif %}">
+                      <div class="thumb">                 
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt=""></span>
+                        <a href="{{ url_for('app.emprendimientos', categoria='mascotas') }}#altura">Mascotas</a>
+                      </div>
+                    </div>
+                    <div class="last-thumb {% if categoria == 'otro' %}active{% endif %}">
+                      <div class="thumb">                 
+                        <span class="icon"><img src="{{ url_for('static', filename='images/search-icon-06.png') }}" alt=""></span>
+                        <a href="{{ url_for('app.emprendimientos', categoria='otro') }}#altura">Otros</a>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-lg-9">
+                  <ul class="nacc">
+
+                    <!-- first category listing of items -->
+                    <li class="{% if categoria in ['ropa', 'todos'] %}active{% endif %}">
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/ropa.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.direccion }} 
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                      {% endif %}
+                    </li> 
+                    
+                  <!-- second category listing of items -->
+                  <li class="{% if categoria in ['comida', 'todos'] %}active{% endif %}">
+                    {% if emprendimientos %}
+                      {% for emprendimiento in emprendimientos %}
+                        <div>
+                          <div class="col-lg-12">
+                            <div class="owl-carousel owl-listing">
+                              <div class="item">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="listing-item">
+                                      <div class="left-image">
+                                        <a href="#"><img src="{{ url_for('static', filename='images/comida.jpg') }}" alt=""></a>
+                                        <div class="hover-content">
+                                          <div class="main-white-button">
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="right-content align-self-center">
+                                        <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                        <h6>{{ emprendimiento.instagram }}</h6>
+                                        <span class="details">{{ emprendimiento.descripcion }}</span>
+                                        <span class="info"> {{ emprendimiento.direccion }} 
+                                        <span class="info"> {{ emprendimiento.localidad }} 
+                                          <br>
+                                          {{ emprendimiento.provincia }} 
+                                          <br>
+                                          {{ emprendimiento.contacto }}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                    {% endif %}
+                  </li> 
+
+                    <!-- third category first page -->
+                    <li class="{% if categoria in ['regalos', 'todos'] %}active{% endif %}">
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/regalos.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.direccion }} 
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                      {% endif %}
+                    </li> 
+              
+                    <!-- 4th category 1st page -->
+                    <li class="{% if categoria in ['experiencias', 'todos'] %}active{% endif %}">
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/experiencias.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.direccion }} 
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                      {% endif %}
+                    </li> 
+
+                    <!-- fifth category listing of items -->
+                    <li class="{% if categoria in ['mascotas', 'todos'] %}active{% endif %}">
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/mascotas.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.direccion }} 
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                      {% endif %}
+                    </li> 
+
+                    <!-- otros -->
+                    <li class="{% if categoria in ['otro', 'todos'] %}active{% endif %}">
+                      {% if emprendimientos %}
+                        {% for emprendimiento in emprendimientos %}
+                          <div>
+                            <div class="col-lg-12">
+                              <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ url_for('static', filename='images/otros.jpg') }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
+                                          <h6>{{ emprendimiento.instagram }}</h6>
+                                          <span class="details">{{ emprendimiento.descripcion }}</span>
+                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                          <span class="info"> {{ emprendimiento.direccion }} 
+                                            <br>
+                                            {{ emprendimiento.provincia }} 
+                                            <br>
+                                            {{ emprendimiento.contacto }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                      {% endif %}
+                    </li> 
+
+                  </ul> 
+                </div>          
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Subir Emprendimiento{% endblock %}
+
+{% block content %}
+  <div class="page-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="top-text header-text">
+            <h6>¡Subí tu emprendimiento!</h6>
+            <h2>Forma parte de nuestro equipo</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-page">
+    <div class="container">
+      <div class="row">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <h3>{{ message }}</h3>
+            <br>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="col-lg-12">
+          <div class="inner-content">
+            <div class="row">
+              <div class="col-lg-6">
+                <div id="map">
+                  <img src="../static/images/form.jpg" width="100%" height="650px" frameborder="0" style="border:0" allowfullscreen></img>
+                </div>
+              </div>
+              <div class="col-lg-6 align-self-center">
+                <form id="contact" action="{{ url_for('api.agregar_emprendimiento') }}" method="POST">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre emprenidmiento" autocomplete="on" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="text" name="instagram" id="instagram" placeholder="Instagram" autocomplete="on">
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <input type="text" name="direccion" id="direccion" placeholder="Dirección" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="text" name="localidad" id="localidad" placeholder="Localidad" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                      <fieldset>
+                        <input type="text" name="provincia" id="provincia" placeholder="Provincia" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <input type="text" name="contacto" id="contacto" placeholder="Contacto" required>
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <ul>
+                        <li><input type="checkbox" name="categoria" value="ropa"><span>Ropa</span></li>
+                        <li><input type="checkbox" name="categoria" value="comida"><span>Comida</span></li>
+                        <li><input type="checkbox" name="categoria" value="regalos"><span>Regalos</span></li>
+                        <li><input type="checkbox" name="categoria" value="experiencias"><span>Experiencia</span></li>
+                        <li><input type="checkbox" name="categoria" value="mascotas"><span>Mascotas</span></li>
+                        <li><input type="checkbox" name="categoria" value="otro"><span>Otro</span></li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <textarea name="descripcion" type="text" class="form-control" id="descripcion" placeholder="Descripción del emprendimiento", required></textarea>  
+                      </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <button type="submit" id="form-submit" class="main-button "><i class="fa fa-paper-plane"></i>Enviar</button>
+                      </fieldset>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
