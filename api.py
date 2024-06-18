@@ -18,8 +18,6 @@ class Emprendimiento(db.Model):
     localidad = db.Column(db.String(50))
     provincia = db.Column(db.String(50))
     contacto = db.Column(db.String(50))
-    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.usuarios_id'), nullable=True)
-    usuario = db.relationship('Usuario', backref=db.backref('emprendimientos', lazy=True))
 
 class Usuario(db.Model):
     __tablename__ = 'usuarios'
@@ -68,7 +66,6 @@ def listar_emprendimientos():
             'localidad': emprendimiento.localidad,
             'provincia': emprendimiento.provincia,
             'contacto': emprendimiento.contacto,
-            'usuario_id': emprendimiento.usuario_id
         }
         output.append(emprendimiento_data)
     return jsonify({'emprendimientos': output}), 200
@@ -89,7 +86,6 @@ def mostrar_emprendimiento(id):
         'localidad': emprendimiento.localidad,
         'provincia': emprendimiento.provincia,
         'contacto': emprendimiento.contacto,
-        'usuario_id': emprendimiento.usuario_id
     }
     return jsonify(emprendimiento_data), 200
 
