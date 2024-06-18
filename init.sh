@@ -15,6 +15,14 @@ if [ ! -f "$flask_file" ]; then
     exit 1
 fi
 
+# Verificar si pipenv está instalado
+if ! command -v pipenv &> /dev/null; then
+    echo "pipenv no está instalado. Instalando pipenv..."
+    # Instalar pipenv para el usuario actual
+    pip install --user pipenv
+
+fi
+
 #Verificar si existe una carpeta .venv; si no existe, crearla.
 if [ ! -d ".venv" ]; then
     mkdir .venv
