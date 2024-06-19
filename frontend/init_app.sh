@@ -24,19 +24,15 @@ if ! command -v pipenv &> /dev/null; then
 fi
 
 #Verificar si existe una carpeta .venv; si no existe, crearla.
-if [ ! -d ".venv" ]; then
-    mkdir .venv
-fi
+export PIPENV_IGNORE_VIRTUALENVS=1
 
-#Instalar flask y flask-migrate.
-pipenv install flask flask-migrate
+#Instalar flask.
+pipenv install flask
 
 #Activar el entorno virtual y ejecutar los comandos restantes dentro de él.
 source "$(pipenv --venv)/bin/activate" && {
 
-    #Instalar dependencias mysql.
-    pip install flask_sqlalchemy
-    pip install mysql-connector-python
+    #Instalar dependencias.
     pip install requests
 
     #Activar el modo debug.
@@ -48,10 +44,8 @@ source "$(pipenv --venv)/bin/activate" && {
     #Setear el nombre del programa.
     export FLASK_APP="$flask_module"
 
-    # Crear las tablas en la base de datos.
-    flask db init
-    flask db migrate -m "Initial migration."
-    flask db upgrade
+    #Setear el puerto. 
+    export FLASK_RUN_PORT=8000
 
     #Ejecutar flask.
     flask run

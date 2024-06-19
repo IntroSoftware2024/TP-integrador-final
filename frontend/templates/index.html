@@ -16,11 +16,11 @@
       
       <div class="col-lg-10 offset-lg-1">
         <ul class="categories">
-          <li><a href="{{ url_for('app.emprendimientos', categoria='ropa') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt="Ropa"></span> Ropa</a></li>
-          <li><a href="{{ url_for('app.emprendimientos', categoria='comida') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt="Comida"></span> Comida</a></li>
-          <li><a href="{{ url_for('app.emprendimientos', categoria='regalos') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt="Regalos"></span> Regalos</a></li>
-          <li><a href="{{ url_for('app.emprendimientos', categoria='experiencias') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt="Experiencias"></span> Experiencias</a></li>
-          <li><a href="{{ url_for('app.emprendimientos', categoria='mascotas') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt="Mascotas"></span> Mascotas</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='ropa') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-01.png') }}" alt="Ropa"></span> Ropa</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='comida') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-02.png') }}" alt="Comida"></span> Comida</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='regalos') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-03.png') }}" alt="Regalos"></span> Regalos</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='experiencias') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-04.png') }}" alt="Experiencias"></span> Experiencias</a></li>
+          <li><a href="{{ url_for('emprendimientos', categoria='mascotas') }}#altura"><span class="icon"><img src="{{ url_for('static', filename='images/search-icon-05.png') }}" alt="Mascotas"></span> Mascotas</a></li>
         </ul>      
       </div>
     </div>
@@ -85,7 +85,7 @@
                             <div class="left-text">
                               <h3>Emprendimientos de ropa</h3>
                               <h4>Encontrá las mejores prendas a precios increibles.</h4>
-                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='ropa') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <div class="main-white-button"><a href="{{ url_for('emprendimientos', categoria='ropa') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -105,7 +105,7 @@
                             <div class="left-text">
                               <h3>Emprendimientos de comida</h3>
                               <h4>Desayunos de lujo perfectos para un cumpleaños o un aniversario!.</h4>
-                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='comida') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <div class="main-white-button"><a href="{{ url_for('emprendimientos', categoria='comida') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -125,7 +125,7 @@
                             <div class="left-text">
                               <h3>Emprendimientos de regalos</h3>
                               <h4>Encontrá el regalo perfecto para tu persona favorita.</h4>
-                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='regalos') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <div class="main-white-button"><a href="{{ url_for('emprendimientos', categoria='regalos') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -145,7 +145,7 @@
                             <div class="left-text">
                               <h3>Emprendimientos de experiencias</h3>
                               <h4>¿Preferis una aventura? Mirá estas opciones que alguna te va a encantar.</h4>
-                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='experiencias') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <div class="main-white-button"><a href="{{ url_for('emprendimientos', categoria='experiencias') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -166,7 +166,7 @@
                             <div class="left-text">
                               <h3>Emprendimientos de mascotas</h3>
                               <h4>Juguetes, ropa, huesos y mucho mas; todo para tu mascota.</h4>
-                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='mascotas') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <div class="main-white-button"><a href="{{ url_for('emprendimientos', categoria='mascotas') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
@@ -187,7 +187,7 @@
                             <div class="left-text">
                               <h3>Emprendimientos de otras categorías</h3>
                               <h4>¿Estas buscando otra cosa? ¡Explora mas emprendimientos acá!</h4>
-                              <div class="main-white-button"><a href="{{ url_for('app.emprendimientos', categoria='otro') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
+                              <div class="main-white-button"><a href="{{ url_for('emprendimientos', categoria='otro') }}#altura"><i class="fa fa-eye"></i> Descubrí mas</a></div>
                             </div>
                           </div>
                           <div class="col-lg-7 align-self-center">
