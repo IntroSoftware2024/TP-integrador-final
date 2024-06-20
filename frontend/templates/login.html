@@ -26,7 +26,7 @@
       </div>
 
       <div id="login" class="tabcontent">
-        <form action="{{ url_for('api.iniciar_sesion') }}" method="POST">
+        <form action="{{ url_for('iniciar_sesion') }}" method="POST">
           <label for="email" class="modal--title">Correo electrónico:</label>
           <input class="modal--input" type="email" id="email" name="email" required />
 
@@ -40,7 +40,7 @@
       </div>
 
       <div id="register" class="tabcontent" style="display:none">
-        <form action="{{ url_for('api.agregar_usuario') }}" method="POST">
+        <form action="{{ url_for('agregar_usuario') }}" method="POST">
 
           <label for="regEmail" class="modal--title">Correo electrónico:</label>
           <input class="modal--input" type="email" id="regEmail" name="email" required />
