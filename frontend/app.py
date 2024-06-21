@@ -42,7 +42,11 @@ def login():
 def contacto():
     return render_template('contacto.html')
 
-#Errores
+# Errores (HAY DOS TIPOS ELEGIR CUAL USAR)
+
+# -----OPCION 1 IGUAL A LA QUE EL PROFE DIJO MAL---------
+
+"""
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -52,12 +56,27 @@ def page_not_found(error):
 def internal_server_error(error):
     return render_template('error.html', error_code=500), 500
 
-
 @app.errorhandler(400)
 def bad_request(error):
     return render_template('error.html', error_code=400), 400
 
+"""
 
+# OPCION 2 
+
+@app.errorhandler(Exception)
+def handle_error(error):
+    # Determinar el código de error
+    error_code = getattr(error, 'code', 500)
+    # Mostrar un mensaje de error personalizado dependiendo del código de error
+    if error_code == 404:
+        return render_template('error.html', error_code=404), 404
+    elif error_code == 400:
+        return render_template('error.html', error_code=400), 400
+    elif error_code == 403:
+        return render_template('error.html', error_code=403), 403
+    else:
+        return render_template('error.html', error_code=500), 500
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8000", debug=True)

@@ -1,15 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    {% if error_code == 404 %}
-        Error 404
-    {% elif error_code == 500 %}
-        Error 500
-    {% elif error_code == 400 %}
-        Error 400
-    {% else %}
-        Error
-    {% endif %}
+    Error {{ error_code }}
 {% endblock %}
 
 {% block content %}
