@@ -11,9 +11,55 @@ engine = create_engine("mysql+mysqlconnector://root@localhost/basetp") #Agregar 
 # ---- Rutas de Emprendimientos ---- 
 
 # Endpoint para agregar emprendimientos
+@api.route('/agregar_emprendimiento', methods=['POST'])
+def agregar_emprendimiento():
+    conn = engine.connect()
+    nuevo_emprendimiento = request.get_json()
 
+    campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
+    campos_validos = {campo: nuevo_emprendimiento.get(campo) for campo in campos}
+
+    query = f"""INSERT INTO emprendimientos ({', '.join(campos_validos.keys())}) 
+                VALUES ({', '.join([f"'{valor}'" for valor in campos_validos.values()])});"""
+
+    try:
+        conn.execute(text(query))
+        conn.commit()
+        conn.close()
+    except SQLAlchemyError as err:
+        conn.close()
+        return jsonify({'message': 'Error al agregar emprendimiento.' + str(err.__cause__)}), 500
+
+    return jsonify({'message': 'Emprendimiento agregado correctamente.'}), 201
 
 # Endpoint para listar todos los emprendimientos
+@api.route('/emprendimientos', methods=['GET'])
+def listar_emprendimientos():
+    conn = engine.connect()
+    query = "SELECT * FROM emprendimientos;"
+
+    try:
+        result = conn.execute(text(query))
+        conn.close()
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Error al obtener emprendimientos.' + str(err.__cause__)}), 500
+
+    data = []
+    for row in result:
+        entity = {
+            'id': row.id,
+            'nombre': row.nombre,
+            'instagram': row.instagram,
+            'descripcion': row.descripcion,
+            'categoria': row.categoria,
+            'direccion': row.direccion,
+            'localidad': row.localidad,
+            'provincia': row.provincia,
+            'contacto': row.contacto
+        }
+        data.append(entity)
+
+    return jsonify({'emprendimientos': data}), 200
 
 
 # Endpoint para eliminar emprendimientos
@@ -123,7 +169,26 @@ def usuarios():
 # ---- Rutas de Consultas ---- 
 
 # Endpoint para agregar consultas
-    
+@api.route('/agregar_consulta', methods=['POST'])
+def agregar_consulta():
+    conn = engine.connect()
+    nueva_consulta = request.get_json()
+
+    campos = ['nombre', 'apellido', 'email', 'asunto', 'mensaje']
+    campos_validos = {campo: nueva_consulta.get(campo) for campo in campos}
+
+    query = f"""INSERT INTO consultas ({', '.join(campos_validos.keys())}) 
+                VALUES ({', '.join([f"'{valor}'" for valor in campos_validos.values()])});"""
+
+    try:
+        conn.execute(text(query))
+        conn.commit()
+        conn.close()
+    except SQLAlchemyError as err:
+        conn.close()
+        return jsonify({'message': 'Error al agregar consulta.' + str(err.__cause__)}), 500
+
+    return jsonify({'message': 'Consulta agregada correctamente.'}), 201
 
 if __name__ == "__main__":
     api.run("127.0.0.1", port="5000", debug=True)
