@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if error_code == 404 %}
+        Error 404
+    {% elif error_code == 500 %}
+        Error 500
+    {% elif error_code == 400 %}
+        Error 400
+    {% else %}
+        Error
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="custom-error-text">
+                    {% if error_code == 404 %}
+                        <h4>Error 404</h4>
+                        <h2>Lo sentimos, la página que estás buscando no se ha encontrado.</h2>
+                        <p>Parece que la página que intentas buscar no existe. Puede ser que hayas ingresado una URL incorrecta o que la página haya sido eliminada. Por favor, verifica la dirección URL e intenta nuevamente.</p>
+                    {% elif error_code == 500 %}
+                        <h4>Error 500</h4>
+                        <h2>Lo sentimos, hubo un problema con el servidor.</h2>
+                        <p>Ha ocurrido un error interno en el servidor. Estamos trabajando para solucionar este problema. Por favor, intenta nuevamente más tarde.</p>
+                    {% elif error_code == 400 %}
+                        <h4>Error 400</h4>
+                        <h2>Solicitud incorrecta.</h2>
+                        <p>La solicitud que realizaste no es válida. Por favor, verifica los datos e intenta nuevamente.</p>
+                    {% else %}
+                        <h4>Error</h4>
+                        <h2>Ha ocurrido un error.</h2>
+                        <p>Lo sentimos, ha ocurrido un error inesperado. Por favor, intenta nuevamente más tarde.</p>
+                    {% endif %}
+                    <p>Si crees que esto es un error, por favor <a href="{{ url_for('contacto') }}">contáctanos</a>.</p>
+                    <a href="{{ url_for('index') }}" class="main-button">Regresar a la página de inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
