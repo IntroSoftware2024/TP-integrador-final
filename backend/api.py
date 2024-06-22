@@ -77,7 +77,7 @@ def eliminar_emplendimiento(id):
     try:
         val_result = conn.execute(text(val_query))
         if val_result.rowcount != 0:
-            result = conn.execute(text(query))
+            conn.execute(text(query))
             conn.commit()
             conn.close()
         else:
@@ -135,7 +135,7 @@ def crear_usuario():
     new_user = request.get_json()
     query = f"""INSERT INTO usuarios (email, contraseña) VALUES ('{new_user["email"]}', '{new_user["contraseña"]}');"""
     try:
-        #result = conn.execute(text(query))
+        conn.execute(text(query))
         conn.commit()
         conn.close()
     except SQLAlchemyError as err:
