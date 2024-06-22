@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 api = Flask(__name__)
-engine = create_engine("mysql+mysqlconnector://root@localhost/basetp") #Agregar url base de datos.
+engine = create_engine("mysql+mysqlconnector://root@localhost/") #Agregar url base de datos.
 
 
 # ---- Rutas de Emprendimientos ---- 

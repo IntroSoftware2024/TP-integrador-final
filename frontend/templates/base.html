@@ -53,7 +53,7 @@
               <li><a href="{{ url_for('index') }}">Inicio</a></li>
               <li><a href="{{ url_for('emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>
               <li><a href="{{ url_for('contacto') }}">Contacto</a></li> 
-              <li><div class="main-white-button"><a href="{{ url_for('login') }}"><i class="fa fa-plus"></i> Subí tu emprendimiento</a></div></li> 
+              <li><div class="main-white-button"><a href="{{ url_for('login') }}"><i class="fa fa-plus"></i>Emprendedores</a></div></li> 
             </ul>         
             <a class='menu-trigger'>
                 <span>Menu</span>
@@ -91,7 +91,7 @@
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><a href="{{ url_for('login') }}">Subi tu emprendimiento</a></li>
+                  <li><a href="{{ url_for('login') }}">Emprendedores</a></li>
                   <li><a href="#">Política de privacidad</a></li>
                 </ul>
               </div>
@@ -131,7 +131,8 @@
   <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
   <script src="{{ url_for('static', filename='js/imagesloaded.js') }}"></script>
   <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/emprendimientos.js') }}"></script>
 
 </body>
 

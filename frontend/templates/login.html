@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div id="modal" class="modal">
+  <div class="login-page">
 
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -16,45 +16,44 @@
     {% endif %}
     {% endwith %}
 
-    <div class="modal-content">
+    <div class="content">
       <div class="center">
         <h3>Inicia sesión para subir tu emprendimiento</h3>
       </div>
       <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'login')">Iniciar Sesión</button>
-        <button class="tablinks" onclick="openTab(event, 'register')">Registrarse</button>
+        <button class="tablinks" id="loginTab">Iniciar Sesión</button>
+        <button class="tablinks" id="registerTab">Registrarse</button>
       </div>
 
       <div id="login" class="tabcontent">
         <form action="{{ url_for('iniciar_sesion') }}" method="POST">
-          <label for="email" class="modal--title">Correo electrónico:</label>
-          <input class="modal--input" type="email" id="email" name="email" required />
+          <label for="email" class="loginTitulo">Correo electrónico:</label>
+          <input class="loginInput" type="email" id="email" name="email" required />
 
-          <label for="password" class="modal--title">Contraseña:</label>
-          <input class="modal--input" type="password" id="password" name="contraseña" required />
+          <label for="password" class="loginTitulo">Contraseña:</label>
+          <input class="loginInput" type="password" id="password" name="contraseña" required />
 
-          <button class="modal--button btn" id="ingresarLogin" type="submit">
+          <button class="loginButton btn" id="ingresarLogin" type="submit">
             Iniciar sesión
           </button>
         </form>
       </div>
 
-      <div id="register" class="tabcontent" style="display:none">
+      <div id="register" class="tabcontent">
         <form action="{{ url_for('agregar_usuario') }}" method="POST">
+          <label for="regEmail" class="loginTitulo">Correo electrónico:</label>
+          <input class="loginInput" type="email" id="regEmail" name="email" required />
 
-          <label for="regEmail" class="modal--title">Correo electrónico:</label>
-          <input class="modal--input" type="email" id="regEmail" name="email" required />
+          <label for="regPassword" class="loginTitulo">Contraseña:</label>
+          <input class="loginInput" type="password" id="regPassword" name="contraseña" required />
 
-          <label for="regPassword" class="modal--title">Contraseña:</label>
-          <input class="modal--input" type="password" id="regPassword" name="contraseña" required />
-
-          <button class="modal--button btn" id="registrar" type="submit">
+          <button class="loginButton btn" id="registrar" type="submit">
             Registrarse
           </button>
         </form>
+      
       </div>
     </div>
   </div>
-
 
 {% endblock %}

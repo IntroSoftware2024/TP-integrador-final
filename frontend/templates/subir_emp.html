@@ -36,13 +36,15 @@
                 </div>
               </div>
 
-              <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'agregar')">Agregar</button>
-                <button class="tablinks" onclick="openTab(event, 'eliminar')">Eliminar</button>
-                <button class="tablinks" onclick="openTab(event, 'modificar')">Modificar</button>
-              </div>
+              <div class="col-lg-6 align-self-center">
 
-              <div id="agregar" class="col-lg-6 align-self-center">
+                <div class="tabForm">
+                  <button class="tablinks" id="agregarTab">Agregar</button>
+                  <button class="tablinks" id="eliminarTab">Eliminar</button>
+                  <button class="tablinks" id="modificarTab">Modificar</button>
+                </div>
+
+                <div id="agregar" class="tabcontent">
                 <form id="contact" action="{{ url_for('api.agregar_emprendimiento') }}" method="POST">
                   <div class="row">
                     <div class="col-lg-6">
@@ -97,51 +99,51 @@
                     </div>
                   </div>
                 </form>
-              </div>
+                </div>
 
-              <div id="eliminar" class="col-lg-6 align-self-center">
-                <form id="contact" action="{{ url_for('api.eliminar_emprendimiento') }}" method="POST">
+                <div id="eliminar" class="tabcontent">
+                  <form id="contact" action="{{ url_for('api.eliminar_emprendimiento') }}" method="POST">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <input type="text" name="nombre" id="nombre" placeholder="Nombre emprendimiento" autocomplete="on" required>
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <input type="text" name="contacto" id="contacto" placeholder="Contacto" required>
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-12">
+                        <ul>
+                          <li><input type="checkbox" name="categoria" value="ropa"><span>Ropa</span></li>
+                          <li><input type="checkbox" name="categoria" value="comida"><span>Comida</span></li>
+                          <li><input type="checkbox" name="categoria" value="regalos"><span>Regalos</span></li>
+                          <li><input type="checkbox" name="categoria" value="experiencias"><span>Experiencia</span></li>
+                          <li><input type="checkbox" name="categoria" value="mascotas"><span>Mascotas</span></li>
+                          <li><input type="checkbox" name="categoria" value="otro"><span>Otro</span></li>
+                        </ul>
+                      </div>
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <textarea name="descripcion" type="text" class="form-control" id="descripcion" placeholder="Descripción del emprendimiento", required></textarea>  
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <button type="submit" id="form-submit" class="main-button "><i class="fa fa-paper-plane"></i>Enviar</button>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div id="modificar" class="tabcontent">
+                  <form id="contact" action="{{ url_for('api.modificar_emprendimiento') }}" method="POST">
                   <div class="row">
                     <div class="col-lg-6">
                       <fieldset>
                         <input type="text" name="nombre" id="nombre" placeholder="Nombre emprendimiento" autocomplete="on" required>
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-12">
-                      <fieldset>
-                        <input type="text" name="contacto" id="contacto" placeholder="Contacto" required>
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-12">
-                      <ul>
-                        <li><input type="checkbox" name="categoria" value="ropa"><span>Ropa</span></li>
-                        <li><input type="checkbox" name="categoria" value="comida"><span>Comida</span></li>
-                        <li><input type="checkbox" name="categoria" value="regalos"><span>Regalos</span></li>
-                        <li><input type="checkbox" name="categoria" value="experiencias"><span>Experiencia</span></li>
-                        <li><input type="checkbox" name="categoria" value="mascotas"><span>Mascotas</span></li>
-                        <li><input type="checkbox" name="categoria" value="otro"><span>Otro</span></li>
-                      </ul>
-                    </div>
-                    <div class="col-lg-12">
-                      <fieldset>
-                        <textarea name="descripcion" type="text" class="form-control" id="descripcion" placeholder="Descripción del emprendimiento", required></textarea>  
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-12">
-                      <fieldset>
-                        <button type="submit" id="form-submit" class="main-button "><i class="fa fa-paper-plane"></i>Enviar</button>
-                      </fieldset>
-                    </div>
-                  </div>
-                </form>
-              </div>
-
-              <div id="modificar" class="col-lg-6 align-self-center">
-                <form id="contact" action="{{ url_for('api.modificar_emprendimiento') }}" method="POST">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <fieldset>
-                        <input type="text" name="nombre" id="nombre" placeholder="Nombre emprenidmiento" autocomplete="on" required>
                       </fieldset>
                     </div>
                     <div class="col-lg-6">
@@ -190,7 +192,9 @@
                       </fieldset>
                     </div>
                   </div>
-                </form>
+                  </form>
+                </div>
+
               </div>
 
             </div>
