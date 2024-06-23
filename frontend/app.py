@@ -66,9 +66,11 @@ def crear_usuario():
     if request.method == 'POST':
         email = request.form.get('email')
         contrasenia = request.form.get('contrasenia')
+        usuario = {'email':email, 'contrasenia':contrasenia}
 
         if email and contrasenia:
-            response = requests.post(API_URL.join('crear_usuario', email = email,contrasenia = contrasenia))
+            response = requests.post(API_URL.join('crear_usuario', json=usuario))
+            
             if response.status_code == 201:
                 flash('Usuario registrado exitosamente.')
                 return render_template('login.html')
