@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, flash
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
 import requests
 
 app = Flask(__name__)
@@ -16,6 +16,9 @@ def test():
         print(f'Error fetching data:{e}')
         return jsonify({'message':'no esta conectado al back'}),500
 
+@app.route("/subir_emp")
+def emp():
+    return render_template('subir_emp.html')
 
 @app.route("/")
 def index():
@@ -61,24 +64,70 @@ def handle_error(error):
     
 
 # Endpoint para registrar usuario
-@app.route('/crear_usuario', methods = ['GET','POST'])
+@app.route('/crear_usuario', methods = ['POST'])
 def crear_usuario():
     if request.method == 'POST':
         email = request.form.get('email')
-        contrasenia = request.form.get('contrasenia')
-        usuario = {'email':email, 'contrasenia':contrasenia}
+        contraseña = request.form.get('contraseña')
+        usuario = {'email':email, 'contraseña':contraseña}
 
-        if email and contrasenia:
-            response = requests.post(API_URL.join('crear_usuario', json=usuario))
+        if email and contraseña:
+            response = requests.post(API_URL.join('crear_usuario'), json=usuario)
             
             if response.status_code == 201:
                 flash('Usuario registrado exitosamente.')
-                return render_template('login.html')
+                return redirect(url_for('iniciar_sesion'))
             else:
                 flash('Error al registrar el usuario.')
-                return render_template('login.html')
+                return redirect(url_for('crear_usuario'))
    
     return render_template('login.html')
+
+
+#login
+@app.route('/iniciar_sesion', methods = ['GET','POST'])
+def iniciar_sesion():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        contraseña = request.form.get('contraseña')
+        usuario = {'email':email, 'contraseña':contraseña}
+
+        if email and contraseña:
+            response = requests.post(API_URL.join('iniciar_sesion'), json=usuario)
+            
+            if response.status_code == 201:
+                return redirect(url_for('subir_emp'))
+            else:
+                flash('Error al iniciar sesión.')
+                return redirect(url_for('login'))
+   
+    return render_template('login.html')
+
+
+# Endpoint para form de consultas
+@app.route('/agregar_consulta', methods = ['POST'])
+def agregar_consulta():
+    if request.method == 'POST':
+        nombre = request.form.get('email')
+        apellido = request.form.get('contraseña')
+        email = request.form.get('email')
+        asunto = request.form.get('asunto')
+        mensaje = request.form.get('mensaje')
+
+        datos = {'nombre':nombre, 'apellido':apellido, 'email':email, 'asunto':asunto, 'mensaje':mensaje}
+
+        if nombre and apellido and email and asunto and mensaje:
+            response = requests.post(API_URL.join('agregar_consulta'), json=datos)
+            
+            if response.status_code == 201:
+                flash('Formulario enviado.')
+                return redirect(url_for('contacto'))
+            else:
+                flash('Error al enviar el formulario.')
+                return redirect(url_for('contacto'))
+   
+    return render_template('login.html')
+
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8000", debug=True)

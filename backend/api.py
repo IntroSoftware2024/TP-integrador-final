@@ -5,13 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 api = Flask(__name__)
-engine = create_engine("mysql+mysqlconnector://root@localhost/") #Agregar url base de datos.
-
-
-@api.route('/test', methods=['GET'])
-def test():
-    return jsonify({'message':'Backend funciona'}),200
-
+engine = create_engine("mysql+mysqlconnector://root@localhost/emprendimientos") #Agregar url base de datos.
 
 
 # ---- Rutas de Emprendimientos ---- 
@@ -193,9 +187,42 @@ def crear_usuario():
         return jsonify({'message': 'Error al crear usuario.' + str(e.__cause__)}), 500
     except Exception as e:
         conn.close()
-        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500 
+        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500
     
     return jsonify({'message': 'El usuario se ha creado exitosamente.' + query}), 201  
+
+
+# Endpoint para iniciar sesion
+@api.route('/iniciar_sesion', methods = ['POST'])
+def iniciar_sesion():
+    try:
+        conn = engine.connect()
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
+    except Exception as err:
+        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
+
+    user = request.get_json()
+
+    # Verificar si se recibieron los campos necesarios
+    if 'email' not in user or 'contraseña' not in user:
+        conn.close()
+        return jsonify({'message': 'Se deben proporcionar el email y la contraseña.'}), 400
+
+    query = f""""SELECT * FROM users WHERE email = {user['email']};"""
+
+    try:
+        conn.execute(text(query))
+        conn.commit()
+        conn.close()
+    except SQLAlchemyError as e:
+        conn.close()
+        return jsonify({'message': 'Error al iniciar sesión.' + str(e.__cause__)}), 500
+    except Exception as e:
+        conn.close()
+        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500 
+    
+    return jsonify({'message': 'Se inició sesión exitosamente.' + query}), 201  
 
 
 # Endpoint para listar todos los usuarios
@@ -229,6 +256,7 @@ def usuarios():
     return jsonify(data), 200  
 
 
+
 # ---- Rutas de Consultas ---- 
 
 # Endpoint para agregar consultas
@@ -258,6 +286,8 @@ def agregar_consulta():
         return jsonify({'message': 'Error al agregar consulta.' + str(err.__cause__)}), 500
 
     return jsonify({'message': 'Consulta agregada correctamente.'}), 201
+
+
 
 if __name__ == "__main__":
     api.run("127.0.0.1", port="5000", debug=True)
