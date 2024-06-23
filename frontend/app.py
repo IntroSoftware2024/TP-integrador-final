@@ -43,27 +43,6 @@ def login():
 def contacto():
     return render_template('contacto.html')
 
-# Errores (HAY DOS TIPOS ELEGIR CUAL USAR)
-
-# -----OPCION 1 IGUAL A LA QUE EL PROFE DIJO MAL---------
-
-"""
-
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('error.html', error_code=404), 404
-
-@app.errorhandler(500)
-def internal_server_error(error):
-    return render_template('error.html', error_code=500), 500
-
-@app.errorhandler(400)
-def bad_request(error):
-    return render_template('error.html', error_code=400), 400
-
-"""
-
-# OPCION 2 
 
 @app.errorhandler(Exception)
 def handle_error(error):
