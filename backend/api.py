@@ -248,32 +248,25 @@ def usuarios():
 # ---- Rutas de Consultas ---- 
 
 # Endpoint para agregar consultas
-api.route('/agregar_consulta', methods=['POST'])
+@api.route('/agregar_consulta', methods=['POST'])
 def agregar_consulta():
-    try:
-        conn = engine.connect()
-    except SQLAlchemyError as err:
-        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
-    except Exception as err:
-        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
-    
+    conn = engine.connect()
     nueva_consulta = request.get_json()
+    if not (nueva_consulta.get("nombre") and nueva_consulta.get("apellido") and nueva_consulta.get("email")
+            and nueva_consulta.get("asunto") and nueva_consulta.get("mensaje")):
+        return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
 
-    campos = ['nombre', 'apellido', 'email', 'asunto', 'mensaje']
-    campos_validos = {campo: nueva_consulta.get(campo) for campo in campos}
-
-    query = f"""INSERT INTO consultas ({', '.join(campos_validos.keys())}) 
-                VALUES ({', '.join([f"'{valor}'" for valor in campos_validos.values()])});"""
-
+    query = f"""INSERT INTO consultas (nombre, apellido, email, asunto, mensaje)
+    VALUES
+    ('{nueva_consulta["nombre"]}', '{nueva_consulta["apellido"]}', '{nueva_consulta["email"]}', '{nueva_consulta["asunto"]}', '{nueva_consulta["mensaje"]}');"""
     try:
-        conn.execute(text(query))
+        result = conn.execute(text(query))
         conn.commit()
         conn.close()
     except SQLAlchemyError as err:
         conn.close()
-        return jsonify({'message': 'Error al agregar consulta.' + str(err.__cause__)}), 500
-
-    return jsonify({'message': 'Consulta agregada correctamente.'}), 201
+        return jsonify({'message': 'El mensaje no pudo ser enviado. ' + str(err.__cause__)}), 400
+    return jsonify({'message': 'El mensaje se envió correctamente.'}), 201
 
 
 

@@ -48,7 +48,7 @@ def login():
 def contacto():
     return render_template('contacto.html')
 
-""""
+
 @app.errorhandler(Exception)
 def handle_error(error):
     # Determinar el código de error
@@ -62,10 +62,7 @@ def handle_error(error):
         return render_template('error.html', error_code=403), 403
     else:
         return render_template('error.html', error_code=500), 500
-"""
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
+
 
 
 # Endpoint para registrar usuario
@@ -107,28 +104,28 @@ def iniciar_sesion():
 
 
 # Endpoint para form de consultas
-@app.route('/agregar_consulta', methods = ['POST'])
-def agregar_consulta():
+@app.route('/enviar_consulta', methods = ['POST'])
+def enviar_consulta():
     if request.method == 'POST':
-        nombre = request.form.get('email')
-        apellido = request.form.get('contraseña')
+        nombre = request.form.get('nombre')
+        apellido = request.form.get('apellido')
         email = request.form.get('email')
         asunto = request.form.get('asunto')
         mensaje = request.form.get('mensaje')
 
         datos = {'nombre':nombre, 'apellido':apellido, 'email':email, 'asunto':asunto, 'mensaje':mensaje}
 
-        if nombre and apellido and email and asunto and mensaje:
-            response = requests.post(API_URL.join('agregar_consulta'), json=datos)
+        if (nombre and apellido and email and asunto and mensaje):
+            response = requests.post(API_URL + "/agregar_consulta", json=datos)
             
             if response.status_code == 201:
-                flash('Formulario enviado.')
-                return redirect(url_for('contacto'))
+                flash("Formulario enviado.", "success")
+                return render_template('contacto.html')
             else:
-                flash('Error al enviar el formulario.')
-                return redirect(url_for('contacto'))
+                flash("Error al enviar el formulario.", "error")
+                return render_template('contacto.html')
    
-    return render_template('login.html')
+    return render_template('contacto.html')
 
 
 if __name__ == "__main__":
