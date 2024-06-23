@@ -8,6 +8,12 @@ api = Flask(__name__)
 engine = create_engine("mysql+mysqlconnector://root@localhost/") #Agregar url base de datos.
 
 
+@api.route('/test', methods=['GET'])
+def test():
+    return jsonify({'message':'Backend funciona'}),200
+
+
+
 # ---- Rutas de Emprendimientos ---- 
 
 # Endpoint para agregar emprendimientos

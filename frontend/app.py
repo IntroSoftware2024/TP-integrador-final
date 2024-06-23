@@ -1,9 +1,20 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import requests
 
 app = Flask(__name__)
 
 API_URL = 'http://127.0.0.1:5000/emprendimientos'
+
+@app.route('/test')
+def test():
+    try:
+        response = requests.get(API_URL.replace('/emprendimientos','/test'))
+        response.raise_for_status()
+        return jsonify({'message': 'Estan conectado front y back', 'backend_reponde': response.json()}),200
+    except requests.exceptions.RequestException as e:
+        print(f'Error fetching data:{e}')
+        return jsonify({'message':'no esta conectado al back'}),500
+
 
 @app.route("/")
 def index():
