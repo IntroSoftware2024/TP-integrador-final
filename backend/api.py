@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 api = Flask(__name__)
-engine = create_engine("mysql+mysqlconnector://root@localhost/emprendimientos") #Agregar url base de datos.
+engine = create_engine("mysql+mysqlconnector://root@localhost/") #Agregar url base de datos.
 
 
 # ---- Rutas de Emprendimientos ---- 
@@ -162,34 +162,22 @@ def modificar_emprendimiento(id):
 # Endpoint para agregar usuarios
 @api.route('/crear_usuario', methods = ['POST'])
 def crear_usuario():
-    try:
-        conn = engine.connect()
-    except SQLAlchemyError as err:
-        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
-    except Exception as err:
-        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
-
+    conn = engine.connect()
     new_user = request.get_json()
+    if not (new_user.get("email") and new_user.get("contraseña")):
+        return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
 
-    # Verificar si se recibieron los campos necesarios
-    if 'email' not in new_user or 'contraseña' not in new_user:
-        conn.close()
-        return jsonify({'message': 'Se deben proporcionar el email y la contraseña.'}), 400
-
-    query = f"""INSERT INTO usuarios (email, contraseña) VALUES ('{new_user["email"]}', '{new_user["contraseña"]}');"""
-
+    query = f"""INSERT INTO usuarios (email, contraseña)
+    VALUES
+    ('{new_user["email"]}', '{new_user["contraseña"]}');"""
     try:
-        conn.execute(text(query))
+        result = conn.execute(text(query))
         conn.commit()
         conn.close()
-    except SQLAlchemyError as e:
+    except SQLAlchemyError as err:
         conn.close()
-        return jsonify({'message': 'Error al crear usuario.' + str(e.__cause__)}), 500
-    except Exception as e:
-        conn.close()
-        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500
-    
-    return jsonify({'message': 'El usuario se ha creado exitosamente.' + query}), 201  
+        return jsonify({'message': 'El usuario no pudo ser registrado. ' + str(err.__cause__)}), 400
+    return jsonify({'message': 'El usuario se registro correctamente.'}), 201 
 
 
 # Endpoint para iniciar sesion

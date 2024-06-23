@@ -40,12 +40,12 @@
       </div>
 
       <div id="register" class="tabcontent">
-        <form action="{{ url_for('crear_usuario') }}" method="POST">
+        <form action="{{ url_for('registrar_usuario') }}" method="POST">
           <label for="regEmail" class="loginTitulo">Correo electrónico:</label>
-          <input class="loginInput" type="email" id="regEmail" name="email" required />
+          <input class="loginInput" type="email" id="regEmail" name="email" required>
 
           <label for="regPassword" class="loginTitulo">Contraseña:</label>
-          <input class="loginInput" type="password" id="regPassword" name="contraseña" required />
+          <input class="loginInput" type="password" id="regPassword" name="contraseña" required>
 
           <button class="loginButton btn" id="registrar" type="submit">
             Registrarse

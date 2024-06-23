@@ -3,7 +3,8 @@ import requests
 
 app = Flask(__name__)
 
-API_URL = 'http://127.0.0.1:5000/'
+API_URL = 'http://127.0.0.1:5000'
+app.secret_key = 'mysecretkey'
 
 
 @app.route('/test')
@@ -47,7 +48,7 @@ def login():
 def contacto():
     return render_template('contacto.html')
 
-
+""""
 @app.errorhandler(Exception)
 def handle_error(error):
     # Determinar el código de error
@@ -61,26 +62,27 @@ def handle_error(error):
         return render_template('error.html', error_code=403), 403
     else:
         return render_template('error.html', error_code=500), 500
-    
+"""
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 
 # Endpoint para registrar usuario
-@app.route('/crear_usuario', methods = ['POST'])
-def crear_usuario():
-    if request.method == 'POST':
+@app.route('/registrar_usuario', methods = ['POST'])
+def registrar_usuario():
+    if request.method == "POST":
         email = request.form.get('email')
         contraseña = request.form.get('contraseña')
-        usuario = {'email':email, 'contraseña':contraseña}
-
-        if email and contraseña:
-            response = requests.post(API_URL.join('crear_usuario'), json=usuario)
-            
+        usuario = {'email': email, 'contraseña': contraseña}
+        if (email and contraseña):
+            response = requests.post(API_URL + "/crear_usuario", json=usuario)
             if response.status_code == 201:
-                flash('Usuario registrado exitosamente.')
-                return redirect(url_for('iniciar_sesion'))
+                flash("Registro exitoso!", "success")
+                return redirect(url_for('login')) 
             else:
-                flash('Error al registrar el usuario.')
-                return redirect(url_for('crear_usuario'))
-   
+                flash("Registro fallido!", "error")
+                return render_template('login.html')
     return render_template('login.html')
 
 
