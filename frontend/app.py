@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, flash
 import requests
 
 app = Flask(__name__)
 
-API_URL = 'http://127.0.0.1:5000/emprendimientos'
+API_URL = 'http://127.0.0.1:5000/'
+
 
 @app.route('/test')
 def test():
@@ -57,6 +58,25 @@ def handle_error(error):
         return render_template('error.html', error_code=403), 403
     else:
         return render_template('error.html', error_code=500), 500
+    
+
+# Endpoint para registrar usuario
+@app.route('/crear_usuario', methods = ['GET','POST'])
+def crear_usuario():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        contrasenia = request.form.get('contrasenia')
+
+        if email and contrasenia:
+            response = requests.post(API_URL.join('crear_usuario', email = email,contrasenia = contrasenia))
+            if response.status_code == 201:
+                flash('Usuario registrado exitosamente.')
+                return render_template('login.html')
+            else:
+                flash('Error al registrar el usuario.')
+                return render_template('login.html')
+   
+    return render_template('login.html')
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8000", debug=True)
