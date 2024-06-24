@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 api = Flask(__name__)
-engine = create_engine("mysql+mysqlconnector://root@localhost/emprende_facil") #Agregar url base de datos.
+engine = create_engine("mysql+mysqlconnector://root@localhost/emprendimientos") #Agregar url base de datos.
 
 # ---- Rutas de Usuarios ---- 
 
@@ -91,7 +91,6 @@ def inicio_de_sesion():
         conn.close()
         return jsonify({'message': 'Error inesperado: ' + str(e)}), 500
 
-
 # Endpoint para listar todos los usuarios
 @api.route('/usuarios', methods=['GET'])
 def usuarios():
@@ -121,6 +120,7 @@ def usuarios():
         conn.close()  
 
     return jsonify(data), 200  
+
 
 # ---- Rutas de Emprendimientos ---- 
 
@@ -200,30 +200,34 @@ def eliminar_emprendimiento(id):
         return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
     except Exception as err:
         return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
+    
+    emprendimiento = request.get_json()
 
-    query = f"DELETE FROM emprendimientos WHERE id = {id};"
-    val_query = f"SELECT * FROM emprendimientos WHERE id = {id};"
+    if not (emprendimiento['emprendimiento_id'] and emprendimiento['nombre'] and emprendimiento['categoria']):
+        conn.close()
+        return jsonify({'message': 'Se debee ingresar el id, el nombre y la categoría.'}), 400
+
+    query = f"DELETE FROM emprendimientos WHERE emprendimiento_id = {id};"
+    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = {id};"
 
     try:
-        val_result = conn.execute(text(val_query))
-        if val_result.rowcount != 0:
+        result = conn.execute(text(val_query))
+        if result.rowcount != 0:
             conn.execute(text(query))
             conn.commit()
-            message = {'message': 'Se ha eliminado el emprendimiento correctamente.'}
-            status_code = 202
+            conn.close()
         else:
-            message = {"message": "El emprendimiento con ese id no existe."}
-            status_code = 404
+            conn.close()
+            return jsonify({'message': 'No existe un emprendimiento con ese id.'}), 404
     except SQLAlchemyError as err:
-        message = {'message': 'No se pudo borrar el emprendimiento con ese id. ' + str(err.__cause__)}
-        status_code = 500
-    except Exception as err:
-        message = {'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}
-        status_code = 500
-    finally:
         conn.close()
-    
-    return jsonify(message), status_code
+        return jsonify({'message': 'No se pudo borrar el emprendimiento con ese id. ' + str(err.__cause__)}), 500
+    except Exception as err:
+        conn.close()
+        return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
+
+    return jsonify({'message': 'Se ha eliminado el emprendimiento correctamente.'}), 202
+
 
 # Endpoint para modificar emprendimientos
 @api.route('/modificar_emprendimiento/<id>', methods=['PATCH'])
@@ -237,6 +241,10 @@ def modificar_emprendimiento(id):
 
     emprendimiento = request.get_json()
 
+    if not (emprendimiento['emprendimiento_id'] and emprendimiento['nombre']):
+        conn.close()
+        return jsonify({'message': 'Se debee ingresar el id, el nombre y lo que se desee modificar.'}), 400
+
     campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
     campos_a_actualizar = {campo: emprendimiento[campo] for campo in campos if campo in emprendimiento}
 
@@ -245,29 +253,27 @@ def modificar_emprendimiento(id):
         return jsonify({'message': 'No se ha proporcionado ningún campo válido para actualizar.'}), 400
 
     query = f"UPDATE emprendimientos SET {', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])} WHERE id = :id"
-    campos_a_actualizar['id'] = id
+#    campos_a_actualizar['id'] = id
+    val_query = f"SELECT * FROM emprendimientos WHERE id = {id};"
 
     try:
-        val_query = f"SELECT * FROM emprendimientos WHERE id = {id};"
-        val_result = conn.execute(text(val_query))
-        if val_result.rowcount != 0:
+        result = conn.execute(text(val_query))
+        if result.rowcount != 0:
             conn.execute(text(query), campos_a_actualizar)
             conn.commit()
-            message = {'message': 'Se ha modificado correctamente el emprendimiento.'}
-            status_code = 200
+            conn.close()
         else:
-            message = {'message': 'No existe un emprendimiento con ese id.'}
-            status_code = 404
+            conn.close()
+            return jsonify({'message': 'No existe un emprendimiento con ese id.'}), 404
     except SQLAlchemyError as err:
-        message = {'message': 'No se pudo modificar el emprendimiento con ese id. ' + str(err.__cause__)}
-        status_code = 500
-    except Exception as err:
-        message = {'message': 'Ocurrió un error inesperado al intentar modificar el emprendimiento. ' + str(err)}
-        status_code = 500
-    finally:
         conn.close()
+        return jsonify({'message': 'No se pudo borrar el emprendimiento con ese id. ' + str(err.__cause__)}), 500
+    except Exception as err:
+        conn.close()
+        return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
 
-    return jsonify(message), status_code
+    return jsonify({'message': 'Se ha modificado correctamente el emprendimiento.'}), 202
+
 
 # ---- Rutas de Consultas ---- 
 
