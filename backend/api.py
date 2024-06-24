@@ -136,12 +136,14 @@ def agregar_emprendimiento():
         return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
 
 
-    check_query = text("SELECT * FROM emprendimientos WHERE nombre = :nombre OR instagram = :instagram")
+    check_query = text("SELECT * FROM emprendimientos WHERE nombre = :nombre OR instagram = :instagram OR contacto = :contacto")
 
     try:
-        result = conn.execute(check_query, {'nombre': nuevo_emprendimiento["nombre"], 'instagram': nuevo_emprendimiento["instagram"]}).fetchone()
+        result = conn.execute(check_query, {'nombre': nuevo_emprendimiento["nombre"], 
+                                           'instagram': nuevo_emprendimiento["instagram"],
+                                           'contacto': nuevo_emprendimiento["contacto"]}).fetchone()
         if result:
-            return jsonify({'message': 'El nombre o el Instagram de emprendimiento ya existe.'}), 409
+            return jsonify({'message': 'El nombre, Instagram o contacto de emprendimiento ya existe.'}), 409
     except SQLAlchemyError as err:
         return jsonify({'message': 'Error al verificar la existencia del emprendimiento. ' + str(err.__cause__)}), 500
 

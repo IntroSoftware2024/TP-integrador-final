@@ -130,7 +130,7 @@ def subir_emprendimiento():
                 flash(f'id de tu emprendimiento: {emp_id}')
                 return redirect(url_for('subir_emp'))
             elif response.status_code == 409:
-                flash("El Nombre o el Instagram de emprendimiento ya existe.", "error")
+                flash("El Nombre, Instagram o el Contacto de emprendimiento ya existe.", "error")
                 return redirect(url_for('subir_emp'))
             else:
                 flash("Error al agregar el emprendimiento", "error")
