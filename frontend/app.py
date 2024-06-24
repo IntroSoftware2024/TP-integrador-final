@@ -134,10 +134,35 @@ def subir_emprendimiento():
     return render_template('subir_emp.html')
 
 
+# Eliminar un emprendimiento
+@app.route('/eliminar_emp', methods = ['DELETE'])
+def eliminar_emp():
+    if request.method == 'DELETE':
+        id_emp = request.form.get('emprendimiento_id')
+        nombre = request.form.get('nombre')
+        categoria = request.form.get('categoria')
+        mensaje = request.form.get('descripcion')
+
+        datos = {'emprendimiento_id':id_emp, 'nombre':nombre, 'categoria':categoria, 'descripcion':mensaje}
+
+        if id_emp and nombre and categoria:
+            response = requests.delete(API_URL + f'/eliminar_emprendimiento/{id_emp}')
+            #response = requests.delete(API_URL.join('eliminar_emprendimiento/') + id_emp)
+            
+            if response.status_code == 201:
+                flash('Emprendimiento eliminado.')
+                return redirect(url_for('subir_emp'))
+            else:
+                flash('Error al eliminar el emprendimiento.')
+                return redirect(url_for('subir_emp'))
+   
+    return render_template('subir_emp.html')
+
+
 # Modificar un emprendimiento
 @app.route('/modificar_emp', methods = ['PATCH'])
 def modificar_emp():
-    if request.method == 'POST':
+    if request.method == 'PATCH':
         id_emp = request.form.get('emprendimiento_id')
         nombre = request.form.get('nombre')
         instagram = request.form.get('instagram')
@@ -152,7 +177,7 @@ def modificar_emp():
                  'direccion':direccion, 'localidad':localidad, 'provincia':provincia, 'contacto':contacto}
 
         if id_emp:
-            response = requests.post(API_URL.join('modificar_emprendimiento'), json=datos)
+            response = requests.patch(API_URL.join('modificar_emprendimiento'), json=datos)
             
             if response.status_code == 201:
                 flash('Emprendimiento modificado.')
@@ -163,29 +188,6 @@ def modificar_emp():
    
     return render_template('subir_emp.html')
 
-
-# Eliminar un emprendimiento
-@app.route('/eliminar_emp', methods = ['DELETE'])
-def eliminar_emp():
-    if request.method == 'POST':
-        id_emp = request.form.get('emprendimiento_id')
-        nombre = request.form.get('nombre')
-        categoria = request.form.get('categoria')
-        mensaje = request.form.get('descripcion')
-
-        datos = {'emprendimiento_id':id_emp, 'nombre':nombre, 'categoria':categoria, 'descripcion':mensaje}
-
-        if id_emp and nombre and categoria:
-            response = requests.post(API_URL.join('eliminar_emprendimiento'), json=datos)
-            
-            if response.status_code == 201:
-                flash('Emprendimiento eliminado.')
-                return redirect(url_for('subir_emp'))
-            else:
-                flash('Error al eliminar el emprendimiento.')
-                return redirect(url_for('subir_emp'))
-   
-    return render_template('subir_emp.html')
 
 
 # Endpoint para form de consultas

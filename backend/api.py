@@ -201,19 +201,19 @@ def eliminar_emprendimiento(id):
     except Exception as err:
         return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
     
-    emprendimiento = request.get_json()
+    #emprendimiento = request.get_json()
 
-    if not (emprendimiento['emprendimiento_id'] and emprendimiento['nombre'] and emprendimiento['categoria']):
-        conn.close()
-        return jsonify({'message': 'Se debee ingresar el id, el nombre y la categoría.'}), 400
+    #if not (emprendimiento['emprendimiento_id'] and emprendimiento['nombre'] and emprendimiento['categoria']):
+    #    conn.close()
+    #    return jsonify({'message': 'Se debee ingresar el id, el nombre y la categoría.'}), 400
 
-    query = f"DELETE FROM emprendimientos WHERE emprendimiento_id = {id};"
-    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = {id};"
+    query = f"DELETE FROM emprendimientos WHERE emprendimiento_id = :id;"
+    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = :id;"
 
     try:
-        result = conn.execute(text(val_query))
+        result = conn.execute(text(val_query), {'id': id})
         if result.rowcount != 0:
-            conn.execute(text(query))
+            conn.execute(text(query), {'id': id})
             conn.commit()
             conn.close()
         else:
@@ -252,9 +252,9 @@ def modificar_emprendimiento(id):
         conn.close()
         return jsonify({'message': 'No se ha proporcionado ningún campo válido para actualizar.'}), 400
 
-    query = f"UPDATE emprendimientos SET {', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])} WHERE id = :id"
+    query = f"UPDATE emprendimientos SET {', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])} WHERE emprendimiento_id = :id"
 #    campos_a_actualizar['id'] = id
-    val_query = f"SELECT * FROM emprendimientos WHERE id = {id};"
+    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = {id};"
 
     try:
         result = conn.execute(text(val_query))
