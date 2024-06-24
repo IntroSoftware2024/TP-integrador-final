@@ -35,21 +35,9 @@ def login():
 def contacto():
     return render_template('contacto.html', show_nav_buttons=True)
 
-# aca tiene que haber try except?
 @app.route("/emprendimientos/<categoria>")
 def emprendimientos(categoria):
-    if categoria == 'busqueda':
-        categoria = request.args.get('categoria', 'busqueda')
-
-    try:
-        response = requests.get(API_URL)
-        response.raise_for_status()
-        emprendimientos = response.json().get('emprendimientos', [])
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-        emprendimientos = []
-
-    return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos, show_nav_buttons=True)
+    return render_template('emprendimientos.html', categorias=categoria, show_nav_buttons=True)
 
 
 # Endpoint para registrar usuario
@@ -168,7 +156,6 @@ def eliminar_emp():
     return redirect(url_for('subir_emp'))
 
 
-
 # Modificar un emprendimiento
 @app.route('/modificar_emp', methods=['POST'])
 def modificar_emp():
@@ -221,6 +208,49 @@ def modificar_emp():
     return redirect(url_for('subir_emp'))
 
 
+@app.route("/emprendimientos", methods=['GET'])
+def mostrar_emprendimientos():
+    response = requests.get(API_URL + "/listar_emprendimientos")
+    if response.status_code == 200:
+        emprendimientos = response.json()
+        return render_template("emprendimientos.html", emprendimientos=emprendimientos)
+    else:
+        return jsonify({"error": "No se pudieron obtener los emprendimientos"}), 400
+
+
+'''
+@app.route('/mostrar_emprendimientos', methods=['GET'])
+def mostrar_emprendimientos():
+
+    try:          
+        response = requests.get(API_URL + "/listar_emprendimientos")
+        emprendimientos = response.json()
+
+        return render_template('emprendimientos.html', emprendimientos=emprendimientos)
+        
+    except requests.exceptions.HTTPError as e:
+        print(f"Error fetching data: {e}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+
+
+
+# aca tiene que haber try except?
+@app.route("/emprendimientos/<categoria>")
+def emprendimientos(categoria):
+
+    try:
+        response = requests.get(API_URL + "/listar_emprendimientos")
+        response.raise_for_status()
+        emprendimientos = response.json().get('emprendimientos', [])
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        emprendimientos = []
+
+    return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos, show_nav_buttons=True)
+'''
+
 
 # Endpoint para form de consultas
 @app.route('/enviar_consulta', methods = ['POST'])
@@ -246,7 +276,7 @@ def enviar_consulta():
    
     return render_template('contacto.html')
 
-
+'''
 @app.errorhandler(Exception)
 def handle_error(error):
     error_code = getattr(error, 'code', 500)
@@ -259,6 +289,8 @@ def handle_error(error):
         return render_template('error.html', error_code=403), 403
     else:
         return render_template('error.html', error_code=500), 500
+'''
+
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8000", debug=True)

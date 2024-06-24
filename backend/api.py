@@ -165,7 +165,7 @@ def agregar_emprendimiento():
     return jsonify({'message': 'Emprendimiento agregado exitosamente.', 'emprendimiento_id': emprendimiento_id}), 201
 
 # Endpoint para listar todos los emprendimientos
-@api.route('/emprendimientos', methods=['GET'])
+@api.route('/listar_emprendimientos', methods=['GET'])
 def listar_emprendimientos():
     try:
         conn = engine.connect()
@@ -202,7 +202,7 @@ def listar_emprendimientos():
         }
         data.append(entity)
 
-    return jsonify({'emprendimientos': data}), 200
+    return jsonify(data), 200
 
 # Endpoint para eliminar emprendimientos
 @api.route('/eliminar_emprendimiento/<id>', methods=['DELETE'])
