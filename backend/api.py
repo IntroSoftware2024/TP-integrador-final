@@ -5,29 +5,48 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 api = Flask(__name__)
-engine = create_engine("mysql+mysqlconnector://root@localhost/") #Agregar url base de datos.
+engine = create_engine("mysql+mysqlconnector://root@localhost/emprende_facil") #Agregar url base de datos.
 
 # ---- Rutas de Usuarios ---- 
 
 # Endpoint para agregar usuarios
 @api.route('/crear_usuario', methods = ['POST'])
 def crear_usuario():
-    conn = engine.connect()
+    try:
+        conn = engine.connect()
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
+    except Exception as err:
+        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
+    
     new_user = request.get_json()
-    if not (new_user.get("email") and new_user.get("contraseña")):
+    if not new_user:
+        return jsonify({'message': 'No se enviaron datos en el cuerpo de la solicitud'}), 400
+
+    email = new_user.get("email")
+    password = new_user.get("contraseña")
+
+    if not (email and password):
         return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
 
-    query = f"""INSERT INTO usuarios (email, contraseña)
-    VALUES
-    ('{new_user["email"]}', '{new_user["contraseña"]}');"""
+    check_query = text("SELECT * FROM usuarios WHERE email = :email")
     try:
-        result = conn.execute(text(query))
-        conn.commit()
-        conn.close()
+        result = conn.execute(check_query, {'email': email}).fetchone()
+        if result:
+            return jsonify({'message': 'El usuario ya existe.'}), 409
     except SQLAlchemyError as err:
-        conn.close()
+        return jsonify({'message': 'Error al verificar la existencia del usuario. ' + str(err.__cause__)}), 500
+
+    query = text("INSERT INTO usuarios (email, contraseña) VALUES (:email, :password)")
+
+    try:
+        with engine.connect() as conn:
+            conn.execute(query, {'email': email, 'password': password})
+            conn.commit()
+    except SQLAlchemyError as err:
         return jsonify({'message': 'El usuario no pudo ser registrado. ' + str(err.__cause__)}), 400
-    return jsonify({'message': 'El usuario se registro correctamente.'}), 201 
+
+    return jsonify({'message': 'El usuario se registró correctamente.'}), 201
 
 # Endpoint para iniciar sesion
 @api.route('/iniciar_sesion', methods = ['POST'])

@@ -44,6 +44,9 @@ def registrar_usuario():
             if response.status_code == 201:
                 flash("Registro exitoso!", "success")
                 return redirect(url_for('login')) 
+            elif response.status_code == 409:
+                flash("El usuario ya existe.", "error")
+                return redirect(url_for('login')) 
             else:
                 flash("Registro fallido!", "error")
                 return render_template('login.html')
@@ -137,9 +140,8 @@ def enviar_consulta():
 
 @app.errorhandler(Exception)
 def handle_error(error):
-    # Determinar el código de error
     error_code = getattr(error, 'code', 500)
-    # Mostrar un mensaje de error personalizado dependiendo del código de error
+
     if error_code == 404:
         return render_template('error.html', error_code=404), 404
     elif error_code == 400:
