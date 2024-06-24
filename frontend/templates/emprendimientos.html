@@ -68,7 +68,7 @@
                   <ul class="nacc">
 
                     <!-- first category listing of items -->
-                    <li class="{% if categoria in ['ropa', 'todos'] %}active{% endif %}">
+                    <li class="{% if categoria in ['ropa'] %}active{% endif %}">
                       {% if emprendimientos %}
                         {% for emprendimiento in emprendimientos %}
                           <div>
@@ -87,15 +87,15 @@
                                           </div>
                                         </div>
                                         <div class="right-content align-self-center">
-                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
-                                          <h6>{{ emprendimiento.instagram }}</h6>
-                                          <span class="details">{{ emprendimiento.descripcion }}</span>
-                                          <span class="info"> {{ emprendimiento.direccion }} 
-                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                          <a href="#"><h4>{{ emprendimiento['nombre'] }}</h4></a>
+                                          <h6>{{ emprendimiento['instagram'] }}</h6>
+                                          <span class="details">{{ emprendimiento['descripcion'] }}</span>
+                                          <span class="info"> {{ emprendimiento['direccion'] }} 
+                                          <span class="info"> {{ emprendimiento['localidad'] }} 
                                             <br>
-                                            {{ emprendimiento.provincia }} 
+                                            {{ emprendimiento['provincia'] }} 
                                             <br>
-                                            {{ emprendimiento.contacto }}
+                                            {{ emprendimiento['contacto'] }}
                                           </span>
                                         </div>
                                       </div>
@@ -112,7 +112,7 @@
                     </li> 
                     
                   <!-- second category listing of items -->
-                  <li class="{% if categoria in ['comida', 'todos'] %}active{% endif %}">
+                  <li class="{% if categoria in ['comida'] %}active{% endif %}">
                     {% if emprendimientos %}
                       {% for emprendimiento in emprendimientos %}
                         <div>
@@ -131,15 +131,15 @@
                                         </div>
                                       </div>
                                       <div class="right-content align-self-center">
-                                        <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
-                                        <h6>{{ emprendimiento.instagram }}</h6>
-                                        <span class="details">{{ emprendimiento.descripcion }}</span>
-                                        <span class="info"> {{ emprendimiento.direccion }} 
-                                        <span class="info"> {{ emprendimiento.localidad }} 
+                                        <a href="#"><h4>{{ emprendimiento['nombre'] }}</h4></a>
+                                        <h6>{{ emprendimiento['instagram'] }}</h6>
+                                        <span class="details">{{ emprendimiento['descripcion'] }}</span>
+                                        <span class="info"> {{ emprendimiento['direccion'] }} 
+                                        <span class="info"> {{ emprendimiento['localidad'] }} 
                                           <br>
-                                          {{ emprendimiento.provincia }} 
+                                          {{ emprendimiento['provincia'] }} 
                                           <br>
-                                          {{ emprendimiento.contacto }}
+                                          {{ emprendimiento['contacto'] }}
                                         </span>
                                       </div>
                                     </div>
@@ -149,14 +149,14 @@
                             </div>
                           </div>
                         </div>
-                      {% endfor %}
-                    {% else %}
-                      <h4>No se encontraron emprendimientos para esta categoría.</h4>
-                    {% endif %}
+                        {% endfor %}
+                      {% else %}
+                        <h4>No se encontraron emprendimientos para esta categoría.</h4>
+                      {% endif %}
                   </li> 
 
                     <!-- third category first page -->
-                    <li class="{% if categoria in ['regalos', 'todos'] %}active{% endif %}">
+                    <li class="{% if categoria in ['regalos'] %}active{% endif %}">
                       {% if emprendimientos %}
                         {% for emprendimiento in emprendimientos %}
                           <div>
@@ -175,15 +175,15 @@
                                           </div>
                                         </div>
                                         <div class="right-content align-self-center">
-                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
-                                          <h6>{{ emprendimiento.instagram }}</h6>
-                                          <span class="details">{{ emprendimiento.descripcion }}</span>
-                                          <span class="info"> {{ emprendimiento.direccion }} 
-                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                          <a href="#"><h4>{{ emprendimiento['nombre'] }}</h4></a>
+                                          <h6>{{ emprendimiento['instagram'] }}</h6>
+                                          <span class="details">{{ emprendimiento['descripcion'] }}</span>
+                                          <span class="info"> {{ emprendimiento['direccion'] }} 
+                                          <span class="info"> {{ emprendimiento['localidad'] }} 
                                             <br>
-                                            {{ emprendimiento.provincia }} 
+                                            {{ emprendimiento['provincia'] }} 
                                             <br>
-                                            {{ emprendimiento.contacto }}
+                                            {{ emprendimiento['contacto'] }}
                                           </span>
                                         </div>
                                       </div>
@@ -200,7 +200,7 @@
                     </li> 
               
                     <!-- 4th category 1st page -->
-                    <li class="{% if categoria in ['experiencias', 'todos'] %}active{% endif %}">
+                    <li class="{% if categoria in ['experiencias'] %}active{% endif %}">
                       {% if emprendimientos %}
                         {% for emprendimiento in emprendimientos %}
                           <div>
@@ -219,15 +219,15 @@
                                           </div>
                                         </div>
                                         <div class="right-content align-self-center">
-                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
-                                          <h6>{{ emprendimiento.instagram }}</h6>
-                                          <span class="details">{{ emprendimiento.descripcion }}</span>
-                                          <span class="info"> {{ emprendimiento.direccion }} 
-                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                          <a href="#"><h4>{{ emprendimiento['nombre'] }}</h4></a>
+                                          <h6>{{ emprendimiento['instagram'] }}</h6>
+                                          <span class="details">{{ emprendimiento['descripcion'] }}</span>
+                                          <span class="info"> {{ emprendimiento['direccion'] }} 
+                                          <span class="info"> {{ emprendimiento['localidad'] }} 
                                             <br>
-                                            {{ emprendimiento.provincia }} 
+                                            {{ emprendimiento['provincia'] }} 
                                             <br>
-                                            {{ emprendimiento.contacto }}
+                                            {{ emprendimiento['contacto'] }}
                                           </span>
                                         </div>
                                       </div>
@@ -244,7 +244,7 @@
                     </li> 
 
                     <!-- fifth category listing of items -->
-                    <li class="{% if categoria in ['mascotas', 'todos'] %}active{% endif %}">
+                    <li class="{% if categoria in ['mascotas'] %}active{% endif %}">
                       {% if emprendimientos %}
                         {% for emprendimiento in emprendimientos %}
                           <div>
@@ -263,15 +263,15 @@
                                           </div>
                                         </div>
                                         <div class="right-content align-self-center">
-                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
-                                          <h6>{{ emprendimiento.instagram }}</h6>
-                                          <span class="details">{{ emprendimiento.descripcion }}</span>
-                                          <span class="info"> {{ emprendimiento.direccion }} 
-                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                          <a href="#"><h4>{{ emprendimiento['nombre'] }}</h4></a>
+                                          <h6>{{ emprendimiento['instagram'] }}</h6>
+                                          <span class="details">{{ emprendimiento['descripcion'] }}</span>
+                                          <span class="info"> {{ emprendimiento['direccion'] }} 
+                                          <span class="info"> {{ emprendimiento['localidad'] }} 
                                             <br>
-                                            {{ emprendimiento.provincia }} 
+                                            {{ emprendimiento['provincia'] }} 
                                             <br>
-                                            {{ emprendimiento.contacto }}
+                                            {{ emprendimiento['contacto'] }}
                                           </span>
                                         </div>
                                       </div>
@@ -288,7 +288,7 @@
                     </li> 
 
                     <!-- otros -->
-                    <li class="{% if categoria in ['otro', 'todos'] %}active{% endif %}">
+                    <li class="{% if categoria in ['otro'] %}active{% endif %}">
                       {% if emprendimientos %}
                         {% for emprendimiento in emprendimientos %}
                           <div>
@@ -307,15 +307,15 @@
                                           </div>
                                         </div>
                                         <div class="right-content align-self-center">
-                                          <a href="#"><h4>{{ emprendimiento.nombre }}</h4></a>
-                                          <h6>{{ emprendimiento.instagram }}</h6>
-                                          <span class="details">{{ emprendimiento.descripcion }}</span>
-                                          <span class="info"> {{ emprendimiento.direccion }} 
-                                          <span class="info"> {{ emprendimiento.localidad }} 
+                                          <a href="#"><h4>{{ emprendimiento['nombre'] }}</h4></a>
+                                          <h6>{{ emprendimiento['instagram'] }}</h6>
+                                          <span class="details">{{ emprendimiento['descripcion'] }}</span>
+                                          <span class="info"> {{ emprendimiento['direccion'] }} 
+                                          <span class="info"> {{ emprendimiento['localidad'] }} 
                                             <br>
-                                            {{ emprendimiento.provincia }} 
+                                            {{ emprendimiento['provincia'] }} 
                                             <br>
-                                            {{ emprendimiento.contacto }}
+                                            {{ emprendimiento['contacto'] }}
                                           </span>
                                         </div>
                                       </div>
