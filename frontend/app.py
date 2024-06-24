@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for, abort, session
 import requests
 
 app = Flask(__name__)
@@ -18,10 +18,13 @@ def test():
 
 @app.route("/")
 def index():
+    session.clear()
     return render_template('index.html')
 
 @app.route("/subir_emp")
-def emp():
+def subir_emp():
+    if 'email' not in session:
+        return abort(403, "Acceso prohibido. Debes iniciar sesión para acceder a esta página.")
     return render_template('subir_emp.html')
 
 @app.route("/login")
@@ -65,7 +68,8 @@ def iniciar_sesion():
             response = requests.post(f'{API_URL}/inicio_de_sesion', json=usuario)
             
             if response.status_code == 200:
-                return render_template('subir_emp.html')
+                session['email'] = email
+                return redirect(url_for('subir_emp'))
             elif response.status_code == 404:
                 flash('Usuario no encontrado. Por favor, regístrese.', 'error')
                 return redirect(url_for('login'))
