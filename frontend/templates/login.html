@@ -6,16 +6,6 @@
 
   <div class="login-page">
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-        <br>
-        <br>
-        <h3>{{ message }}</h3>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-
     <div class="content">
       <div class="center">
         <h3>Inicia sesión para subir tu emprendimiento</h3>
@@ -53,6 +43,17 @@
         </form>
       
       </div>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+          <br>
+          <br>
+          <h3>{{ message }}</h3>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      
     </div>
   </div>
 
