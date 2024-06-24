@@ -139,28 +139,33 @@ def subir_emprendimiento():
 
 
 # Eliminar un emprendimiento
-@app.route('/eliminar_emp', methods = ['DELETE'])
+@app.route('/eliminar_emp', methods=['POST'])
 def eliminar_emp():
-    if request.method == 'DELETE':
+    if request.method == 'POST':
         id_emp = request.form.get('emprendimiento_id')
         nombre = request.form.get('nombre')
         categoria = request.form.get('categoria')
-        mensaje = request.form.get('descripcion')
-
-        datos = {'emprendimiento_id':id_emp, 'nombre':nombre, 'categoria':categoria, 'descripcion':mensaje}
 
         if id_emp and nombre and categoria:
-            response = requests.delete(API_URL + f'/eliminar_emprendimiento/{id_emp}')
-            #response = requests.delete(API_URL.join('eliminar_emprendimiento/') + id_emp)
-            
-            if response.status_code == 201:
-                flash('Emprendimiento eliminado.')
-                return redirect(url_for('subir_emp'))
-            else:
-                flash('Error al eliminar el emprendimiento.')
-                return redirect(url_for('subir_emp'))
-   
-    return render_template('subir_emp.html')
+            try:
+               
+                response = requests.delete(f'{API_URL}/eliminar_emprendimiento/{id_emp}')
+
+                if response.status_code == 200:
+                    flash('Emprendimiento eliminado correctamente.', 'success')
+                elif response.status_code == 404:
+                    flash('No se encontró el emprendimiento para eliminar.', 'error')
+                else:
+                    flash('Error al eliminar el emprendimiento.', 'error')
+
+            except requests.exceptions.RequestException as e:
+                flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
+
+        else:
+            flash('Debe proporcionar el ID, nombre y categoría del emprendimiento.', 'error')
+
+    return redirect(url_for('subir_emp'))
+
 
 
 # Modificar un emprendimiento

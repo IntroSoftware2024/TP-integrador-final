@@ -212,32 +212,29 @@ def eliminar_emprendimiento(id):
     except Exception as err:
         return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
     
-    #emprendimiento = request.get_json()
-
-    #if not (emprendimiento['emprendimiento_id'] and emprendimiento['nombre'] and emprendimiento['categoria']):
-    #    conn.close()
-    #    return jsonify({'message': 'Se debee ingresar el id, el nombre y la categoría.'}), 400
-
-    query = f"DELETE FROM emprendimientos WHERE emprendimiento_id = :id;"
-    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = :id;"
+    val_query = text("SELECT * FROM emprendimientos WHERE emprendimiento_id = :id;")
 
     try:
-        result = conn.execute(text(val_query), {'id': id})
-        if result.rowcount != 0:
-            conn.execute(text(query), {'id': id})
-            conn.commit()
+        print(id)
+        result = conn.execute(val_query, {'id': id}).fetchone()
+
+        if not result:
             conn.close()
-        else:
-            conn.close()
-            return jsonify({'message': 'No existe un emprendimiento con ese id.'}), 404
+            return jsonify({'message': 'No existe un emprendimiento con ese ID.'}), 404
+ 
+        delete_query = text("DELETE FROM emprendimientos WHERE emprendimiento_id = :id")
+        conn.execute(delete_query, {'id': id})
+        conn.commit()
+        conn.close()
+
+        return jsonify({'message': 'Emprendimiento eliminado correctamente.'}), 200
+
     except SQLAlchemyError as err:
         conn.close()
-        return jsonify({'message': 'No se pudo borrar el emprendimiento con ese id. ' + str(err.__cause__)}), 500
+        return jsonify({'message': 'Error al eliminar el emprendimiento. ' + str(err)}), 500
     except Exception as err:
         conn.close()
         return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
-
-    return jsonify({'message': 'Se ha eliminado el emprendimiento correctamente.'}), 202
 
 
 # Endpoint para modificar emprendimientos
