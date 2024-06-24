@@ -143,13 +143,14 @@ def agregar_emprendimiento():
     
     try:
         result = conn.execute(text(query))
+        emprendimiento_id = result.lastrowid
         conn.commit()
         conn.close()
     except SQLAlchemyError as err:
         conn.close()
         return jsonify({'message': 'Error al agregar emprendimiento. ' + str(err.__cause__)}), 500
 
-    return jsonify({'message': 'Emprendimiento agregado exitosamente.'}), 201
+    return jsonify({'message': 'Emprendimiento agregado exitosamente.', 'emprendimiento_id': emprendimiento_id}), 201
 
 # Endpoint para listar todos los emprendimientos
 @api.route('/emprendimientos', methods=['GET'])

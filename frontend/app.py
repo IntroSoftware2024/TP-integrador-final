@@ -124,7 +124,8 @@ def subir_emprendimiento():
             response = requests.post(API_URL + "/agregar_emprendimiento", json=datos)
             
             if response.status_code == 201:
-                emp_id = response.json().get('eprendimiento_id')
+                print(response.json())
+                emp_id = response.json().get('emprendimiento_id')
                 flash("Emprendimiento agregado.", "success")
                 flash(f'id de tu emprendimiento: {emp_id}')
                 return redirect(url_for('subir_emp'))
