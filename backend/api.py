@@ -246,7 +246,7 @@ def eliminar_emprendimiento(id):
         return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
 
 
-# Endpoint para modificar emprendimientos
+# Endpoint para modificar emprendimientos por su ID
 @api.route('/modificar_emprendimiento/<id>', methods=['PATCH'])
 def modificar_emprendimiento(id):
     try:
@@ -258,39 +258,48 @@ def modificar_emprendimiento(id):
 
     emprendimiento = request.get_json()
 
-    if not (emprendimiento['emprendimiento_id'] and emprendimiento['nombre']):
+    # Validar que se ingresen el ID y al menos un campo a modificar
+    if not (id and emprendimiento.get('nombre')):
         conn.close()
-        return jsonify({'message': 'Se debee ingresar el id, el nombre y lo que se desee modificar.'}), 400
+        return jsonify({'message': 'Se debe ingresar el ID y al menos el nombre para modificar.'}), 400
 
+    # Definir los campos permitidos para actualizar
     campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
     campos_a_actualizar = {campo: emprendimiento[campo] for campo in campos if campo in emprendimiento}
 
+    # Verificar si se proporcionó al menos un campo válido para actualizar
     if not campos_a_actualizar:
         conn.close()
         return jsonify({'message': 'No se ha proporcionado ningún campo válido para actualizar.'}), 400
 
-    query = f"UPDATE emprendimientos SET {', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])} WHERE emprendimiento_id = :id"
-#    campos_a_actualizar['id'] = id
-    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = {id};"
+    # Construir la consulta SQL dinámica para actualizar los campos especificados
+    set_clause = ', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])
+    query = f"UPDATE emprendimientos SET {set_clause} WHERE emprendimiento_id = :id"
+
+    # Consulta para verificar la existencia del emprendimiento por su ID
+    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = :id"
 
     try:
-        result = conn.execute(text(val_query))
-        if result.rowcount != 0:
-            conn.execute(text(query), campos_a_actualizar)
-            conn.commit()
+        # Verificar si existe el emprendimiento con el ID proporcionado
+        result = conn.execute(text(val_query), {'id': id}).fetchone()
+        if not result:
             conn.close()
-        else:
-            conn.close()
-            return jsonify({'message': 'No existe un emprendimiento con ese id.'}), 404
+            return jsonify({'message': 'No existe un emprendimiento con ese ID.'}), 404
+
+        # Ejecutar la actualización de la base de datos
+        conn.execute(text(query), {**campos_a_actualizar, 'id': id})
+        conn.commit()
+        conn.close()
+
     except SQLAlchemyError as err:
         conn.close()
-        return jsonify({'message': 'No se pudo borrar el emprendimiento con ese id. ' + str(err.__cause__)}), 500
+        return jsonify({'message': 'Error al actualizar el emprendimiento. ' + str(err.__cause__)}), 500
+
     except Exception as err:
         conn.close()
-        return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
+        return jsonify({'message': 'Ocurrió un error inesperado al intentar actualizar el emprendimiento. ' + str(err)}), 500
 
-    return jsonify({'message': 'Se ha modificado correctamente el emprendimiento.'}), 202
-
+    return jsonify({'message': 'Se ha modificado correctamente el emprendimiento.'}), 200
 
 # ---- Rutas de Consultas ---- 
 

@@ -170,9 +170,9 @@ def eliminar_emp():
 
 
 # Modificar un emprendimiento
-@app.route('/modificar_emp', methods = ['PATCH'])
+@app.route('/modificar_emp', methods=['POST'])
 def modificar_emp():
-    if request.method == 'PATCH':
+    if request.method == 'POST':
         id_emp = request.form.get('emprendimiento_id')
         nombre = request.form.get('nombre')
         instagram = request.form.get('instagram')
@@ -183,20 +183,37 @@ def modificar_emp():
         provincia = request.form.get('provincia')
         contacto = request.form.get('contacto')
 
-        datos = {'emprendimiento_id':id_emp, 'nombre':nombre, 'instagram':instagram, 'descripcion':descripcion, 'categoria':categoria, 
-                 'direccion':direccion, 'localidad':localidad, 'provincia':provincia, 'contacto':contacto}
+        # Verificar que se hayan proporcionado el ID y al menos el nombre para modificar
+        if id_emp and nombre:
+            datos = {
+                'emprendimiento_id': id_emp,
+                'nombre': nombre,
+                'instagram': instagram,
+                'descripcion': descripcion,
+                'categoria': categoria,
+                'direccion': direccion,
+                'localidad': localidad,
+                'provincia': provincia,
+                'contacto': contacto
+            }
 
-        if id_emp:
-            response = requests.patch(API_URL.join('modificar_emprendimiento'), json=datos)
-            
-            if response.status_code == 201:
-                flash('Emprendimiento modificado.')
-                return redirect(url_for('subir_emp'))
-            else:
-                flash('Error al modificar el emprendimiento.')
-                return redirect(url_for('subir_emp'))
-   
-    return render_template('subir_emp.html')
+            try:
+                response = requests.patch(f'{API_URL}/modificar_emprendimiento/{id_emp}', json=datos)
+                
+                if response.status_code == 200:
+                    flash('Emprendimiento modificado correctamente.', 'success')
+                elif response.status_code == 404:
+                    flash('No se encontró el emprendimiento para modificar.', 'error')
+                else:
+                    flash('Error al modificar el emprendimiento.', 'error')
+
+            except requests.exceptions.RequestException as e:
+                flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
+
+        else:
+            flash('Debe proporcionar el ID y al menos el nombre del emprendimiento.', 'error')
+
+    return redirect(url_for('subir_emp'))
 
 
 
