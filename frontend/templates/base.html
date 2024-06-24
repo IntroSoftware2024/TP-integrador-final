@@ -49,12 +49,14 @@
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
+            {% if show_nav_buttons %} 
             <ul class="nav">
               <li><a href="{{ url_for('index') }}">Inicio</a></li>
               <li><a href="{{ url_for('emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>
               <li><a href="{{ url_for('contacto') }}">Contacto</a></li> 
               <li><div class="main-white-button"><a href="{{ url_for('login') }}"><i class="fa fa-plus"></i>Emprendedores</a></div></li> 
-            </ul>         
+            </ul>
+            {% endif %}    
             <a class='menu-trigger'>
                 <span>Menu</span>
             </a>

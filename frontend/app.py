@@ -19,21 +19,21 @@ def test():
 @app.route("/")
 def index():
     session.clear()
-    return render_template('index.html')
+    return render_template('index.html', show_nav_buttons=True)
 
 @app.route("/subir_emp")
 def subir_emp():
     if 'email' not in session:
         return abort(403, "Acceso prohibido. Debes iniciar sesión para acceder a esta página.")
-    return render_template('subir_emp.html')
+    return render_template('subir_emp.html', show_nav_buttons=True)
 
 @app.route("/login")
 def login():
-    return render_template('login.html')
+    return render_template('login.html', show_nav_buttons=False)
 
 @app.route("/contacto")
 def contacto():
-    return render_template('contacto.html')
+    return render_template('contacto.html', show_nav_buttons=True)
 
 # aca tiene que haber try except?
 @app.route("/emprendimientos/<categoria>")
@@ -49,7 +49,7 @@ def emprendimientos(categoria):
         print(f"Error fetching data: {e}")
         emprendimientos = []
 
-    return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos)
+    return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos, show_nav_buttons=True)
 
 
 # Endpoint para registrar usuario
