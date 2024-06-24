@@ -42,15 +42,14 @@
           </button>
         </form>
       
-      </div>
-
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      {% for message in messages %}
-          <br>
-          <br>
-          <h3>{{ message }}</h3>
-      {% endfor %}
+      </div class="content" id="loginContent">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <br>
+            <br>
+            <h3 class="error" id="mensajeError">{{ message }}</h3>
+          {% endfor %}
       {% endif %}
       {% endwith %}
       
