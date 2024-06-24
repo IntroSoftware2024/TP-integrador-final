@@ -59,17 +59,27 @@ def iniciar_sesion():
     if request.method == 'POST':
         email = request.form.get('email')
         contraseña = request.form.get('contraseña')
-        usuario = {'email':email, 'contraseña':contraseña}
 
         if email and contraseña:
-            response = requests.post(API_URL.join('iniciar_sesion'), json=usuario)
+            usuario = {'email': email, 'contraseña': contraseña}
+            response = requests.post(f'{API_URL}/inicio_de_sesion', json=usuario)
             
-            if response.status_code == 201:
-                return redirect(url_for('subir_emp'))
-            else:
-                flash('Error al iniciar sesión.')
+            if response.status_code == 200:
+                return render_template('subir_emp.html')
+            elif response.status_code == 404:
+                flash('Usuario no encontrado. Por favor, regístrese.', 'error')
                 return redirect(url_for('login'))
-   
+            elif response.status_code == 401:
+                flash('Contraseña incorrecta. Por favor, inténtelo nuevamente.', 'error')
+                return redirect(url_for('login'))
+            else:
+                flash('Credenciales incorrectas. Por favor, inténtelo nuevamente.', 'error')
+                return redirect(url_for('login'))
+        
+        flash('Por favor, proporcione su email y contraseña.', 'error')
+        return redirect(url_for('login'))
+
+    # Si el método es GET, renderizará el template del formulario de login
     return render_template('login.html')
 
 @app.route("/emprendimientos/<categoria>")

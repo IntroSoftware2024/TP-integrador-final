@@ -49,36 +49,48 @@ def crear_usuario():
     return jsonify({'message': 'El usuario se registró correctamente.'}), 201
 
 # Endpoint para iniciar sesion
-@api.route('/iniciar_sesion', methods = ['POST'])
-def iniciar_sesion():
+@api.route('/inicio_de_sesion', methods=['POST'])
+def inicio_de_sesion():
     try:
         conn = engine.connect()
     except SQLAlchemyError as err:
-        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
+        return jsonify({'message': 'Error al conectar con la base de datos: ' + str(err.__cause__)}), 500
     except Exception as err:
-        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
+        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos: ' + str(err)}), 500
 
     user = request.get_json()
 
-    # Verificar si se recibieron los campos necesarios
     if 'email' not in user or 'contraseña' not in user:
         conn.close()
         return jsonify({'message': 'Se deben proporcionar el email y la contraseña.'}), 400
 
-    query = f""""SELECT * FROM users WHERE email = {user['email']};"""
-
+    email = user['email']
+    contraseña = user['contraseña']
+    
+    query = text("SELECT * FROM usuarios WHERE email = :email")
     try:
-        conn.execute(text(query))
-        conn.commit()
+        result = conn.execute(query, {'email': email}).fetchone()
+
+        if not result:
+            conn.close()
+            return jsonify({'message': 'Usuario no encontrado.'}), 404
+        
+        contraseña_usuario = result[2]
+        if contraseña_usuario != contraseña:
+            conn.close()
+            return jsonify({'message': 'Contraseña incorrecta.'}), 401
+
         conn.close()
+        return jsonify({'message': 'Inicio de sesión exitoso.'}), 200
+    
     except SQLAlchemyError as e:
         conn.close()
-        return jsonify({'message': 'Error al iniciar sesión.' + str(e.__cause__)}), 500
+        return jsonify({'message': 'Error al iniciar sesión: ' + str(e.__cause__)}), 500
+
     except Exception as e:
         conn.close()
-        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500 
-    
-    return jsonify({'message': 'Se inició sesión exitosamente.' + query}), 201  
+        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500
+
 
 # Endpoint para listar todos los usuarios
 @api.route('/usuarios', methods=['GET'])
