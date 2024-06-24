@@ -135,6 +135,16 @@ def agregar_emprendimiento():
             and nuevo_emprendimiento.get("provincia") and nuevo_emprendimiento.get("contacto")):
         return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
 
+
+    print(nuevo_emprendimiento["nombre"])
+    check_query = text("SELECT * FROM emprendimientos WHERE nombre = :nombre")
+    try:
+        result = conn.execute(check_query, {'nombre': nuevo_emprendimiento["nombre"]}).fetchone()
+        if result:
+            return jsonify({'message': 'El nombre de emprendimiento ya existe.'}), 409
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Error al verificar la existencia del emprendimiento. ' + str(err.__cause__)}), 500
+
     query = f"""INSERT INTO emprendimientos (nombre, instagram, descripcion, categoria, direccion, localidad, provincia, contacto)
                 VALUES
                 ('{nuevo_emprendimiento["nombre"]}', '{nuevo_emprendimiento["instagram"]}', '{nuevo_emprendimiento["descripcion"]}', 
