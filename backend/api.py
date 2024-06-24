@@ -7,6 +7,89 @@ from sqlalchemy.exc import SQLAlchemyError
 api = Flask(__name__)
 engine = create_engine("mysql+mysqlconnector://root@localhost/") #Agregar url base de datos.
 
+# ---- Rutas de Usuarios ---- 
+
+# Endpoint para agregar usuarios
+@api.route('/crear_usuario', methods = ['POST'])
+def crear_usuario():
+    conn = engine.connect()
+    new_user = request.get_json()
+    if not (new_user.get("email") and new_user.get("contraseña")):
+        return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
+
+    query = f"""INSERT INTO usuarios (email, contraseña)
+    VALUES
+    ('{new_user["email"]}', '{new_user["contraseña"]}');"""
+    try:
+        result = conn.execute(text(query))
+        conn.commit()
+        conn.close()
+    except SQLAlchemyError as err:
+        conn.close()
+        return jsonify({'message': 'El usuario no pudo ser registrado. ' + str(err.__cause__)}), 400
+    return jsonify({'message': 'El usuario se registro correctamente.'}), 201 
+
+# Endpoint para iniciar sesion
+@api.route('/iniciar_sesion', methods = ['POST'])
+def iniciar_sesion():
+    try:
+        conn = engine.connect()
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
+    except Exception as err:
+        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
+
+    user = request.get_json()
+
+    # Verificar si se recibieron los campos necesarios
+    if 'email' not in user or 'contraseña' not in user:
+        conn.close()
+        return jsonify({'message': 'Se deben proporcionar el email y la contraseña.'}), 400
+
+    query = f""""SELECT * FROM users WHERE email = {user['email']};"""
+
+    try:
+        conn.execute(text(query))
+        conn.commit()
+        conn.close()
+    except SQLAlchemyError as e:
+        conn.close()
+        return jsonify({'message': 'Error al iniciar sesión.' + str(e.__cause__)}), 500
+    except Exception as e:
+        conn.close()
+        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500 
+    
+    return jsonify({'message': 'Se inició sesión exitosamente.' + query}), 201  
+
+# Endpoint para listar todos los usuarios
+@api.route('/usuarios', methods=['GET'])
+def usuarios():
+    try:
+        conn = engine.connect()
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
+    except Exception as err:
+        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
+    
+    query = "SELECT * FROM usuarios;"  
+
+
+    try:
+        query = "SELECT * FROM usuarios;"
+        result = conn.execute(text(query))
+        data = [{
+            'usuario_id': row.usuario_id,
+            'email': row.email,
+            'contraseña': row.contraseña
+        } for row in result]
+    except SQLAlchemyError as err:
+        return jsonify({'message': 'Error al obtener usuarios.' + str(err.__cause__)}), 500
+    except Exception as err:
+        return jsonify({'message': 'Ocurrió un error inesperado al obtener los usuarios.' + str(err)}), 500
+    finally:
+        conn.close()  
+
+    return jsonify(data), 200  
 
 # ---- Rutas de Emprendimientos ---- 
 
@@ -88,7 +171,6 @@ def listar_emprendimientos():
 
     return jsonify({'emprendimientos': data}), 200
 
-
 # Endpoint para eliminar emprendimientos
 @api.route('/eliminar_emprendimiento/<id>', methods=['DELETE'])
 def eliminar_emprendimiento(id):
@@ -122,7 +204,6 @@ def eliminar_emprendimiento(id):
         conn.close()
     
     return jsonify(message), status_code
-
 
 # Endpoint para modificar emprendimientos
 @api.route('/modificar_emprendimiento/<id>', methods=['PATCH'])
@@ -167,96 +248,6 @@ def modificar_emprendimiento(id):
         conn.close()
 
     return jsonify(message), status_code
-
-
-
-# ---- Rutas de Usuarios ---- 
-
-# Endpoint para agregar usuarios
-@api.route('/crear_usuario', methods = ['POST'])
-def crear_usuario():
-    conn = engine.connect()
-    new_user = request.get_json()
-    if not (new_user.get("email") and new_user.get("contraseña")):
-        return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
-
-    query = f"""INSERT INTO usuarios (email, contraseña)
-    VALUES
-    ('{new_user["email"]}', '{new_user["contraseña"]}');"""
-    try:
-        result = conn.execute(text(query))
-        conn.commit()
-        conn.close()
-    except SQLAlchemyError as err:
-        conn.close()
-        return jsonify({'message': 'El usuario no pudo ser registrado. ' + str(err.__cause__)}), 400
-    return jsonify({'message': 'El usuario se registro correctamente.'}), 201 
-
-
-# Endpoint para iniciar sesion
-@api.route('/iniciar_sesion', methods = ['POST'])
-def iniciar_sesion():
-    try:
-        conn = engine.connect()
-    except SQLAlchemyError as err:
-        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
-    except Exception as err:
-        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
-
-    user = request.get_json()
-
-    # Verificar si se recibieron los campos necesarios
-    if 'email' not in user or 'contraseña' not in user:
-        conn.close()
-        return jsonify({'message': 'Se deben proporcionar el email y la contraseña.'}), 400
-
-    query = f""""SELECT * FROM users WHERE email = {user['email']};"""
-
-    try:
-        conn.execute(text(query))
-        conn.commit()
-        conn.close()
-    except SQLAlchemyError as e:
-        conn.close()
-        return jsonify({'message': 'Error al iniciar sesión.' + str(e.__cause__)}), 500
-    except Exception as e:
-        conn.close()
-        return jsonify({'message': 'Error inesperado: ' + str(e)}), 500 
-    
-    return jsonify({'message': 'Se inició sesión exitosamente.' + query}), 201  
-
-
-# Endpoint para listar todos los usuarios
-@api.route('/usuarios', methods=['GET'])
-def usuarios():
-    try:
-        conn = engine.connect()
-    except SQLAlchemyError as err:
-        return jsonify({'message': 'Error al conectar con la base de datos.' + str(err.__cause__)}), 500
-    except Exception as err:
-        return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
-    
-    query = "SELECT * FROM usuarios;"  
-
-
-    try:
-        query = "SELECT * FROM usuarios;"
-        result = conn.execute(text(query))
-        data = [{
-            'usuario_id': row.usuario_id,
-            'email': row.email,
-            'contraseña': row.contraseña
-        } for row in result]
-    except SQLAlchemyError as err:
-        return jsonify({'message': 'Error al obtener usuarios.' + str(err.__cause__)}), 500
-    except Exception as err:
-        return jsonify({'message': 'Ocurrió un error inesperado al obtener los usuarios.' + str(err)}), 500
-    finally:
-        conn.close()  
-
-    return jsonify(data), 200  
-
-
 
 # ---- Rutas de Consultas ---- 
 
