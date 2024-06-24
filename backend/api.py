@@ -214,6 +214,8 @@ def eliminar_emprendimiento(id):
     
     val_query = text("SELECT * FROM emprendimientos WHERE emprendimiento_id = :id;")
 
+    nombreEliminar = request.args.get('nombre')
+
     try:
         print(id)
         result = conn.execute(val_query, {'id': id}).fetchone()
@@ -221,7 +223,12 @@ def eliminar_emprendimiento(id):
         if not result:
             conn.close()
             return jsonify({'message': 'No existe un emprendimiento con ese ID.'}), 404
- 
+
+        nombreID = result[1]
+        if nombreID != nombreEliminar:
+            conn.close()
+            return jsonify({'message': 'El nombre del emprendimiento no coincide con el ID proporcionado.'}), 400
+
         delete_query = text("DELETE FROM emprendimientos WHERE emprendimiento_id = :id")
         conn.execute(delete_query, {'id': id})
         conn.commit()

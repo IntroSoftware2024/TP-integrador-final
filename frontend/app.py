@@ -144,17 +144,18 @@ def eliminar_emp():
     if request.method == 'POST':
         id_emp = request.form.get('emprendimiento_id')
         nombre = request.form.get('nombre')
-        categoria = request.form.get('categoria')
 
-        if id_emp and nombre and categoria:
+        if id_emp and nombre:
             try:
                
-                response = requests.delete(f'{API_URL}/eliminar_emprendimiento/{id_emp}')
+                response = requests.delete(f'{API_URL}/eliminar_emprendimiento/{id_emp}?nombre={nombre}')
 
                 if response.status_code == 200:
                     flash('Emprendimiento eliminado correctamente.', 'success')
                 elif response.status_code == 404:
                     flash('No se encontró el emprendimiento para eliminar.', 'error')
+                elif response.status_code == 400:
+                    flash('El nombre de emprendimiento no coincide con el ID, Intente nuevamente.', 'error')
                 else:
                     flash('Error al eliminar el emprendimiento.', 'error')
 
