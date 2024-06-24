@@ -128,25 +128,14 @@ def usuarios():
 @api.route('/agregar_emprendimiento', methods=['POST'])
 def agregar_emprendimiento():
     conn = engine.connect()
-    nuevo_emprendimiento = request.get_json()
-
-    '''
-    campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
-    campos_validos = {campo: nuevo_emprendimiento.get(campo) for campo in campos}
-    
-    if not all(campos_validos.values()):
-        return jsonify({'message': 'Todos los campos son obligatorios.'}), 400
-
-    query = f"""INSERT INTO emprendimientos ({', '.join(campos_validos.keys())}) 
-                VALUES ({', '.join([f"'{valor}'" for valor in campos_validos.values()])});"""
-    '''   
+    nuevo_emprendimiento = request.get_json() 
 
     if not (nuevo_emprendimiento.get("nombre") and nuevo_emprendimiento.get("instagram") and nuevo_emprendimiento.get("descripcion")
             and nuevo_emprendimiento.get("categoria") and nuevo_emprendimiento.get("direccion") and nuevo_emprendimiento.get("localidad") 
             and nuevo_emprendimiento.get("provincia") and nuevo_emprendimiento.get("contacto")):
         return jsonify({'message': 'No se enviaron todos los datos necesarios por JSON'}), 400
 
-    query = f"""INSERT INTO consultas (nombre, instagram, descripcion, categoria, direccion, localidad, provincia, contacto)
+    query = f"""INSERT INTO emprendimientos (nombre, instagram, descripcion, categoria, direccion, localidad, provincia, contacto)
                 VALUES
                 ('{nuevo_emprendimiento["nombre"]}', '{nuevo_emprendimiento["instagram"]}', '{nuevo_emprendimiento["descripcion"]}', 
                 '{nuevo_emprendimiento["categoria"]}', '{nuevo_emprendimiento["direccion"]}', '{nuevo_emprendimiento["localidad"]}', 

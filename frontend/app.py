@@ -102,8 +102,8 @@ def emprendimientos(categoria):
     return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos)
 
 #Ruta para agregar emprendimientos.
-@app.route('/agregar_emprendimiento', methods=['POST', 'GET'])
-def agregar_emprendimiento():
+@app.route('/subir_emprendimiento', methods=['POST', 'GET'])
+def subir_emprendimiento():
     if request.method == 'POST':
         nombre = request.form.get('nombre')
         instagram = request.form.get('instagram')
@@ -122,10 +122,10 @@ def agregar_emprendimiento():
             
             if response.status_code == 201:
                 flash("Emprendimiento agregado.", "success")
-                return redirect(url_for('emprendimientos'))
+                return redirect(url_for('subir_emp'))
             else:
                 flash("Error al agregar el emprendimiento", "error")
-                return redirect(url_for('emp'))
+                return redirect(url_for('subir_emp'))
     return render_template('subir_emp.html')
 
 # Endpoint para form de consultas
