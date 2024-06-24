@@ -22,7 +22,7 @@
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}
-            <h3>{{ message }}</h3>
+            <h3 id="mensajeError">{{ message }}</h3>
             <br>
         {% endfor %}
         {% endif %}
