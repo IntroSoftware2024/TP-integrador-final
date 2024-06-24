@@ -40,6 +40,33 @@ def emprendimientos(categoria):
 
     return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos)
 
+#Ruta para agregar emprendimientos.
+@app.route('/agregar_emprendimiento', methods=['POST', 'GET'])
+def agregar_emprendimiento():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        instagram = request.form.get('instagram')
+        descripcion = request.form.get('descripcion')
+        categoria = request.form.get('categoria')
+        direccion = request.form.get('direccion')
+        localidad = request.form.get('localidad')
+        provincia = request.form.get('provincia')
+        contacto = request.form.get('contacto')
+        
+        datos = {'nombre':nombre, 'instagram':instagram, 'descripcion':descripcion, 'categoria':categoria,
+                 'direccion':direccion, 'localidad':localidad, 'provincia':provincia, 'contacto':contacto}
+        
+        if(nombre and instagram and descripcion and categoria and direccion and localidad and provincia and contacto):
+            response = requests.post(API_URL + "/agregar_emprendimiento", json=datos)
+            
+            if response.status_code == 201:
+                flash("Emprendimiento agregado.", "success")
+                return redirect(url_for('emprendimientos'))
+            else:
+                flash("Error al agregar el emprendimiento", "error")
+                return redirect(url_for('emp'))
+    return render_template('subir_emp.html')
+
 @app.route("/login")
 def login():
     return render_template('login.html')
