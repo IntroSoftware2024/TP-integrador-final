@@ -258,35 +258,23 @@ def modificar_emprendimiento(id):
 
     emprendimiento = request.get_json()
 
-    # Validar que se ingresen el ID y al menos un campo a modificar
-    if not (id and emprendimiento.get('nombre')):
-        conn.close()
-        return jsonify({'message': 'Se debe ingresar el ID y al menos el nombre para modificar.'}), 400
+    nombre_actual = emprendimiento['nombreActual']
 
-    # Definir los campos permitidos para actualizar
-    campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
-    campos_a_actualizar = {campo: emprendimiento[campo] for campo in campos if campo in emprendimiento}
-
-    # Verificar si se proporcionó al menos un campo válido para actualizar
-    if not campos_a_actualizar:
-        conn.close()
-        return jsonify({'message': 'No se ha proporcionado ningún campo válido para actualizar.'}), 400
-
-    # Construir la consulta SQL dinámica para actualizar los campos especificados
-    set_clause = ', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])
-    query = f"UPDATE emprendimientos SET {set_clause} WHERE emprendimiento_id = :id"
-
-    # Consulta para verificar la existencia del emprendimiento por su ID
-    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = :id"
-
+    # Verificar que el ID y el nombre actual coincidan en la base de datos
+    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = :id AND nombre = :nombre_actual"
     try:
-        # Verificar si existe el emprendimiento con el ID proporcionado
-        result = conn.execute(text(val_query), {'id': id}).fetchone()
+        result = conn.execute(text(val_query), {'id': id, 'nombre_actual': nombre_actual}).fetchone()
         if not result:
             conn.close()
-            return jsonify({'message': 'No existe un emprendimiento con ese ID.'}), 404
+            return jsonify({'message': 'No existe un emprendimiento con ese ID o no coincide con el nombre actual.'}), 400
 
-        # Ejecutar la actualización de la base de datos
+        campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
+        campos_a_actualizar = {campo: emprendimiento[campo] for campo in campos if campo in emprendimiento}
+
+        
+        set_clause = ', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])
+        query = f"UPDATE emprendimientos SET {set_clause} WHERE emprendimiento_id = :id"
+
         conn.execute(text(query), {**campos_a_actualizar, 'id': id})
         conn.commit()
         conn.close()

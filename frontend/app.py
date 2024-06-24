@@ -174,6 +174,7 @@ def eliminar_emp():
 def modificar_emp():
     if request.method == 'POST':
         id_emp = request.form.get('emprendimiento_id')
+        nombreActual = request.form.get('nombreActual')
         nombre = request.form.get('nombre')
         instagram = request.form.get('instagram')
         descripcion = request.form.get('descripcion')
@@ -183,10 +184,12 @@ def modificar_emp():
         provincia = request.form.get('provincia')
         contacto = request.form.get('contacto')
 
+        
         # Verificar que se hayan proporcionado el ID y al menos el nombre para modificar
         if id_emp and nombre:
             datos = {
                 'emprendimiento_id': id_emp,
+                'nombreActual': nombreActual,
                 'nombre': nombre,
                 'instagram': instagram,
                 'descripcion': descripcion,
@@ -202,6 +205,8 @@ def modificar_emp():
                 
                 if response.status_code == 200:
                     flash('Emprendimiento modificado correctamente.', 'success')
+                elif response.status_code == 400:
+                    flash('No existe un emprendimiento con ese ID o no coincide con el nombre.', 'error')
                 elif response.status_code == 404:
                     flash('No se encontró el emprendimiento para modificar.', 'error')
                 else:
