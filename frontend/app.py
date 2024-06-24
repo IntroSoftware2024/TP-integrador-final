@@ -34,10 +34,21 @@ def login():
 @app.route("/contacto")
 def contacto():
     return render_template('contacto.html', show_nav_buttons=True)
-
+"""
 @app.route("/emprendimientos/<categoria>")
 def emprendimientos(categoria):
     return render_template('emprendimientos.html', categorias=categoria, show_nav_buttons=True)
+"""
+
+@app.route("/emprendimientos/<categoria>", methods=['GET'])
+def emprendimientos(categoria):
+    response = requests.get(f"{API_URL}/listar_emprendimientos?categoria={categoria}")
+
+    if response.status_code == 200:
+        emprendimientos = response.json()
+        return render_template("emprendimientos.html", emprendimientos=emprendimientos, categoria=categoria, show_nav_buttons=True)
+    else:
+        return render_template("emprendimientos.html", categoria=categoria, show_nav_buttons=True), 400
 
 
 # Endpoint para registrar usuario
@@ -208,6 +219,7 @@ def modificar_emp():
     return redirect(url_for('subir_emp'))
 
 
+'''   
 @app.route("/emprendimientos", methods=['GET'])
 def mostrar_emprendimientos():
     response = requests.get(API_URL + "/listar_emprendimientos")
@@ -218,7 +230,7 @@ def mostrar_emprendimientos():
         return jsonify({"error": "No se pudieron obtener los emprendimientos"}), 400
 
 
-'''
+
 @app.route('/mostrar_emprendimientos', methods=['GET'])
 def mostrar_emprendimientos():
 
@@ -276,7 +288,7 @@ def enviar_consulta():
    
     return render_template('contacto.html')
 
-'''
+
 @app.errorhandler(Exception)
 def handle_error(error):
     error_code = getattr(error, 'code', 500)
@@ -289,7 +301,7 @@ def handle_error(error):
         return render_template('error.html', error_code=403), 403
     else:
         return render_template('error.html', error_code=500), 500
-'''
+
 
 
 if __name__ == "__main__":
