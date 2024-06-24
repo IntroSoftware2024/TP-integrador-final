@@ -246,7 +246,7 @@ def eliminar_emprendimiento(id):
         return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
 
 
-# Endpoint para modificar emprendimientos
+# Endpoint para modificar emprendimientos por su ID
 @api.route('/modificar_emprendimiento/<id>', methods=['PATCH'])
 def modificar_emprendimiento(id):
     try:
@@ -258,39 +258,36 @@ def modificar_emprendimiento(id):
 
     emprendimiento = request.get_json()
 
-    if not (emprendimiento['emprendimiento_id'] and emprendimiento['nombre']):
-        conn.close()
-        return jsonify({'message': 'Se debee ingresar el id, el nombre y lo que se desee modificar.'}), 400
+    nombre_actual = emprendimiento['nombreActual']
 
-    campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
-    campos_a_actualizar = {campo: emprendimiento[campo] for campo in campos if campo in emprendimiento}
-
-    if not campos_a_actualizar:
-        conn.close()
-        return jsonify({'message': 'No se ha proporcionado ningún campo válido para actualizar.'}), 400
-
-    query = f"UPDATE emprendimientos SET {', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])} WHERE emprendimiento_id = :id"
-#    campos_a_actualizar['id'] = id
-    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = {id};"
-
+    # Verificar que el ID y el nombre actual coincidan en la base de datos
+    val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = :id AND nombre = :nombre_actual"
     try:
-        result = conn.execute(text(val_query))
-        if result.rowcount != 0:
-            conn.execute(text(query), campos_a_actualizar)
-            conn.commit()
+        result = conn.execute(text(val_query), {'id': id, 'nombre_actual': nombre_actual}).fetchone()
+        if not result:
             conn.close()
-        else:
-            conn.close()
-            return jsonify({'message': 'No existe un emprendimiento con ese id.'}), 404
+            return jsonify({'message': 'No existe un emprendimiento con ese ID o no coincide con el nombre actual.'}), 400
+
+        campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
+        campos_a_actualizar = {campo: emprendimiento[campo] for campo in campos if campo in emprendimiento}
+
+        
+        set_clause = ', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])
+        query = f"UPDATE emprendimientos SET {set_clause} WHERE emprendimiento_id = :id"
+
+        conn.execute(text(query), {**campos_a_actualizar, 'id': id})
+        conn.commit()
+        conn.close()
+
     except SQLAlchemyError as err:
         conn.close()
-        return jsonify({'message': 'No se pudo borrar el emprendimiento con ese id. ' + str(err.__cause__)}), 500
+        return jsonify({'message': 'Error al actualizar el emprendimiento. ' + str(err.__cause__)}), 500
+
     except Exception as err:
         conn.close()
-        return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
+        return jsonify({'message': 'Ocurrió un error inesperado al intentar actualizar el emprendimiento. ' + str(err)}), 500
 
-    return jsonify({'message': 'Se ha modificado correctamente el emprendimiento.'}), 202
-
+    return jsonify({'message': 'Se ha modificado correctamente el emprendimiento.'}), 200
 
 # ---- Rutas de Consultas ---- 
 

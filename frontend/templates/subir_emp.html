@@ -131,11 +131,18 @@
                 <div id="modificar" class="tabcontent">
                   <form id="contact" action="{{ url_for('modificar_emp') }}" method="POST">
                   <div class="row">
+                    <h3>Tus datos</h3>
                     <div class="col-lg-12">
                       <fieldset>
                         <input type="text" name="emprendimiento_id" id="emprendimiento_id" placeholder="Id emprendimiento" autocomplete="on" required>
                       </fieldset>
                     </div>
+                    <div class="col-lg-12">
+                      <fieldset>
+                        <input type="text" name="nombreActual" id="nombreActual" placeholder="Nombre actual" autocomplete="on" required>
+                      </fieldset>
+                    </div>
+                    <h3>Nuevos datos</h3>
                     <div class="col-lg-6">
                       <fieldset>
                         <input type="text" name="nombre" id="nombre" placeholder="Nombre emprendimiento" autocomplete="on" required>
@@ -165,6 +172,16 @@
                       <fieldset>
                         <input type="text" name="contacto" id="contacto" placeholder="Contacto">
                       </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                      <ul>
+                        <li><input type="checkbox" name="categoria" value="ropa"><span>Ropa</span></li>
+                        <li><input type="checkbox" name="categoria" value="comida"><span>Comida</span></li>
+                        <li><input type="checkbox" name="categoria" value="regalos"><span>Regalos</span></li>
+                        <li><input type="checkbox" name="categoria" value="experiencias"><span>Experiencia</span></li>
+                        <li><input type="checkbox" name="categoria" value="mascotas"><span>Mascotas</span></li>
+                        <li><input type="checkbox" name="categoria" value="otro"><span>Otro</span></li>
+                      </ul>
                     </div>
                     <div class="col-lg-12">
                       <fieldset>
