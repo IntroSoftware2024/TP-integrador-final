@@ -2287,3 +2287,13 @@ h3 {
   border: 0;
 }
 
+.boton-de-cierre {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  font-size: 40px;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+  z-index: 1000;
+}

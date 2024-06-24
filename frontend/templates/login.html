@@ -5,7 +5,8 @@
 {% block content %}
 
   <div class="login-page">
-
+    <a href="{{ url_for('index') }}" class="boton-de-cierre">&times;</a>
+    <script src="{{ url_for('static', filename='js/boton-de-cierre.js') }}"></script>
     <div class="content">
       <div class="center">
         <h3>Inicia sesión para subir tu emprendimiento</h3>
