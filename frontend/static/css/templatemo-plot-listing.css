@@ -2297,3 +2297,10 @@ h3 {
   cursor: pointer;
   z-index: 1000;
 }
+
+.tituloCategoria {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  
+}
