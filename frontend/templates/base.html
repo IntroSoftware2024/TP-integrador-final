@@ -47,10 +47,8 @@
             <!-- ***** Logo Start ***** -->
             {% if show_nav_buttons %}
             <a href="{{ url_for('index') }}" class="logo"></a>
-            {% endif %}
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
-            {% if show_nav_buttons %} 
             <ul class="nav">
               <li><a href="{{ url_for('index') }}">Inicio</a></li>
               <li><a href="{{ url_for('emprendimientos', categoria='ropa') }}">Emprendimientos</a></li>

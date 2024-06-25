@@ -281,12 +281,12 @@ def enviar_consulta():
             
             if response.status_code == 201:
                 flash("Formulario enviado.", "success")
-                return render_template('contacto.html')
+                return render_template('contacto.html', show_nav_buttons=True)
             else:
                 flash("Error al enviar el formulario.", "error")
-                return render_template('contacto.html')
+                return render_template('contacto.html', show_nav_buttons=True)
    
-    return render_template('contacto.html')
+    return render_template('contacto.html', show_nav_buttons=True)
 
 
 @app.errorhandler(Exception)
