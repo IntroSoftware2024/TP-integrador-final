@@ -189,17 +189,16 @@ def listar_emprendimientos():
 
     data = []
     for row in result:
-        entity = {
-            'id': row.id,
-            'nombre': row.nombre,
-            'instagram': row.instagram,
-            'descripcion': row.descripcion,
-            'categoria': row.categoria,
-            'direccion': row.direccion,
-            'localidad': row.localidad,
-            'provincia': row.provincia,
-            'contacto': row.contacto
-        }
+        entity = {}
+        entity['emprendimiento_id'] = row.emprendimiento_id
+        entity['nombre'] = row.nombre
+        entity['instagram'] = row.instagram
+        entity['descripcion'] = row.descripcion
+        entity['categoria'] = row.categoria
+        entity['direccion'] = row.direccion
+        entity['localidad'] = row.localidad
+        entity['provincia'] = row.provincia
+        entity['contacto'] = row.contacto
         data.append(entity)
 
     return jsonify(data), 200
