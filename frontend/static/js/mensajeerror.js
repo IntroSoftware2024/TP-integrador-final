@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('login.js loaded');
     var mensajeError = document.getElementById('mensajeError');
     
     if (mensajeError) {
