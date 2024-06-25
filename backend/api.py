@@ -121,7 +121,6 @@ def usuarios():
 
     return jsonify(data), 200  
 
-
 # ---- Rutas de Emprendimientos ---- 
 
 # Endpoint para agregar emprendimientos
@@ -244,7 +243,6 @@ def eliminar_emprendimiento(id):
         conn.close()
         return jsonify({'message': 'Ocurrió un error inesperado al intentar eliminar el emprendimiento. ' + str(err)}), 500
 
-
 # Endpoint para modificar emprendimientos por su ID
 @api.route('/modificar_emprendimiento/<id>', methods=['PATCH'])
 def modificar_emprendimiento(id):
@@ -303,7 +301,7 @@ def agregar_consulta():
     VALUES
     ('{nueva_consulta["nombre"]}', '{nueva_consulta["apellido"]}', '{nueva_consulta["email"]}', '{nueva_consulta["asunto"]}', '{nueva_consulta["mensaje"]}');"""
     try:
-        result = conn.execute(text(query))
+        conn.execute(text(query))
         conn.commit()
         conn.close()
     except SQLAlchemyError as err:

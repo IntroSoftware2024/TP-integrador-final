@@ -6,16 +6,6 @@ app = Flask(__name__)
 API_URL = 'http://127.0.0.1:5000'
 app.secret_key = 'mysecretkey'
 
-@app.route('/test')
-def test():
-    try:
-        response = requests.get(API_URL.replace('/emprendimientos','/test'))
-        response.raise_for_status()
-        return jsonify({'message': 'Estan conectado front y back', 'backend_reponde': response.json()}),200
-    except requests.exceptions.RequestException as e:
-        print(f'Error fetching data:{e}')
-        return jsonify({'message':'no esta conectado al back'}),500
-
 @app.route("/")
 def index():
     session.clear()
@@ -34,7 +24,6 @@ def login():
 @app.route("/contacto")
 def contacto():
     return render_template('contacto.html', show_nav_buttons=True)
-
 
 # Endpoint para registrar usuario.
 @app.route('/registrar_usuario', methods = ['POST'])
@@ -55,7 +44,6 @@ def registrar_usuario():
                 flash("Registro fallido!", "error")
                 return render_template('login.html')
     return render_template('login.html')
-
 
 # Endpoint para iniciar sesión con el usuario ya registrado.
 @app.route('/iniciar_sesion', methods = ['GET','POST'])
@@ -85,7 +73,6 @@ def iniciar_sesion():
         return redirect(url_for('login'))
 
     return render_template('login.html')
-
 
 # Endpoint para agregar emprendimientos.
 @app.route('/subir_emprendimiento', methods=['POST', 'GET'])
@@ -160,7 +147,6 @@ def eliminar_emp():
 
     return redirect(url_for('subir_emp'))
 
-
 # Endpoint para modificar un emprendimiento.
 @app.route('/modificar_emp', methods=['POST'])
 def modificar_emp():
@@ -212,7 +198,6 @@ def modificar_emp():
 
     return redirect(url_for('subir_emp'))
 
-
 # Endpoint para form de consultas
 @app.route('/enviar_consulta', methods = ['POST'])
 def enviar_consulta():
@@ -237,7 +222,6 @@ def enviar_consulta():
    
     return render_template('contacto.html', show_nav_buttons=True)
 
-
 @app.errorhandler(Exception)
 def handle_error(error):
     error_code = getattr(error, 'code', 500)
@@ -250,8 +234,6 @@ def handle_error(error):
         return render_template('error.html', error_code=403), 403
     else:
         return render_template('error.html', error_code=500), 500
-
-
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8000", debug=True)
