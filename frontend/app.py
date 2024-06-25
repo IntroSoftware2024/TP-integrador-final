@@ -154,7 +154,7 @@ def eliminar_emp():
                 elif response.status_code == 404:
                     flash('No se encontró el emprendimiento para eliminar.', 'error')
                 elif response.status_code == 400:
-                    flash('El nombre de emprendimiento no coincide con el ID, Intente nuevamente.', 'error')
+                    flash('El nombre de emprendimiento no coincide con el ID, intente nuevamente.', 'error')
                 else:
                     flash('Error al eliminar el emprendimiento.', 'error')
 
