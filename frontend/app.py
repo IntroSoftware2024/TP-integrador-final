@@ -34,24 +34,9 @@ def login():
 @app.route("/contacto")
 def contacto():
     return render_template('contacto.html', show_nav_buttons=True)
-"""
-@app.route("/emprendimientos/<categoria>")
-def emprendimientos(categoria):
-    return render_template('emprendimientos.html', categorias=categoria, show_nav_buttons=True)
-"""
-
-@app.route("/emprendimientos/<categoria>", methods=['GET'])
-def emprendimientos(categoria):
-    response = requests.get(f"{API_URL}/listar_emprendimientos?categoria={categoria}")
-
-    if response.status_code == 200:
-        emprendimientos = response.json()
-        return render_template("emprendimientos.html", emprendimientos=emprendimientos, categoria=categoria, show_nav_buttons=True)
-    else:
-        return render_template("emprendimientos.html", categoria=categoria, show_nav_buttons=True), 400
 
 
-# Endpoint para registrar usuario
+# Endpoint para registrar usuario.
 @app.route('/registrar_usuario', methods = ['POST'])
 def registrar_usuario():
     if request.method == "POST":
@@ -99,11 +84,10 @@ def iniciar_sesion():
         flash('Por favor, proporcione su email y contraseña.', 'error')
         return redirect(url_for('login'))
 
-    # Si el método es GET, renderizará el template del formulario de login
     return render_template('login.html')
 
 
-# Ruta para agregar emprendimientos.
+# Endpoint para agregar emprendimientos.
 @app.route('/subir_emprendimiento', methods=['POST', 'GET'])
 def subir_emprendimiento():
     if request.method == 'POST':
@@ -136,8 +120,18 @@ def subir_emprendimiento():
                 return redirect(url_for('subir_emp'))
     return render_template('subir_emp.html')
 
+# Endpoint para mostrar emprendimientos por categoria.
+@app.route("/emprendimientos/<categoria>", methods=['GET'])
+def emprendimientos(categoria):
+    response = requests.get(API_URL + f"/listar_emprendimientos/{categoria}")
 
-# Eliminar un emprendimiento
+    if response.status_code == 200:
+        emprendimientos = response.json()
+        return render_template("emprendimientos.html", emprendimientos=emprendimientos, categoria=categoria, show_nav_buttons=True)
+    else:
+        return render_template("emprendimientos.html", categoria=categoria, show_nav_buttons=True), 400
+
+# Endpoint para eliminar un emprendimiento.
 @app.route('/eliminar_emp', methods=['POST'])
 def eliminar_emp():
     if request.method == 'POST':
@@ -167,7 +161,7 @@ def eliminar_emp():
     return redirect(url_for('subir_emp'))
 
 
-# Modificar un emprendimiento
+# Endpoint para modificar un emprendimiento.
 @app.route('/modificar_emp', methods=['POST'])
 def modificar_emp():
     if request.method == 'POST':
@@ -217,51 +211,6 @@ def modificar_emp():
             flash('Debe proporcionar el ID y al menos el nombre del emprendimiento.', 'error')
 
     return redirect(url_for('subir_emp'))
-
-
-'''   
-@app.route("/emprendimientos", methods=['GET'])
-def mostrar_emprendimientos():
-    response = requests.get(API_URL + "/listar_emprendimientos")
-    if response.status_code == 200:
-        emprendimientos = response.json()
-        return render_template("emprendimientos.html", emprendimientos=emprendimientos)
-    else:
-        return jsonify({"error": "No se pudieron obtener los emprendimientos"}), 400
-
-
-
-@app.route('/mostrar_emprendimientos', methods=['GET'])
-def mostrar_emprendimientos():
-
-    try:          
-        response = requests.get(API_URL + "/listar_emprendimientos")
-        emprendimientos = response.json()
-
-        return render_template('emprendimientos.html', emprendimientos=emprendimientos)
-        
-    except requests.exceptions.HTTPError as e:
-        print(f"Error fetching data: {e}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-
-
-
-# aca tiene que haber try except?
-@app.route("/emprendimientos/<categoria>")
-def emprendimientos(categoria):
-
-    try:
-        response = requests.get(API_URL + "/listar_emprendimientos")
-        response.raise_for_status()
-        emprendimientos = response.json().get('emprendimientos', [])
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-        emprendimientos = []
-
-    return render_template('emprendimientos.html', categoria=categoria, emprendimientos=emprendimientos, show_nav_buttons=True)
-'''
 
 
 # Endpoint para form de consultas

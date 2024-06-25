@@ -165,8 +165,8 @@ def agregar_emprendimiento():
     return jsonify({'message': 'Emprendimiento agregado exitosamente.', 'emprendimiento_id': emprendimiento_id}), 201
 
 # Endpoint para listar todos los emprendimientos
-@api.route('/listar_emprendimientos', methods=['GET'])
-def listar_emprendimientos():
+@api.route('/listar_emprendimientos/<categoria>', methods=['GET'])
+def listar_emprendimientos(categoria):
     try:
         conn = engine.connect()
     except SQLAlchemyError as err:
@@ -174,7 +174,7 @@ def listar_emprendimientos():
     except Exception as err:
         return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
 
-    query = "SELECT * FROM emprendimientos;"
+    query = f"SELECT * FROM emprendimientos WHERE categoria LIKE '{categoria}';"
 
     try:
         result = conn.execute(text(query))
