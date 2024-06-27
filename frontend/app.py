@@ -33,16 +33,19 @@ def registrar_usuario():
         contraseña = request.form.get('contraseña')
         usuario = {'email': email, 'contraseña': contraseña}
         if (email and contraseña):
-            response = requests.post(API_URL + "/crear_usuario", json=usuario)
-            if response.status_code == 201:
-                flash("Registro exitoso!", "success")
-                return redirect(url_for('login')) 
-            elif response.status_code == 409:
-                flash("El usuario ya existe.", "error")
-                return redirect(url_for('login')) 
-            else:
-                flash("Registro fallido!", "error")
-                return render_template('login.html')
+            try:
+                response = requests.post(API_URL + "/crear_usuario", json=usuario)
+                if response.status_code == 201:
+                    flash("Registro exitoso!", "success")
+                    return redirect(url_for('login')) 
+                elif response.status_code == 409:
+                    flash("El usuario ya existe.", "error")
+                    return redirect(url_for('login')) 
+                else:
+                    flash("Registro fallido!", "error")
+                    return render_template('login.html')
+            except requests.exceptions.RequestException as e:
+                flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
     return render_template('login.html')
 
 # Endpoint para iniciar sesión con el usuario ya registrado.
@@ -53,19 +56,22 @@ def iniciar_sesion():
         contraseña = request.form.get('contraseña')
         if email and contraseña:
             usuario = {'email': email, 'contraseña': contraseña}
-            response = requests.post(f'{API_URL}/inicio_de_sesion', json=usuario)
-            if response.status_code == 200:
-                session['email'] = email
-                return redirect(url_for('subir_emp'))
-            elif response.status_code == 404:
-                flash('Usuario no encontrado. Por favor, regístrese.', 'error')
-                return redirect(url_for('login'))
-            elif response.status_code == 401:
-                flash('Contraseña incorrecta. Por favor, inténtelo nuevamente.', 'error')
-                return redirect(url_for('login'))
-            else:
-                flash('Credenciales incorrectas. Por favor, inténtelo nuevamente.', 'error')
-                return redirect(url_for('login'))
+            try:
+                response = requests.post(f'{API_URL}/inicio_de_sesion', json=usuario)
+                if response.status_code == 200:
+                    session['email'] = email
+                    return redirect(url_for('subir_emp'))
+                elif response.status_code == 404:
+                    flash('Usuario no encontrado. Por favor, regístrese.', 'error')
+                    return redirect(url_for('login'))
+                elif response.status_code == 401:
+                    flash('Contraseña incorrecta. Por favor, inténtelo nuevamente.', 'error')
+                    return redirect(url_for('login'))
+                else:
+                    flash('Credenciales incorrectas. Por favor, inténtelo nuevamente.', 'error')
+                    return redirect(url_for('login'))
+            except requests.exceptions.RequestException as e:
+                flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
         flash('Por favor, proporcione su email y contraseña.', 'error')
         return redirect(url_for('login'))
     return render_template('login.html')
@@ -87,30 +93,36 @@ def subir_emprendimiento():
                  'direccion':direccion, 'localidad':localidad, 'provincia':provincia, 'contacto':contacto}
         
         if(nombre and instagram and descripcion and categoria and direccion and localidad and provincia and contacto):
-            response = requests.post(API_URL + "/agregar_emprendimiento", json=datos)
-            if response.status_code == 201:
-                print(response.json())
-                emp_id = response.json().get('emprendimiento_id')
-                flash("Emprendimiento agregado.", "success")
-                flash(f'id de tu emprendimiento: {emp_id}')
-                return redirect(url_for('subir_emp'))
-            elif response.status_code == 409:
-                flash("El Nombre, Instagram o el Contacto de emprendimiento ya existe.", "error")
-                return redirect(url_for('subir_emp'))
-            else:
-                flash("Error al agregar el emprendimiento", "error")
-                return redirect(url_for('subir_emp'))
+            try:
+                response = requests.post(API_URL + "/agregar_emprendimiento", json=datos)
+                if response.status_code == 201:
+                    print(response.json())
+                    emp_id = response.json().get('emprendimiento_id')
+                    flash("Emprendimiento agregado.", "success")
+                    flash(f'id de tu emprendimiento: {emp_id}')
+                    return redirect(url_for('subir_emp'))
+                elif response.status_code == 409:
+                    flash("El Nombre, Instagram o el Contacto de emprendimiento ya existe.", "error")
+                    return redirect(url_for('subir_emp'))
+                else:
+                    flash("Error al agregar el emprendimiento", "error")
+                    return redirect(url_for('subir_emp'))
+            except requests.exceptions.RequestException as e:
+                flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
     return render_template('subir_emp.html')
 
 # Endpoint para mostrar emprendimientos por categoria.
 @app.route("/emprendimientos/<categoria>", methods=['GET'])
 def emprendimientos(categoria):
-    response = requests.get(API_URL + f"/listar_emprendimientos/{categoria}")
-    if response.status_code == 200:
-        emprendimientos = response.json()
-        return render_template("emprendimientos.html", emprendimientos=emprendimientos, categoria=categoria, show_nav_buttons=True)
-    else:
-        return render_template("emprendimientos.html", categoria=categoria, show_nav_buttons=True), 400
+    try:
+        response = requests.get(API_URL + f"/listar_emprendimientos/{categoria}")
+        if response.status_code == 200:
+            emprendimientos = response.json()
+            return render_template("emprendimientos.html", emprendimientos=emprendimientos, categoria=categoria, show_nav_buttons=True)
+        else:
+            return render_template("emprendimientos.html", categoria=categoria, show_nav_buttons=True), 400
+    except requests.exceptions.RequestException as e:
+        flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
 
 # Endpoint para eliminar un emprendimiento.
 @app.route('/eliminar_emp', methods=['POST'])
@@ -195,14 +207,18 @@ def enviar_consulta():
         datos = {'nombre':nombre, 'apellido':apellido, 'email':email, 'asunto':asunto, 'mensaje':mensaje}
 
         if (nombre and apellido and email and asunto and mensaje):
-            response = requests.post(API_URL + "/agregar_consulta", json=datos)
-            if response.status_code == 201:
-                flash("Formulario enviado.", "success")
-                return render_template('contacto.html', show_nav_buttons=True)
-            else:
-                flash("Error al enviar el formulario.", "error")
-                return render_template('contacto.html', show_nav_buttons=True)
-    return render_template('contacto.html', show_nav_buttons=True)
+            try:    
+                response = requests.post(API_URL + "/agregar_consulta", json=datos)
+                if response.status_code == 201:
+                    flash("Formulario enviado.", "success")
+                    return render_template('contacto.html', show_nav_buttons=True)
+                else:
+                    flash("Error al enviar el formulario.", "error")
+                    return render_template('contacto.html', show_nav_buttons=True)
+            except requests.exceptions.RequestException as e:
+                flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
+            
+        return render_template('contacto.html', show_nav_buttons=True)
 
 @app.errorhandler(Exception)
 def handle_error(error):
