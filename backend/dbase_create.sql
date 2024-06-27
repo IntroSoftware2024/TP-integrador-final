@@ -45,13 +45,13 @@ CREATE TABLE `consultas` (
 CREATE TABLE `emprendimientos` (
   `emprendimiento_id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `instagram` varchar(50) DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
-  `categoria` varchar(50) DEFAULT NULL,
-  `direccion` varchar(200) DEFAULT NULL,
-  `localidad` varchar(50) DEFAULT NULL,
-  `provincia` varchar(50) DEFAULT NULL,
-  `contacto` varchar(50) DEFAULT NULL
+  `instagram` varchar(50),
+  `descripcion` text,
+  `categoria` varchar(50),
+  `direccion` varchar(200),
+  `localidad` varchar(50),
+  `provincia` varchar(50),
+  `contacto` varchar(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
