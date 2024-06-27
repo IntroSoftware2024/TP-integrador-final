@@ -236,7 +236,10 @@ def modificar_emprendimiento(id):
         return jsonify({'message': 'Ocurrió un error inesperado al conectar con la base de datos.' + str(err)}), 500
 
     emprendimiento = request.get_json()
-    nombre_actual = emprendimiento['nombreActual']
+    nombre_actual = emprendimiento.get('nombreActual')
+    if not nombre_actual:
+        return jsonify({'message': 'Debe proporcionar el nombre actual del emprendimiento.'}), 400
+
     val_query = f"SELECT * FROM emprendimientos WHERE emprendimiento_id = :id AND nombre = :nombre_actual"
     try:
         result = conn.execute(text(val_query), {'id': id, 'nombre_actual': nombre_actual}).fetchone()
@@ -246,6 +249,9 @@ def modificar_emprendimiento(id):
 
         campos = ['nombre', 'instagram', 'descripcion', 'categoria', 'direccion', 'localidad', 'provincia', 'contacto']
         campos_a_actualizar = {campo: emprendimiento[campo] for campo in campos if campo in emprendimiento}
+
+        if not campos_a_actualizar:
+            return jsonify({'message': 'No se pasaron campos para actualizar.'}), 400
 
         set_clause = ', '.join([f'{campo} = :{campo}' for campo in campos_a_actualizar])
         query = f"UPDATE emprendimientos SET {set_clause} WHERE emprendimiento_id = :id"
@@ -261,6 +267,7 @@ def modificar_emprendimiento(id):
         conn.close()
         return jsonify({'message': 'Ocurrió un error inesperado al intentar actualizar el emprendimiento. ' + str(err)}), 500
     return jsonify({'message': 'Se ha modificado correctamente el emprendimiento.'}), 200
+
 
 # ---- Rutas de Consultas ---- 
 # Endpoint para agregar consultas

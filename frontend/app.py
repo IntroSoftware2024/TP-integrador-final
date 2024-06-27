@@ -150,9 +150,8 @@ def modificar_emp():
         provincia = request.form.get('provincia')
         contacto = request.form.get('contacto')
 
-        if id_emp and nombre:
+        if id_emp and nombreActual:
             datos = {
-                'emprendimiento_id': id_emp,
                 'nombreActual': nombreActual,
                 'nombre': nombre,
                 'instagram': instagram,
@@ -163,6 +162,9 @@ def modificar_emp():
                 'provincia': provincia,
                 'contacto': contacto
             }
+            
+            datos = {k: v for k, v in datos.items() if v}
+
             try:
                 response = requests.patch(f'{API_URL}/modificar_emprendimiento/{id_emp}', json=datos)
                 
@@ -177,8 +179,9 @@ def modificar_emp():
             except requests.exceptions.RequestException as e:
                 flash(f'Error en la solicitud al servidor API: {str(e)}', 'error')
         else:
-            flash('Debe proporcionar el ID y al menos el nombre del emprendimiento.', 'error')
+            flash('Debe proporcionar el ID y el nombre actual del emprendimiento.', 'error')
     return redirect(url_for('subir_emp'))
+
 
 # Endpoint para form de consultas
 @app.route('/enviar_consulta', methods = ['POST'])
